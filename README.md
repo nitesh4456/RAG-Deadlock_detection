@@ -21,7 +21,7 @@ vlab-template-v/
 ├── index.html    # Main HTML file
 ├── styles.css    # Global styles
 ├── script.js     # Core JavaScript logic
-├── LICENSE       # BSD-2-Clause license
+├── LICENSE       # MIT license
 ├── .gitignore    # Git ignore file
 └── README.md     # Project documentation
 ```
