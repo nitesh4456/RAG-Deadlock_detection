@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="brief description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add your V-Lab Title here</title>
+    <link rel="icon" href="images/vlab-logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/harmonic16-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://www.vlab.andcollege.du.ac.in" rel="noopener" target="_blank">
+            <img class="logo-img" src="images/logo.png" alt="VLab" />
+          </a>
+        </div>
+        <h1 class="vlab">V-Lab@ANDC</h1>
+      </div>
+
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <nav class="nav-menu" id="small-screen">
+        <div class="close-btn" onclick="toggleMenu()">✖</div>
+        <a href="https://www.vlab.andcollege.du.ac.in">Home</a>
+        <a href="https://www.vlab.andcollege.du.ac.in#labs_section">Labs</a>
+        <a href="https://www.vlab.andcollege.du.ac.in#team">Team</a>
+        <a href="https://www.andcollege.du.ac.in">College Website</a>
+      </nav>
+    </header>
+
+    <div class="yourvlabtitle">
+      <h1>your vlab title</h1>
+    </div>
+
+    <div class="pageview">
+      <nav class="navigation">
+        <button class="link" onclick="switchContent('aim')">
+          <img class="icon" src="images/Aim_img.png" alt="Aim" />
+          <span>Aim</span>
+        </button>
+
+        <button class="link" onclick="switchContent('theory')">
+          <img class="icon" src="images/theory_img.png" alt="THEORY" />
+          <span>Theory</span>
+        </button>
+
+        <button class="link" onclick="switchContent('procedure')">
+          <img class="icon" src="images/procedure_img.png" alt="PROCEDURE" />
+          <span>Procedure</span>
+        </button>
+
+        <button class="link" onclick="switchContent('practice')">
+          <img class="icon" src="images/practice_img.png" alt="PRACTICE" />
+          <span>Practice</span>
+        </button>
+
+        <button class="link" onclick="switchContent('code')">
+          <img class="icon" src="images/code_img.png" alt="CODES" />
+          <span>Codes</span>
+        </button>
+
+        <button class="link" onclick="switchContent('result')">
+          <img class="icon" src="images/result_img.png" alt="RESULT" />
+          <span>Result</span>
+        </button>
+
+        <button class="link" onclick="switchContent('quiz')">
+          <img class="icon" src="images/quiz_img.png" alt="QUIZ" />
+          <span>Quiz</span>
+        </button>
+
+        <button class="link" onclick="switchContent('references')">
+          <img class="icon" src="images/reference_img.png" alt="REFERENCE" />
+          <span>References</span>
+        </button>
+        <button class="link" onclick="switchContent('tnt')">
+          <img class="icon" src="images/tnt_img.png" alt="TEAM & TOOLS" />
+          <span>Team & Tools</span>
+        </button>
+      </nav>
+
+      <section class="main_practical">
+        <!-- Aim -->
+        <div class="container" id="aim">
+          <div class="title">Aim</div>
+          <div class="content">
+            <p>The aim of your Virtual lab</p>
+          </div>
+        </div>
+
+        <!-- Theory -->
+        <div class="container" id="theory">
+          <div class="title">Theory</div>
+          <div class="content"></div>
+        </div>
+
+        <!-- Procedure -->
+        <div class="container" id="procedure">
+          <div class="title">Procedure</div>
+          <div class="content"></div>
+        </div>
+
+        <!-- Code -->
+        <div class="container" id="code">
+          <div class="title">Code</div>
+          <p>Example programs</p>
+          <div class="switch-container">
+            <input
+              class="togswt"
+              type="radio"
+              id="cppRadio"
+              name="codeSwitch"
+              checked
+            />
+            <label for="cppRadio" onclick="toggleCode('cpp')">C++</label>
+
+            <input
+              class="togswt"
+              type="radio"
+              id="pythonRadio"
+              name="codeSwitch"
+            />
+            <label for="pythonRadio" onclick="toggleCode('python')"
+              >Python</label
+            >
+          </div>
+
+          <div class="code-blocks">
+            <div id="cppCode" class="code-block active">
+              <div class="code-content">
+                <pre><code class="language-cpp">// C++
+                    </code></pre>
+                <button class="copy-button" onclick="copyCode('cppCode')">
+                  Copy
+                </button>
+              </div>
+            </div>
+            <div id="pyCode" class="code-block" style="display: none">
+              <div class="code-content">
+                <pre><code class="language-python"> #python
+                    </code></pre>
+                <button class="copy-button" onclick="copyCode('pyCode')">
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practice -->
+        <div class="container" id="practice">
+          <div class="title">Practice</div>
+          <div class="content"></div>
+        </div>
+
+        <!-- Results -->
+        <div class="container" id="result">
+          <div class="title">Result</div>
+          <div class="content">
+            <p>Result of your vlab</p>
+          </div>
+        </div>
+
+        <!-- Quiz -->
+        <div class="container" id="quiz">
+          <div class="title">Quiz</div>
+          <p id="question"></p>
+          <div id="choices" class="choices"></div>
+          <button id="next-btn" class="next-button">Next</button>
+        </div>
+
+        <!-- References -->
+        <div class="container" id="references">
+          <div class="title">References</div>
+          <div class="content">
+            <ul class="ref-list">
+              <li>
+                <span> refernce 1 </span>
+              </li>
+              <li>
+                <span> refernce 2 </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Team & Tools -->
+        <div class="container" id="tnt">
+          <div class="title">Team & Tools</div>
+          <div class="content">
+            <span>Students</span>
+            <ul class="ref-list">
+              <li>
+                <a href="profile url if you have" rel="noopener" target="_blank"
+                  ><span>Name and Course of each team member</span></a
+                >
+              </li>
+            </ul>
+            <span>Mentors</span>
+            <ul class="ref-list">
+              <li><span> Mentor Name</span></li>
+            </ul>
+            <span>Tools Used</span>
+            <ul class="tools-list">
+              <li>
+                <span> Add tools used here </span>
+              </li>
+              <li>
+                <span>Vanilla HTML, CSS, JS - for creating the web page</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      hljs.highlightAll();
+      function toggleMenu() {
+        const menu = document.querySelector(".nav-menu");
+        menu.classList.toggle("show");
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
