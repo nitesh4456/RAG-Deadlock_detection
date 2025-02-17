@@ -129,7 +129,7 @@ body {
   transition: background-color 0.7s ease;
   border: 2.5px solid rgb(215, 211, 211);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: 1rem;
+  font-size: .9rem;
 }
 
 .navigation .link:hover {
@@ -140,6 +140,7 @@ body {
   height: 60px;
   margin-bottom: 10px;
 }
+
 
 /* Responsive styles */
 @media screen and (max-width: 840px) {
@@ -177,6 +178,14 @@ body {
     margin-top: 14px ;
     margin-left: 6px;
   }
+  .copy-button {
+    position: absolute;
+    padding-right: 500px;
+    text-size-adjust:smaller;
+  }
+  .container .title{
+    font-size: 2rem;
+  }
 }
 
 /* Content sections */
@@ -208,7 +217,91 @@ body {
   margin-bottom: 20px;
 }
 
+
+/* General List Styling for Theory and Procedure Containers you may adjust as per your need */
+
+/* Remove default list styles */
+#theory ul, #procedure ul, #theory ol, #procedure ol {
+  list-style: none; /* Remove default bullet points and numbers */
+  padding-left: 25px; /* Initial indentation for all lists */
+  margin-bottom: 20px; /* Spacing between lists */
+  list-style-position: inside; /* Align list markers with text */
+  font-size: 1rem; /* Standard font size for readability */
+  color: #333; /* Standard dark color for text */
+}
+
+/* List Item Styling */
+#theory li, #procedure li {
+  line-height: 1.6; /* Increased line height for better readability */
+  margin-bottom: 12px; /* Spacing between list items */
+  position: relative; /* Positioning for custom bullets/numbers */
+}
+
+/* Unordered List (ul) Bullet Styling */
+#theory ul li::before, #procedure ul li::before {
+  content: "\2022"; /* Unicode bullet character */
+  position: absolute;
+  left: -20px; /* Adjusting position of the bullet */
+  color: #474a4d; /* Dark blue for professional look */
+  font-size: 1.4rem; /* Moderate size for the bullet */
+  top: 50%; /* Align bullet vertically */
+  transform: translateY(-50%); /* Corrects vertical alignment */
+}
+
+/* Ordered List (ol) Numbering Styling */
+#theory ol li::before, #procedure ol li::before {
+  content: counter(list-item) ". "; /* Numeric list */
+  position: absolute;
+  left: -30px; /* Space between number and text */
+  color: #474a4d; /* Standard blue color for numbers */
+  font-weight: bold; /* Bold numbering */
+  font-size: 1.2rem; /* Slightly larger number */
+  top: 50%; /* Align number vertically */
+  transform: translateY(-50%); /* Corrects vertical alignment */
+}
+
+/* Nested List Styling */
+#theory ul ul, #procedure ul ul, #theory ol ol, #procedure ol ol {
+  padding-left: 35px; /* Increased indentation for nested lists */
+}
+
+#theory ul ul li, #procedure ul ul li, #theory ol ol li, #procedure ol ol li {
+  font-size: 1rem; /* Slightly smaller text for nested items */
+}
+
+
+
+/* Link Styling within List Items */
+#theory li a, #procedure li a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color */
+}
+
+
 /* Code block styles */
+.switch-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.switch-container label {
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #005256;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+
 .code-blocks {
   display: flex;
   align-items: center;
@@ -223,18 +316,70 @@ body {
   display: block;
 }
 
+
+.copy-button:hover {
+  background-color: #555;
+}
+.code-block {
+  position: relative;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.code-block {
+  display: none;
+}
+
+.code-block.active {
+  display: block;
+}
+
+
+.code-content {
+  position: relative;
+  min-width: 1080px;
+}
+
 .copy-button {
-  background-color: #256fd0;
-  color: #ffffff;
-  padding: 8px 16px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #464646;
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.copy-button:hover {
-  background-color: #007bff;
+.copy-button.copied {
+  background-color: #171717;
+  color: white;
+}
+
+.code-content:hover .copy-button {
+  display: block;
+}
+
+.copy-button {
+  display: none;
+}
+.switch-container input[type="radio"]:checked + label {
+  background-color:#029ba6;
+  display: block;
+  border: 2px solid rgb(47, 255, 220);
+  color: rgb(238, 255, 0);
+}
+
+.language-cpp,
+.language-python {
+  padding: 20px;
+  margin: 0;
+  font-size: 12px;
+  white-space: pre-wrap;
 }
 
 /* Quiz */
@@ -283,7 +428,7 @@ body {
   color: #fff;
 }
 
-.next-button {
+.next-button, .save-button {
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
@@ -299,32 +444,106 @@ body {
   background-color: #0056b3;
 }
 
+#retake-btn {
+  display: none;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 50%;
+  max-width: 250px;
+}
+
+#retake-btn:hover {
+  background-color: #218838;
+}
+#quiz-report {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.quiz-report-question {
+  margin-bottom: 15px;
+}
+
+.quiz-report-question p {
+  font-weight: bold;
+}
+
+.quiz-report-question ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+
 /* tnt */
 /* Lists styling */
+#tnt .content {
+  padding: 10px;
+  background-color: #ffffff; 
+
+}
+
+#tnt .content span{
+  display: block;
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #2e3035;
+  margin-bottom: 7px;
+  margin-top: 16px; /* Space above each section */
+}
+
+/* List Styling */
 .ref-list, .tools-list {
   list-style: none;
-  padding-left: 20px;
+  padding-left: 0;
+  margin-bottom: 20px;
 }
 
 .ref-list li, .tools-list li {
-  padding: 5px 0;
-  font-size: 16px;
-  color: #555;
-  display: flex;
-  align-items: center;
+  padding: 10px;
+  background-color: #f9fafb; 
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #333; 
+  transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-/* Hyperlink styling */
-.ref-list li a {
+.ref-list li a, .tools-list li span {
   text-decoration: none;
-  color: #0056b3;
-  font-weight: bold;
-  transition: color 0.3s;
+  color: inherit;
+  font-weight: 400;
+  transition: color 0.3s ease; /* Transition for link hover effect */
+}
+
+.ref-list li:hover, .tools-list li:hover {
+  background-color: #e6f0ff; /* Soft blue hover effect */
 }
 
 .ref-list li a:hover {
-  color: #ff5733;
+  color: #0073e6; /* Change link color on hover */
 }
+
+/* Mentors & Students Section Styling */
+.ref-list li, .tools-list li {
+  font-size: 1.1rem; 
+  padding-left: 15px;
+}
+
+/* Styling for individual links */
+.ref-list li a {
+  color: #222529; /* Soft blue color for links */
+  font-weight: 500; /* Bold the links slightly */
+}
+
+
 
 /* Tile control  */
 #aim,
@@ -386,4 +605,8 @@ body {
   #code.container {
     width: 330px;
   }
+  .container .title{
+    font-size: 1rem;
+  }
 }
+
