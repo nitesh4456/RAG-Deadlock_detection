@@ -97,7 +97,7 @@
         <div class="container" id="aim">
           <div class="title">Aim</div>
           <div class="content">
-            <p>The aim of your Virtual lab</p>
+            <p>This experiment aims to shred light on the working of Resource Allocation Graph (RAG) and using the said graph formed to find out if the given set of programmes and their requests cause a Deadlock or not</p>
           </div>
         </div>
 
@@ -105,29 +105,31 @@
         <div class="container" id="theory">
           <div class="title">Theory & Applications</div>
           <div class="content">
-            <p>
-              This section covers the fundamental theories and applications of
-              the concept.
-            </p>
 
             <span>Key Concepts</span>
             <ul>
-              <li>Fundamentals of Data Structures</li>
-              <li>
-                Algorithms and Their Applications
-                <ul>
-                  <li>Sorting Algorithms</li>
-                  <li>Searching Algorithms</li>
-                </ul>
-              </li>
-              <li>Time Complexity Analysis</li>
+            <li>Resource Allocation Graph:</li>
+            <p>
+              Also Known as RAG, is a type of Directed graph with nodes representing either programmes or resources and arrows representing either allocation of a resource to a programme, or the request by a programme to access a resource, it is useful in visualising which programme is holding and requesting which resource and which resource is being used or is free, it is also useful in determining if the condition of programmes and resources might result in a deadlock or not
+            </p>
+            <br>
+            <li>Deadlock</li>
+            <p>
+              A situation where programmes are stuck due to ending up in a situation such that a set of programmes being unable to get the data they requested is being held by another programme and they themselves are holding onto resource required by another programme resulting in a situation where no resource can be freed for the continuation of any of those programme’s execution
+            </p>
+            <br>
+            <li>Finding Deadlock</li>
+            <p>
+              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. Since in our case we assume the resources are multiple instance, finding deadlock is more difficulty, but generally, we can say that a deadlock may be present if the given 4 conditions are present in the RAG:
+            </p>
+            <br>
             </ul>
 
             <span>Applications in Real World</span>
             <ol>
-              <li>Application of Sorting Algorithms in Search Engines</li>
-              <li>Machine Learning Algorithms in Predictive Analytics</li>
-              <li>Data Structures in Web Development</li>
+              <li>CPU Proccess Maintanance</li>
+              <li>Time Table conflict solving</li>
+              <li>Proccess Conflict solving</li>
             </ol>
 
           </div>
@@ -138,26 +140,26 @@
           <div class="title">Procedure</div>
           <div class="content">
             <p>
-              This section provides the steps and procedure for implementing the
-              concept discussed above.
+              The procedure to this lab would be done in a two step way:
             </p>
-
-            <span>Steps for Sorting Algorithms</span>
+            <br>
+            <span>Creating the RAG using the input given by the user:</span>
             <ol>
-              <li>Choose the appropriate sorting algorithm based on data</li>
-              <li>Apply the sorting algorithm to the dataset</li>
-              <li>Analyze the time complexity and performance</li>
+              <li>The User adds the no. Of resources and the instances in each resources that he wants to be in the graph</li>
+              <li>The User adds the no. Of process he wants to be in the graph</li>
+              <li>Finally, the User Right clicks the process then a resources to show a Request and right clicks a resource then a process to show a Hold.</li>
             </ol>
-
-            <span>Steps for Implementing Search Algorithms</span>
-            <ul>
-              <li>Identify the data structure to be used</li>
-              <li>
-                Choose the best search algorithm (e.g., Linear Search, Binary
-                Search)
-              </li>
-              <li>Test the algorithm on various datasets</li>
-            </ul>
+            <br>
+            <span>Finding Deadlock in the Given Graph by the user:</span>
+            <ol>
+              <li>To check for a possible deadlock, we check if the 4 conditions required for the presence of one is met or not</li>
+              <li>Since each resourcs cannot be held by multiple and we would need to free it manually before another process holds it, Mutual Exclusion and No Preemption present</li>
+              <li>For Detecting Hold and wait, we check each programme if it’s holding a resource while requesting a resource that’s already being held, and then highligh the edge between them (in yellow for our case)</li>
+              <li>For Detecting Circular wait, we simply use DFS on node of each node, to look for a cycle, seeing if we end up on a previously visited node, then we highlight the edges in the cycle (in green for our case)</li>
+            </ol>
+            <p>
+              Finally, we would have not only found what the RAG for the given programme and resources in given condition is but also found if the graph results in a deadlock or not.
+            </p>
           </div>
         </div>
 
@@ -251,13 +253,13 @@
             <ul class="ref-list">
               <li>
                 <a href="profile url if you have" rel="noopener" target="_blank"
-                  ><span>Name and Course of each team member</span></a
+                  ><span>Jayes Raj Neti, Nitesh Verma</span></a
                 >
               </li>
             </ul>
             <h3>Mentors</h3>
             <ul class="ref-list">
-              <li><span> Mentor Name</span></li>
+              <li><span>Professor Sharanjeet kaur</span></li>
             </ul>
             <h3>Tools Used</h3>
             <ul class="tools-list">

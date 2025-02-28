@@ -85,15 +85,26 @@ document.querySelectorAll(".copy-button").forEach((button) => {
 // Quiz Logic
 const questions = [
     {
-      question: " Q1) Which of the following is/are valid searching algorithms?",
-      choices: ["Linear Search", "Bubble Sort", "Binary Search", "Quick Sort"],
-      correctAnswers: [0, 2], // Correct answers are indexes 0 and 2 (multiple answers possible)
+      question: " Q1) Which of the following is NOT one of the 4 conditions needed for deadlock",
+      choices: ["Mutual Exclusion", "Circular Wait", "Recursive check", "Hold and wait"],
+      correctAnswers: [2], // Correct answers are indexes 0 and 2 (multiple answers possible)
     },
     {
-      question: " Q2) What is/are the time complexity of linear search?",
-      choices: ["O(log n)", "O(n)", "O(n^2)", "O(1)"],
-      correctAnswers: [1], // Correct answer is index 1 (single answer)
+      question: " Q2) Which of the following is true for a RAG",
+      choices: ["resources can only have 1 istance", "It is used for CPU Resouce managmenet", "It is can help find presence of deadlock", "RAG stands for Resource Augmented Graph"],
+      correctAnswers: [1,2], // Correct answer is index 1 (single answer)
     },
+    {
+      question: "Q3) S: Deadlock can be present in a RAG if we find a cycle and each resource has single isntance \nR: in case of single instance since they can be held by only one proccess, the requesting proccess cannot get the resource until it's free",
+      choices: ["S is true R is false", "S is false R is true", "Both false", "Both true"],
+      correctAnswers: [3], // Correct answer is index 1 (single answer)
+    },
+    {
+      question: "Q4) If mutual exclusion, hold wait circular wait and no preemption is present what can be said about presence of deadlock",
+      choices: ["Definetly present", "Definetly Absent", "Possible Deadlock but not guranteed", "Conditions give no info about deadlock"],
+      correctAnswers: [2], // Correct answer is index 1 (single answer)
+    },
+
   ];
   
   let currentQuestionIndex = 0;
