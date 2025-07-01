@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="brief description" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add your V-Lab Title here</title>
+    <title>RAG & Deadlock Detection</title>
     <link rel="icon" href="images/vlab-logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="styles.css" />
     <link
@@ -42,7 +42,7 @@
     </header>
 
     <div class="yourvlabtitle">
-      <h1>your vlab title</h1>
+      <h1>Deadlock Detection Using Resource Allocation Graph</h1>
     </div>
 
     <div class="pageview">
@@ -97,7 +97,7 @@
         <div class="container" id="aim">
           <div class="title">Aim</div>
           <div class="content">
-            <p>The aim of your Virtual lab</p>
+            <p>This experiment aims to shred light on the working of Resource Allocation Graph (RAG) and using the said graph formed to find out if the given set of programmes and their requests cause a Deadlock or not</p>
           </div>
         </div>
 
@@ -105,59 +105,59 @@
         <div class="container" id="theory">
           <div class="title">Theory & Applications</div>
           <div class="content">
-            <p>
-              This section covers the fundamental theories and applications of
-              the concept.
-            </p>
-
             <span>Key Concepts</span>
             <ul>
-              <li>Fundamentals of Data Structures</li>
-              <li>
-                Algorithms and Their Applications
-                <ul>
-                  <li>Sorting Algorithms</li>
-                  <li>Searching Algorithms</li>
-                </ul>
-              </li>
-              <li>Time Complexity Analysis</li>
+            <li>Resource Allocation Graph:</li>
+            <p>
+              Also Known as RAG, is a type of Directed graph with nodes representing either programmes or resources and arrows representing either allocation of a resource to a programme, or the request by a programme to access a resource, it is useful in visualising which programme is holding and requesting which resource and which resource is being used or is free, it is also useful in determining if the condition of programmes and resources might result in a deadlock or not
+            </p>
+            <br>
+            <li>Deadlock</li>
+            <p>
+              A situation where programmes are stuck due to ending up in a situation such that a set of programmes being unable to get the data they requested is being held by another programme and they themselves are holding onto resource required by another programme resulting in a situation where no resource can be freed for the continuation of any of those programme’s execution
+            </p>
+            <br>
+            <li>Finding Deadlock</li>
+            <p>
+              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. Since in our case we assume the resources are multiple instance, finding deadlock is more difficulty, but generally, we can say that a deadlock may be present if the given 4 conditions are present in the RAG:
+            </p>
+            <br>
             </ul>
 
             <span>Applications in Real World</span>
             <ol>
-              <li>Application of Sorting Algorithms in Search Engines</li>
-              <li>Machine Learning Algorithms in Predictive Analytics</li>
-              <li>Data Structures in Web Development</li>
+              <li>CPU Proccess Maintanance</li>
+              <li>Time Table conflict solving</li>
+              <li>Proccess Conflict solving</li>
             </ol>
 
           </div>
         </div>
-
         <!-- Procedure -->
         <div class="container" id="procedure">
           <div class="title">Procedure</div>
           <div class="content">
             <p>
-              This section provides the steps and procedure for implementing the
-              concept discussed above.
+              The procedure to this lab would be done in a two step way:
             </p>
-
-            <span>Steps for Sorting Algorithms</span>
+            <br>
+            <span>Creating the RAG using the input given by the user:</span>
             <ol>
-              <li>Choose the appropriate sorting algorithm based on data</li>
-              <li>Apply the sorting algorithm to the dataset</li>
-              <li>Analyze the time complexity and performance</li>
+              <li>The User adds the no. Of resources and the instances in each resources that he wants to be in the graph</li>
+              <li>The User adds the no. Of process he wants to be in the graph</li>
+              <li>Finally, the User Right clicks the process then a resources to show a Request and right clicks a resource then a process to show a Hold.</li>
             </ol>
-
-            <span>Steps for Implementing Search Algorithms</span>
-            <ul>
-              <li>Identify the data structure to be used</li>
-              <li>
-                Choose the best search algorithm (e.g., Linear Search, Binary
-                Search)
-              </li>
-              <li>Test the algorithm on various datasets</li>
-            </ul>
+            <br>
+            <span>Finding Deadlock in the Given Graph by the user:</span>
+            <ol>
+              <li>To check for a possible deadlock, we check if the 4 conditions required for the presence of one is met or not</li>
+              <li>Since each resourcs cannot be held by multiple and we would need to free it manually before another process holds it, Mutual Exclusion and No Preemption present</li>
+              <li>For Detecting Hold and wait, we check each programme if it’s holding a resource while requesting a resource that’s already being held, and then highligh the edge between them (in yellow for our case)</li>
+              <li>For Detecting Circular wait, we simply use DFS on node of each node, to look for a cycle, seeing if we end up on a previously visited node, then we highlight the edges in the cycle (in green for our case)</li>
+            </ol>
+            <p>
+              Finally, we would have not only found what the RAG for the given programme and resources in given condition is but also found if the graph results in a deadlock or not.
+            </p>
           </div>
         </div>
 
@@ -173,27 +173,215 @@
               name="codeSwitch"
               checked
             />
-            <label for="cppRadio">C++</label>
+            <label for="cppRadio">JavaScript</label>
 
-            <input
+            <!--<input
               class="togswt"
               type="radio"
               id="pythonRadio"
               name="codeSwitch"
             />
-            <label for="pythonRadio">Python</label>
+            <label for="pythonRadio">Python</label>-->
           </div>
 
           <div class="code-blocks">
             <div id="cppCode" class="code-block active">
               <div class="code-content">
-                <pre><code class="language-cpp">// C++ Code Example</code></pre>
-                <button class="copy-button">Copy</button>
-              </div>
-            </div>
-            <div id="pythonCode" class="code-block">
-              <div class="code-content">
-                <pre><code class="language-python"># Python Code Example</code></pre>
+                <pre><code class="language-cpp">// JavaScript Code Example
+
+// Node Structure: Defines the processes and resources in the system
+const nodes = [
+    { id: 'P1', type: 'process' },  // Process 1
+    { id: 'P2', type: 'process' },  // Process 2
+    { id: 'R1.1', type: 'resource', group: 'R1' },  // Resource R1 instance 1
+    { id: 'R1.2', type: 'resource', group: 'R1' },  // Resource R1 instance 2
+    { id: 'R2.1', type: 'resource', group: 'R2' }   // Resource R2 instance 1
+];
+
+// Links Structure: Defines the relationships (edges) between processes and resources
+const links = [
+    { source: 'P1', target: 'R1.1' },  // P1 requests R1.1
+    { source: 'R1.2', target: 'P2' },  // R1.2 is assigned to P2
+    { source: 'P2', target: 'R2.1' }   // P2 requests R2.1
+];
+
+// Function to detect all circular waits (deadlocks) and return involved edges
+function detectAllCycleEdges(links) {
+    let visited = new Set();    // Stores nodes that have been fully processed
+    let stack = new Set();      // Tracks nodes currently in recursion (for cycle detection)
+    let edgeStack = [];         // Stores edges in the current DFS path
+    let allCycleEdges = [];     // Stores detected cycles
+
+    // Helper function to perform Depth-First Search (DFS) to find cycles
+    function dfs(node) {
+        if (stack.has(node)) {
+            // Cycle detected: Save the edges forming the cycle
+            allCycleEdges.push([...edgeStack]);
+            return;
+        }
+        if (visited.has(node)) {
+            // Node has already been processed, skip it
+            return;
+        }
+
+        // Mark the node as visited and add it to the recursion stack
+        visited.add(node);
+        stack.add(node);
+
+        // Traverse outgoing edges from the current node
+        for (let link of links) {
+            if (link.source === node) {
+                edgeStack.push(link);  // Add edge to stack
+                dfs(link.target);      // Recursively visit the target node
+                edgeStack.pop();       // Backtrack by removing edge if no cycle is found
+            }
+        }
+
+        // Remove the node from the recursion stack after processing
+        stack.delete(node);
+    }
+
+    // Start DFS for each node in nodes1
+    for (let node of nodes1) {
+        dfs(node.id);
+    }
+
+    return allCycleEdges;  // Return all detected cycles
+}
+
+// Function to calculate hold-wait edges (potential deadlock scenarios)
+function calc_hold_wait_edges() {
+    yellowLinks = []; // Empty array to store hold-wait edges
+    
+    for (let link of links1) {
+        const sourceNode = nodes1.find(node => node.id === link.source.id || node.id === link.source);
+        const targetNode = nodes1.find(node => node.id === link.target.id || node.id === link.target);
+        
+        if (sourceNode.type === "resource" && targetNode.type === "process") {
+            // Hold-wait only occurs when a resource is assigned to a process and that process waits for another resource
+            for (let link1 of links1) {
+                if (link.target === link1.source) {
+                    for (let link2 of links1) {
+                        if (link2.source === link1.target) {
+                            yellowLinks.push(link);
+                            yellowLinks.push(link1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("Yellow_links calculated: ", yellowLinks);
+}
+
+// Function to add a new process node
+function addNode() {
+    const numberOfNodes = parseInt(prompt("Enter the number of nodes to add:"), 10);
+
+    // Validate input
+    if (isNaN(numberOfNodes) || numberOfNodes <= 0) {
+        alert("Please enter a valid positive integer.");
+        return;
+    }
+
+    // Add new process nodes
+    for (let i = 0; i < numberOfNodes; i++) {
+        const newNodeId = `P${nodes.filter((node) => node.type === "process").length + 1}`;
+        const newNode = {
+            id: newNodeId,
+            type: "process",
+            x: width / 2,
+            y: height / 2,
+        };
+        nodes.push(newNode);
+        nodes1.push(newNode);
+    }
+    console.log("nodes: ", nodes);
+    console.log("nodes1: ", nodes1);
+    renderGraph(); // Re-render the graph after adding nodes
+}
+
+// Function to add multiple resources
+function addMultipleResources() {
+    let m = Number(prompt("Enter the number of resources (m):"));
+    let n = Number(prompt("Enter the number of instances per resource (n):"));
+
+    // Validate input: both must be natural numbers
+    if (isNaN(m) || isNaN(n) || m < 1 || n < 1 || !Number.isInteger(m) || !Number.isInteger(n)) {
+        alert("Invalid input! Please enter natural numbers (1, 2, 3, ...)."
+        return;
+    }
+
+    // Determine the starting resource number
+    const resourceNumbers = nodes
+        .filter(node => node.type === 'resource')
+        .map(node => parseInt(node.id.split('.')[0].substring(1)))
+        .filter(num => !isNaN(num));
+
+    let startingResourceNumber = (resourceNumbers.length > 0 ? Math.max(...resourceNumbers) : 0) + 1;
+
+    // Create 'm' resources, each with 'n' instances
+    for (let i = 0; i < m; i++) {
+        let resourceNumber = startingResourceNumber + i;
+        for (let j = 1; j <= n; j++) {
+            const newResourceId = `R${resourceNumber}.${j}`;
+            const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
+            nodes.push(newResource);
+        }
+    }
+}
+
+// Function to add a new resource node
+function addResource() {
+    const resourceNumbers = nodes
+        .filter(node => node.type === 'resource')
+        .map(node => parseInt(node.id.split('.')[0].substring(1)));
+    const newResourceNumber = Math.max(...resourceNumbers, 0) + 1;
+    const newResourceId = `R${newResourceNumber}.1`;
+    const newResource = { id: newResourceId, type: 'resource', group: `R${newResourceNumber}` };
+    nodes.push(newResource);
+    nodes1.push(newResource);
+    console.log("nodes : " , nodes);
+    console.log("nodes1: " , nodes1);
+    renderGraph();
+}
+
+// Function to add a new resource instance
+function addResourceInstance() {
+    const resourceNumber = prompt("Enter the resource number:");
+    if (resourceNumber) {
+        const existingResources = nodes.filter(node => 
+            node.type === 'resource' && node.id.startsWith(`R${resourceNumber}.`)
+        );
+        if (existingResources.length > 0) {
+            let maxNumber = 0;
+            nodes1.forEach(node => {
+                if (node.type === "resource" && node.id.startsWith(`R${resourceNumber}.`)) {
+                    let match = node.id.match(/R\d+\.(\d+)$/); // Extract only the last numeric part
+                    if (match) {
+                        let num = parseInt(match[1]); // Convert to number
+                        maxNumber = Math.max(maxNumber, num);
+                    }
+                }
+            });
+    
+            const newInstanceNumber = maxNumber + 1;            
+            const newResourceId = `R${resourceNumber}.${newInstanceNumber}`;
+            const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
+            nodes.push(newResource);
+            nodes1.push(newResource);
+            console.log("nodes : " , nodes);
+        } else {
+            const newResourceId = `R${resourceNumber}.1`;
+            const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
+            nodes.push(newResource);
+            nodes1.push(newResource);
+            console.log("nodes : " , nodes);
+        }
+    }
+  }
+  
+                </code></pre>
                 <button class="copy-button">Copy</button>
               </div>
             </div>
@@ -203,19 +391,48 @@
         <!-- Practice -->
         <div class="container" id="practice">
           <div class="title">Practice</div>
-          <div class="content"></div>
+          <div class="content" id="practice_Content"><!--id="practice_Content"-->
+            <div id="frameParent">
+              <iframe src="project.html" frameborder="0" ></iframe><!--class="content" -->
+            </div>
+            <div class="instruction">
+              <h1>Instructions to Use</h1>
+              <img src="./images/Process.png" alt="resouce select" class="Select">
+              <span>Process</span>
+              <img src="./images/Resource.png" alt="process select" class="Select">
+              <span>Resource</span>
+              <p><p>
+
+              <img src="./images/Select1.png" alt="resouce select" class="Select">
+              <img src="./images/Select2.png" alt="process select" class="Select">
+              <p>To <span> "Select"</span> any node just right click on it.</p>
+              <img src="./images/Edge1.png" alt="resouce->process" class="Edge">
+              <img src="./images/Edge2.png" alt="process->resoucre" class="Edge">
+              <p>The consecutive selection of nodes will form edge between Nodes. Where the first selected node wil be the <span>"Source"</span> and second will be the <span> "Resource".</span></p>
+              <p>&nbsp;</p>
+              <p>The Selection of Any node after <span> "Toggle Delete"</span> will delete the node and its realted links.</p>
+              <p>&nbsp;</p>
+              <img src="./images/Delete1.png" alt="resouce select" class="Edge">
+              <img src="./images/Delete2.png" alt="process select" class="Edge">
+              <p>To <span> "Delete Edge"</span> selection of the edge in the same direction it was  , will delete the specific edge.</p>
+            </div>
+            <!--<div class="results">
+              <a href="www.google.com"></a>
+            </div>-->
+          </div>
+          
         </div>
 
         <!-- Results -->
         <div class="container" id="result">
           <div class="title">Result</div>
           <div class="content">
-            <p>Result of your vlab</p>
+            <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p>
           </div>
         </div>
-
+        
         <!-- Quiz -->
-        <div class="container" id="quiz">
+        <!-- <div class="container" id="quiz">
           <div class="title">Quiz</div>
           <p id="question"></p>
           <div id="choices" class="choices"></div>
@@ -223,6 +440,26 @@
           <button id="next-btn" class="next-button" style="display: none">
             Next
           </button>
+          <button id="retake-btn" style="display: none">Retake Quiz</button>
+          <div id="quiz-report" style="display: none"></div>
+          Section to display quiz report 
+        </div> -->
+        
+        <!-- Quiz -->
+        <div class="container" id="quiz">
+          <div class="title">Quiz</div>
+          <p id="question-counter" style="font-weight: bold; margin-bottom: 10px;"></p>
+          <p id="question"></p>
+          <div id="choices" class="choices"></div>
+          <div class="quiz-buttons-container">
+            <button id="save-btn" class="save-button">Save</button>
+            <button id="next-btn" class="next-button" style="display: none">
+              Next
+            </button>
+            <button id="previous-btn" class="next-button" style="display: none;">
+              Previous
+            </button>
+          </div>
           <button id="retake-btn" style="display: none">Retake Quiz</button>
           <div id="quiz-report" style="display: none"></div>
           <!-- Section to display quiz report -->
@@ -234,10 +471,13 @@
           <div class="content">
             <ul class="ref-list">
               <li>
-                <span> refernce 1 </span>
+                <span> <a href="https://www.geeksforgeeks.org/operating-systems/introduction-of-operating-system-set-1/">geeksforgeeks - operating system</a> </span>
               </li>
               <li>
-                <span> refernce 2 </span>
+                <span> <a href="https://www.geeksforgeeks.org/operating-systems/introduction-of-deadlock-in-operating-system/">geeksforgeeks - deadlock</a> </span>
+              </li>
+              <li>
+                <span> <a href="//d3js.org/">d3js.org</a> </span>
               </li>
             </ul>
           </div>
@@ -251,21 +491,19 @@
             <ul class="ref-list">
               <li>
                 <a href="profile url if you have" rel="noopener" target="_blank"
-                  ><span>Name and Course of each team member</span></a
+                  ><span>Jayes Raj Neti, Nitesh Verma</span></a
                 >
               </li>
             </ul>
             <h3>Mentors</h3>
             <ul class="ref-list">
-              <li><span> Mentor Name</span></li>
+              <li><span>Professor Sharanjit kaur</span></li>
             </ul>
             <h3>Tools Used</h3>
             <ul class="tools-list">
               <li>
-                <span> Add tools used here </span>
-              </li>
-              <li>
                 <span>Vanilla HTML, CSS, JS - for creating the web page</span>
+                <span>D3 - for graph simulation</span>
               </li>
             </ul>
           </div>
