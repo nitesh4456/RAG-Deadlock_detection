@@ -26,20 +26,5 @@ vlab-template-v/
 └── README.md     # Project documentation
 ```
 
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the Repository
-
-```sh
-git clone https://github.com/mayankdotasm/vlab-template-v.git
-cd vlab-template-v
-```
-
-### 2️⃣ Open in Browser
-
-Simply open `index.html` in any modern web browser.
-
 
 
