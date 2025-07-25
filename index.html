@@ -97,7 +97,12 @@
         <div class="container" id="aim">
           <div class="title">Aim</div>
           <div class="content">
-            <p>This experiment aims to shred light on the working of Resource Allocation Graph (RAG) and using the said graph formed to find out if the given set of programmes and their requests cause a Deadlock or not</p>
+            <!-- <p>This experiment aims to shred light on the working of Resource Allocation Graph (RAG) and using the said graph formed to find out if the given set of programmes and their requests cause a Deadlock or not</p> -->
+            <p>The objective of this experiment is to provide a comprehensive understanding of how Resource Allocation Graphs (RAGs) are used in operating systems to model the allocation of resources to processes and to detect potential deadlocks. 
+            </p>
+            <br>
+            <p>This simulation helps users visualize how resources and processes interact, and how deadlocks can be detected before they cause system failures. It serves as a practical tool to deepen one’s understanding of deadlock detection mechanisms, which are crucial for designing robust, concurrent systems in operating systems and distributed computing environments.</P>
+            </p>
           </div>
         </div>
 
@@ -395,30 +400,21 @@ function addResourceInstance() {
             <div id="frameParent">
               <iframe src="project.html" frameborder="0" ></iframe><!--class="content" -->
             </div>
-            <div class="instruction">
+            <div class="right_pannel">
               <h1>Instructions to Use</h1>
-              <img src="./images/Process.png" alt="resouce select" class="Select">
-              <span>Process</span>
-              <img src="./images/Resource.png" alt="process select" class="Select">
-              <span>Resource</span>
-              <p><p>
-
-              <img src="./images/Select1.png" alt="resouce select" class="Select">
-              <img src="./images/Select2.png" alt="process select" class="Select">
-              <p>To <span> "Select"</span> any node just right click on it.</p>
-              <img src="./images/Edge1.png" alt="resouce->process" class="Edge">
-              <img src="./images/Edge2.png" alt="process->resoucre" class="Edge">
-              <p>The consecutive selection of nodes will form edge between Nodes. Where the first selected node wil be the <span>"Source"</span> and second will be the <span> "Resource".</span></p>
-              <p>&nbsp;</p>
-              <p>The Selection of Any node after <span> "Toggle Delete"</span> will delete the node and its realted links.</p>
-              <p>&nbsp;</p>
+              <p>Circles represents Processes and Squares represents Resource-Instances</p>
+              <img src="./images/Process.png" alt="resouce select" class="Select"><img src="./images/Resource.png" alt="process select" class="Select">
+              <p>To select/de-select a Process/Resource-Instance, just right click on it.</p>
+              <img src="./images/Process_select.png" alt="resouce select" class="Select"><img src="./images/resource_select.png" alt="process select" class="Select">
+              <p>To create an Edge, first select a Process/Resource-Instance and then select another Process/Resource-Instance(Edge will be created)</p>
+              <p><img src="./images/Edge1.png" alt="resouce->process" class="Edge">is Assignment Edge</p>
+              <p><img src="./images/Edge2.png" alt="process->resoucre" class="Edge">is Resquest Edge</p>
+              <p>Trying to re-create existing edge, will delete it</p>
               <img src="./images/Delete1.png" alt="resouce select" class="Edge">
               <img src="./images/Delete2.png" alt="process select" class="Edge">
-              <p>To <span> "Delete Edge"</span> selection of the edge in the same direction it was  , will delete the specific edge.</p>
+              <p>To delete a Process/Resource-Instance right click on it after clicking Toggle Delete button.</p>
+              <p id=bolder>"Each button’s label reflects its functionality"</p>
             </div>
-            <!--<div class="results">
-              <a href="www.google.com"></a>
-            </div>-->
           </div>
           
         </div>
@@ -427,23 +423,16 @@ function addResourceInstance() {
         <div class="container" id="result">
           <div class="title">Result</div>
           <div class="content">
-            <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p>
+            <!-- <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p> -->
+          <p>Result</p>
+          <br>
+          <p>In this experiment, you created and interacted with a Resource Allocation Graph (RAG) to simulate the allocation and request of resources by processes. By adding multiple processes, resources, and resource instances, and visualizing their interactions, you observed how certain conditions—such as hold-and-wait and circular wait—can lead to a deadlock.
+          </p>
+          <br>
+          <p>Through the graphical interface, you were able to identify where these deadlock conditions occurred in real time. This helped reinforce your understanding of how system deadlocks form and how they can be detected using RAG. You also learned how careful resource management and request handling are crucial to avoiding such issues in concurrent systems.</p>
+          </p>
           </div>
         </div>
-        
-        <!-- Quiz -->
-        <!-- <div class="container" id="quiz">
-          <div class="title">Quiz</div>
-          <p id="question"></p>
-          <div id="choices" class="choices"></div>
-          <button id="save-btn" class="save-button">Save</button>
-          <button id="next-btn" class="next-button" style="display: none">
-            Next
-          </button>
-          <button id="retake-btn" style="display: none">Retake Quiz</button>
-          <div id="quiz-report" style="display: none"></div>
-          Section to display quiz report 
-        </div> -->
         
         <!-- Quiz -->
         <div class="container" id="quiz">

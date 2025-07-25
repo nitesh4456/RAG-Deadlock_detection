@@ -23,7 +23,6 @@
             { source: 'R1.2', target: 'P2' },
             { source: 'P2', target: 'R2.1' }
         ];
-
         let yellowLinks=[
             { source: 'P1', target: 'R1.1' },
             { source: 'R1.2', target: 'P2' },
@@ -44,60 +43,7 @@
         let isHold = false;
         let isCycle = false;
         let is_delete = false;
-        
-        //function clac_cycle_edges(){//cycle not be formed by odd number od edges 
-        //    console.log('problem:for few more number of edges this get stuck in for loop') 
-        //    console.log('logic is wrong check for latest ss') 
-        //    yellowLinks=[];//empty 
-        //    calc_hold_wait_edges();
-        //    cycleLinks=[];
-        //    local_iteration_cycle_links=[];
-        //    console.log("check");
-        //    
-        //    //re-calculated at calling of this function 
-        //    for(let link of yellowLinks){//all cycle edgeds will be an hold-wait edge but not vice-versa 
-        //        const sourceNode = nodes1.find(node => node.id === link.source.id || node.id === link.source);
-        //        const targetNode = nodes1.find(node => node.id === link.target.id || node.id === link.target);
-        //        let new_source_node = nodes1.find(node => node.id === link.target.id || node.id === link.target);
-        //        local_iteration_cycle_links=[];
-        //        local_iteration_cycle_links.push(link);
-        //        count=0 ;
-        //        while(true){
-        //            const new_edge = yellowLinks.find(link=> link.source===new_source_node.id || link.source.id===new_source_node.id )
-        //            if(new_edge !== undefined){
-        //                if(new_edge.target===sourceNode.id || new_edge.target.id===sourceNode.id){//cycle end edge found
-        //                    //if new_edge is alreday in local
-        //                    local_iteration_cycle_links.push(new_edge);
-        //                    for(let link1 of local_iteration_cycle_links){//copy all the elements from local cycle array to cycle array used globally at end 
-        //                        cycleLinks.push(link1)
-        //                    }
-        //                    break;
-        //                }
-        //                else{//if its a middle way edge in a cycle 
-        //                    new_source_node=nodes1.find(node=>node.id===new_edge.target || node.id===new_edge.target.id)
-        //                    count++;
-        //                    if(count>=yellowLinks.length){//added for reduction check thiss
-        //                        break
-        //                    }
-        //                    continue;
-        //                }
-        //            }
-        //            else{//if not found continuing cycle 
-        //                break;
-        //            }
-        //        }
-        //        
-        //    }
-        //    // Remove duplicates
-        //    cycleLinks = cycleLinks.filter((value, index, self) => 
-        //        index === self.findIndex((t) => (
-        //            t.source === value.source && t.target === value.target
-        //        ))
-        //    );
-        //    console.log("cycleLinks calculated : " , cycleLinks);
-        //
 
-        
         // Function to detect all circular waits and return involved edges
         function detectAllCycleEdges(links) {
             let visited = new Set();    // Tracks nodes that have been fully processed
@@ -131,24 +77,16 @@
                         edgeStack.pop();
                     }
                 }
-        
                 // Backtrack: remove the node from the recursion stack
                 stack.delete(node);
             }
-        
             // Start DFS from each node in nodes1
             for (let node of nodes1) {
                 dfs(node.id); // Perform DFS starting from the node's ID
             }
-        
             return allCycleEdges; // Return all cycles found
         }
-        
-        
-        
-        
-        
-        
+        //function to calculate cycles edges 
         function clac_cycle_edges(){
             let allCycleEdges = detectAllCycleEdges(links1);
             if (allCycleEdges.length > 0) {
@@ -166,17 +104,8 @@
                 }
             }
         }
-
-        function getIframeData() {
-            return "Hello from the iframe!";
-        }
-        
-        
-        
-
-
-
-        function calc_hold_wait_edges(){//calculate this when adding new edge or deleting an edge 
+        //calculate this when adding new edge or deleting an edge 
+        function calc_hold_wait_edges(){
             yellowLinks=[];//empty 
             for(let link of links1){
                 const sourceNode = nodes1.find(node => node.id === link.source.id || node.id === link.source);
@@ -199,11 +128,7 @@
             console.log("Yellow_links calculated : " , yellowLinks);
             
         }
-
-
-
-
-
+        //canvas for the render
         const width = 800, height = 600;
         const svg = d3.select("#rag-container")
             .append("svg")
@@ -221,7 +146,6 @@
         let selectedNode = null; // Track the selected node for linking
         const groupSize = 120; // Size of the resource group box
 
-        //this code for functionality to be aaded in future perspect
         let number_of_resource_instance=0;
         for (let node of nodes) {
             if (node.type==='resource'){
@@ -273,7 +197,6 @@
         
         
         function renderGraph() {
-        
         // Group resources
         const groups = d3.group(nodes.filter(d => d.type === 'resource'), d => d.group);
         
@@ -402,19 +325,6 @@
         simulation.alpha(1).restart();
         }
     //+++++++++++render ends here ++++++++++
-
-
-        // Dragging functions for process nodes
-        // function dragstartProcess(event, d) {
-        //     if (!event.active) simulation.alphaTarget(0.3).restart();
-        //     d.fx = d.x;
-        //     d.fy = d.y;
-        // }
-
-        // function draggedProcess(event, d) {
-        //     d.fx = event.x;
-        //     d.fy = event.y;
-        // }
 
         function dragendProcess(event, d) {
             if (!event.active) simulation.alphaTarget(0);
@@ -558,7 +468,8 @@
                             if(selectedNode.type === "resource" && d.type === "process"){//check if it is holded by another process 
                                 const edge_exits = links1.some(link => link.source===selectedNode.id && link.target!==d.id);
                                 if(edge_exits){
-                                    alert("Invalid link: Links must connect processes to resources which are not holded.")
+                                    let meesage ="INVALID EDGE CREATION ERROR : The Resource Instnace , you are trying to assign is alreday assigned to a different process. This type of Assignment is not valid in Resource Allocation Graph (RAG).This violets the RAG property that is a single Resource Instance can be holded by a single Process at a Time. Please Check!!";
+                                    show_message(meesage)
                                     return ;
                                 }
                             }
@@ -592,8 +503,9 @@
                         }
                         renderGraph();  // Re-render the graph
                     }
-                    else {
-                        alert("Invalid link: Links must connect between processes and resources.");
+                    else {//if user select similar type nodes
+                        let message="INVALID EDGE CREATION ERROR : You are trying to create an Edge Process to Process or Resource to Resource. But this violets the RAG property. A RAG can have Edges only Process to Resource Instnace or Resource Instnace to Process. Please CHECK!!"
+                        show_message(message);
                     }
                 }
                 selectedNode = null;
@@ -604,22 +516,191 @@
         function toggled_Delete(){
             if (is_delete===false){
                 is_delete = true;//iske aage kaam rendering kr dega 
-                alert("You have entered in deletion mode right-click on any of nodes  , resourceinstance to delete them ");
-            }
+                let message="IN DELETION MODE: You are currently in Deletion Mode , Right clicking on any Process / Resource Instnace will delete that Process / Resource Instnace. To EXIT this mode just click again Toggle Delete button that is in right bottom corner!!"
+                show_message(message);
+                //
+                const btn = document.getElementById("delete-button");
+                btn.classList.add("delete-button-highlighted");
+                btn.classList.remove("blue");
+                }
             else{
                 is_delete=false;
-                alert("exit : from delete mode ")
+                let message="OUT DELETION MODE: You have Existed the Deletion Mode. Now , You can use the graph simulation smoothly!!"
+                show_message(message);
+                const btn = document.getElementById("delete-button");
+                btn.classList.add("blue");
+                btn.classList.remove("delete-button-highlighted");
             }
         }
+
+        ///FORMS RELATED SETTINGS /////
         
+        function show_message(message=""){
+            const div=document.getElementById("alert_message_box");
+            let paragraph=document.getElementById("message_para")
+            paragraph.textContent="";//make the existing text out
+            paragraph.textContent +=message;
+
+            div.classList.remove("input");
+            div.classList.add("input_visible");
+        }
+        function hide_message(){
+            const div=document.getElementById("alert_message_box");
+            let paragraph=document.getElementById("message_para")
+            paragraph.textContent ="";
+            div.classList.remove("input_visible");
+            div.classList.add("input");
+        }
+
+        function visible_Process(){
+            //hide message
+            hide_message();
+            //hide other forms
+            hide_addResouceInstnace();
+            hide_addResouceInstnace_multiple();
+            //make the form visible to "Add processes"
+            const div = document.getElementById("input_process");
+            console.log(div.className);
+            div.classList.remove("input")
+            div.classList.add("input_visible"); // Replaces all existing classes
+
+            const form = document.getElementById("process-form");
+            // Reset the form to its default state
+            form.reset();
+        }
+        function hide_addProcess(){
+            //hide the form of "Add processes"
+            const div = document.getElementById("input_process");
+            div.classList.remove("input_visible")
+            div.classList.add("input");
+            
+        }
+        // This function handles the form submission for "Add Process functionality"
+        function setupForm() {
+            const form = document.getElementById("process-form");
+
+            //define what Cancel does
+            const cancelButton=document.getElementById("cancel-button");
+            cancelButton.addEventListener("click", () => {
+                form.reset(); //reset the form 
+                hide_addProcess();//hide the form if needed
+            });
+
+            form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const value = Number(document.getElementById("input-for-process").value);
+            if (isNaN(value) || value <= 0) {
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                show_message(message);                
+                return;
+            }
+            addNode(value);
+            });
+        }
+
+        function visible_ResourceInstance(){//the similar is written as if it was called on class it will have displayed both forms of addd Proceess and of add resource instance 
+            //hide other message
+            hide_message();
+            //hide other forms first
+            hide_addProcess();
+            hide_addResouceInstnace_multiple();
+            //make the form visible to "Add Resource Instance"
+            const div = document.getElementById("input_resource_instance");
+            div.classList.remove("input")
+            div.classList.add("input_visible"); // Replaces all existing classes
+            const form = document.getElementById("resource-form");
+            // Reset the form to its default state
+            form.reset();
+        }
+        function hide_addResouceInstnace(){
+            //hide the form of "Add processes"
+            const div = document.getElementById("input_resource_instance");
+            div.classList.remove("input_visible")
+            div.classList.add("input");
+            
+        }
+        // This function handles the form submission for "Add Resource Instance functionality"
+        function setupFormResource() {
+            const form = document.getElementById("resource-form");
+            //define what Cancel does
+            const cancelButton=document.getElementById("cancel-button-resorce");
+            cancelButton.addEventListener("click", () => {
+                form.reset(); //reset the form 
+                hide_addResouceInstnace();//hide the form if needed
+            });
+
+            form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const value = Number(document.getElementById("input-for-resource").value);
+            if (isNaN(value) || value <= 0) {
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                show_message(message); 
+                return;
+            }
+            addResourceInstance(value)
+            hide_addResouceInstnace();
+            });
+        }
+        //for "ADD RESOURCES"
+        function visible_ResourceInstance_multiple(){//the similar is written as if it was called on class it will have displayed both forms of addd Proceess and of add resource instance 
+            //hide other message
+            hide_message();
+            //hide other forms
+            hide_addProcess();
+            hide_addResouceInstnace();
+            //make the form visible to "Add Resource Multile"
+            const div = document.getElementById("input_resource_instance_multiple");
+            div.classList.remove("input")
+            div.classList.add("input_visible"); // Replaces all existing classes
+            const form = document.getElementById("resource-form-multiple");
+            // Reset the form to its default state
+            form.reset();
+        }
+        function hide_addResouceInstnace_multiple(){
+            //hide the form of "Add processes"
+            const div = document.getElementById("input_resource_instance_multiple");
+            div.classList.remove("input_visible")
+            div.classList.add("input");
+            
+        }
+        // This function handles the form submission for "Add Resource functionality"
+        function setupFormResource_multiple() {
+            const form = document.getElementById("resource-form-multiple");
+            //define what Cancel does
+            const cancelButton=document.getElementById("cancel-button-resorce-multiple");
+            cancelButton.addEventListener("click", () => {
+                form.reset(); //reset the form 
+                hide_addResouceInstnace_multiple();//hide the form if needed
+            });
+
+            form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const value = Number(document.getElementById("input-for-resource-multiple").value);
+            if (isNaN(value) || value <= 0) {
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                show_message(message); 
+                return;
+            }
+            const value1 = Number(document.getElementById("input-for-resource-multiple1").value);
+            if (isNaN(value1) || value1 <= 0) {
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                show_message(message);                 
+                return;
+            }
+            addMultipleResources(value,value1)
+            hide_addResouceInstnace_multiple();
+            });
+        }
+
+        ///FORMS RELATED SETTINGS ENDS HERE/////
 
         // Function to add a new process node
-        function addNode() {
-            const numberOfNodes = parseInt(prompt("Enter the number of nodes to add:"), 10);
-            
+        function addNode(value) {
+            const numberOfNodes = value;
             // Check if the input is a valid number
             if (isNaN(numberOfNodes) || numberOfNodes <= 0) {
-                alert("Please enter a valid positive integer.");
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                show_message(message); 
                 return;
             }
             
@@ -635,32 +716,16 @@
             }
             console.log("nodes : ", nodes);
             console.log("nodes1: ", nodes1);
+            hide_addProcess()            //hide the form 
             renderGraph(); // Call renderGraph() once after adding all nodes
         }
-        
-        //function to add multiple instaces of a resorces
-        /* function addMultipleResourcesFromPrompt() {
-            const userInput = prompt("Enter the number of resources to add:");
-            const n = parseInt(userInput);
-        
-            // Validate input: check if n is a natural number
-            if (!Number.isInteger(n) || n <= 0) {
-                alert("Please enter a valid natural number (1, 2, 3, ...)");
-                return;
-            }
-        
-            // Call addResource() n times using a for loop
-            for (let i = 0; i < n; i++) {
-                addResource();
-            }
-        } */
-            function addMultipleResources() {
-                let m = Number(prompt("Enter the number of resources (m):"));
-                let n = Number(prompt("Enter the number of instances per resource (n):"));
-            
+            function addMultipleResources(value,value1) {
+                let m = value;
+                let n = value1
                 // Validate inputs: Must be natural numbers (positive integers)
                 if (isNaN(m) || isNaN(n) || m < 1 || n < 1 || !Number.isInteger(m) || !Number.isInteger(n)) {
-                    alert("Invalid input! Please enter natural numbers (1, 2, 3, ...).");
+                    let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                    show_message(message); 
                     return;
                 }
             
@@ -709,8 +774,8 @@
         }
 
         // Function to add a new resource instance
-        function addResourceInstance() {
-            const resourceNumber = prompt("Enter the resource number:");
+        function addResourceInstance(value) {
+            const resourceNumber =value;
             if (resourceNumber) {
                 const existingResources = nodes.filter(node => 
                     node.type === 'resource' && node.id.startsWith(`R${resourceNumber}.`)
@@ -753,14 +818,30 @@
         //hold wait functionality  
         function show_links_hold_wait(){
             if(isHold===false){
+                //hide other messages
+                hide_message();
                 isHold = true;//iske aage kaam rendering kr dega 
+                //make the circular button normal
                 isCycle=false;
+                const btn1 = document.getElementById("circular-button")
+                btn1.classList.add("blue")
+                btn1.classList.remove("circular-button-highlighted")
                 calc_hold_wait_edges()
-                alert("You have entered in HOLD-WAIT view");
+                let message="IN HOLD-WAIT VIEW: You have activated Hold-Wait View that means you can run the Graph Simulation smoothly. But the the Graph will now check each Edge for Hold-Wait Condition if the edge in Hold-wait condition (or comes in Hold-wait condition in future) it will be highlighted with YELLOW!!. Hold-Wait condition comes into view when a Resource-Instance is holded by a Process and Process requests another Resource-Instnace which is holded by another Process at a same Time. To exit this view, again click on View Hold-Wait Button.";
+                show_message(message); 
+                ///
+                const btn = document.getElementById("hold-button")
+                btn.classList.add("hold-button-highlighted")
+                btn.classList.remove("blue")
             }
             else{
                 isHold=false;//iske aage kaam rendering kr dega
-                alert("You have been out of HOLD-WAIT view");
+                let message="OUT of HOLD-WAIT VIEW : You have been out of Hold-Wait View , Now the edges in Hold-Wait condition will not be highlighted.!!";
+                show_message(message); 
+                ////
+                const btn = document.getElementById("hold-button")
+                btn.classList.add("blue")
+                btn.classList.remove("hold-button-highlighted")
             }
             console.log("isHold : " , isHold)
             renderGraph();//re-render for applying the view
@@ -769,15 +850,34 @@
             console.log("the calculation is correct check further functionality");
             
             if(isCycle===false){
+                //hide other messages
+                hide_message();
+                
                 isCycle = true;//iske aage kaam rendering kr dega 
                 isHold=false;
+                //make the hold wait button normal stop its visulisation
+                const btn = document.getElementById("hold-button")
+                btn.classList.add("blue")
+                btn.classList.remove("hold-button-highlighted")
+                ////
                 clac_cycle_edges()
-                alert("You have entered in CIRCULAR-WAIT view");
+                let message="IN CIRCULAR-WAIT VIEW: You have activated Circular-Wait View that means you can run the Graph Simulation smoothly. But the the Graph will now check each Edge for Circular-Wait Condition if the edge in Circular-wait condition (or comes in Circular-wait condition in future) it will be highlighted with GREEN!!. Circular-Wait condition comes into view when a Process P1 is waiting for a resource held by P2, P2 is waiting for a resource held by P3, ... and finally, Pn is waiting for a resource held by P1 at a same Time. This forms a cycle in the RAG. To exit this view, again click on View Circular-Wait Button.";
+                show_message(message); 
+                ///
+                const btn1 = document.getElementById("circular-button")
+                btn1.classList.add("circular-button-highlighted")
+                btn1.classList.remove("blue")
+
             }
             else{
                 isCycle=false;//iske aage kaam rendering kr dega 
+                let message="OUT of CIRCULAR-WAIT VIEW : You have been out of Circular-Wait View , Now the edges in Circular-Wait condition will not be highlighted.!!";
+                show_message(message);
+                ///
+                const btn1 = document.getElementById("circular-button")
+                btn1.classList.add("blue")
+                btn1.classList.remove("circular-button-highlighted")
 
-                alert("You have been out of CIRCULAR-WAIT view");
             }
             console.log("iscYCLE : " , isCycle)
             renderGraph();//re-render for applying the view
@@ -799,8 +899,14 @@
             });
         }
 
-        
 
+        //INITIALISATION
+
+        //just initializes the form for each run of dom (This is important)
+        window.addEventListener("DOMContentLoaded", setupForm);
+        window.addEventListener("DOMContentLoaded", setupFormResource);
+        window.addEventListener("DOMContentLoaded", setupFormResource_multiple);
+        // hide_forms();
         // Initial rendering of the graph
         yellowLinks=[];//just making the yelloLinks empty in start //dont delete this
         cycleLinks=[];//just making the cycleLinks empty in start //dont delete this

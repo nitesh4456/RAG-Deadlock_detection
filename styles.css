@@ -60,7 +60,7 @@ body {
   height:100%;
 }
 
-.instruction{
+.right_pannel{
   display:inline-block;
   margin-top: 0px;
 
@@ -71,26 +71,32 @@ body {
   border-radius: 5px;
   overflow: hidden;
 }
-.instruction h1{
+.right_pannel h1{
   text-align: center;
 }
-.instruction .Select{
+.right_pannel .Select{
   width: 50px;
   height: 50px;
 }
-.instruction .Edge{
+.right_pannel .Edge{
   width: 150px;
   height: 50px;
   margin-right: 30px;
   margin-left: 5px;
 }
-.instruction span{
+.right_pannel #bolder{
   font-weight: bold;
 }
 .results{
   display: inline-block;
   width: 50px;
 }
+
+p img {
+  vertical-align: middle;
+  height: 1em; /* or use line-height */
+}
+
 
 
 @media (min-width: 1535px) {
@@ -110,22 +116,22 @@ body {
   height: 650px; /* Fixed height */
 }
 
-/* The instruction div takes available width minus padding between the divs */
-.instruction {
+/* The right_pannel div takes available width minus padding between the divs */
+.right_pannel {
   height: 650px; /* Same height as frame-parent */
-  margin-left: 0px;  /* Padding between the frame-parent and instruction div */
+  margin-left: 0px;  /* Padding between the frame-parent and right_pannel div */
   margin-right: 0px; /* Optional: Padding for the right side */
-  flex-grow: 1; /* Makes the instruction div grow to fill available space */
+  flex-grow: 1; /* Makes the right_pannel div grow to fill available space */
   background-color: lightgray;  /* Optional: Background color for visual */
   word-break: keep-all;
   text-align: center;
   margin-top: 15px;
 }
-.instruction h1{
+.right_pannel h1{
   margin-bottom: 5px;
   justify-content: stretch;
 }
-.instruction p{
+.right_pannel p{
   margin-bottom: 5px;
   justify-content: stretch;
 }
@@ -144,10 +150,10 @@ body {
     height: 650px; /* Pre-existing height */
     margin: 0 auto;  /* Centers horizontally */
 }
-.instruction {
+.right_pannel {
   width: 50%;  /* Takes full width of content */
   height:650px;  /* Matches the height of #frame-parent */
-  text-align: center;  /* Center the instruction text */
+  text-align: center;  /* Center the right_pannel text */
   background-color: lightgray;  /* Optional background to see the div */
 }
 

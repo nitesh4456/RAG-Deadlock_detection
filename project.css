@@ -17,7 +17,7 @@
         }
         .highlight {
             stroke: green;
-            stroke-width: 3px;
+            stroke-width: 1px;
         }
         .process-node {
             r: 20px;
@@ -38,7 +38,7 @@
 
         }
         .blue{
-            background-color: rgb(171, 206, 237);
+            background-color: rgb(246, 185, 80);
         }
         .blue:hover{
             background-color: #007bff;
@@ -55,6 +55,108 @@
             justify-content: space-evenly;
             background-color: rgb(187, 210, 230);
             border-radius: 5px;
-
-
         }
+        .hold-button-highlighted{
+            background-color: yellow;
+        }
+        .circular-button-highlighted{
+            background-color:green;
+        }
+        .delete-button-highlighted{
+            background-color:red;
+        }
+        
+.input{
+    display: none;
+}
+.input_visible {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    /* padding: 50px 10px 10px 10px; */
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Text */
+.input_visible p {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 1.5rem;
+    word-wrap: break-word;
+}
+
+/* Inputs */
+.input_visible input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+/* Input focus */
+.input_visible input:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Buttons */
+.input_visible button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+/* Cancel - red */
+#cancel-button,
+#cancel-button-resorce,
+#cancel-button-resorce-multiple {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Submit - green */
+#submit-button,
+#submit-button-resorce,
+#submit-button-resorce-multiple {
+    background-color: #4CAF50;
+    color: white;
+}
+#acceptence_button_message{
+    background-color: #4c98af;
+    color: white;
+}
+
+/* Hover effects */
+.input_visible button:hover {
+    opacity: 0.95;
+    transform: scale(1.02);
+}
+
+/* Scroll only inside form */
+.input_visible::-webkit-scrollbar {
+    width: 6px;
+}
+.input_visible::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
