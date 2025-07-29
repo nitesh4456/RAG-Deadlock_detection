@@ -1,116 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="brief description" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RAG & Deadlock Detection</title>
-    <link rel="icon" href="images/vlab-logo.png" type="image/x-icon" />
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/harmonic16-dark.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-  </head>
 
-  <body>
-    <header class="header">
-      <div class="logo-container">
-        <div class="logo">
-          <a
-            href="https://www.vlab.andcollege.du.ac.in"
-            rel="noopener"
-            target="_blank"
-          >
-            <img class="logo-img" src="images/logo.png" alt="VLab" />
-          </a>
-        </div>
-        <h1 class="vlab">V-Lab@ANDC</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="brief description" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deadlock Detection Using Resource Allocation Graph</title>
+  <link rel="icon" href="images/vlab-logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/harmonic16-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <div class="logo">
+        <a href="https://www.vlab.andcollege.du.ac.in" rel="noopener" target="_blank">
+          <img class="logo-img" src="images/logo.png" alt="VLab" />
+        </a>
       </div>
-
-      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-      <nav class="nav-menu" id="small-screen">
-        <div class="close-btn" onclick="toggleMenu()">✖</div>
-        <a href="https://www.vlab.andcollege.du.ac.in">Home</a>
-        <a href="https://www.vlab.andcollege.du.ac.in#labs_section">Labs</a>
-        <a href="https://www.vlab.andcollege.du.ac.in#team">Team</a>
-        <a href="https://www.andcollege.du.ac.in">College Website</a>
-      </nav>
-    </header>
-
-    <div class="yourvlabtitle">
-      <h1>Deadlock Detection Using Resource Allocation Graph</h1>
+      <h1 class="vlab">V-Lab@ANDC</h1>
     </div>
 
-    <div class="pageview">
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav class="nav-menu" id="small-screen">
+      <div class="close-btn" onclick="toggleMenu()">✖</div>
+      <a href="https://www.vlab.andcollege.du.ac.in">Home</a>
+      <a href="https://www.vlab.andcollege.du.ac.in#labs_section">Labs</a>
+      <a href="https://www.vlab.andcollege.du.ac.in#team">Team</a>
+      <a href="https://www.andcollege.du.ac.in">College Website</a>
+    </nav>
+  </header>
+  <button id="backToTop" title="Go to top" aria-label="Back to Top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path
+        d="M11 18.5c-.4-.1-1.3-.9-5.5-5.2-3.4-3.4-5.1-5.2-5.2-5.5-.2-.5-.2-1.0 0-1.4.3-.9 1.5-1.4 2.3-1 .1 0 2.2 2.1 4.7 4.5 2.5 2.5 4.5 4.5 4.7 4.5.3.1-.3.7 6.8-6.3 2.8-2.8 3-2.9 3.8-2.8 1.1.2 1.8 1.4 1.4 2.5-.2.5-10.1 10.3-10.7 10.6-.6.3-1.6.4-2.3.1z" />
+    </svg>
+  </button>
+
+
+
+  <div class="yourvlabtitle">
+    <h1>Deadlock Detection Using Resource Allocation Graph</h1>
+  </div>
+
+  <div class="pageview">
+    <div class="sticky-trigger"></div>
+
+    <div class="navigation-wrapper" id="navWrapper">
       <nav class="navigation">
-        <button class="link" onclick="switchContent('aim')">
+        <div class="link" title="Aim" onclick="switchContent('aim')">
           <img class="icon" src="images/Aim_img.png" alt="Aim" />
           <span>Aim</span>
-        </button>
+        </div>
 
-        <button class="link" onclick="switchContent('theory')">
+        <div class="link"  title="Theory & Application" onclick="switchContent('theory')">
           <img class="icon" src="images/theory_img.png" alt="THEORY" />
-          <span>Theory & Appli.</span>
-        </button>
+          <span>Theory & Application</span>
+        </div>
 
-        <button class="link" onclick="switchContent('procedure')">
+        <div class="link" title="Procedure" onclick="switchContent('procedure')">
           <img class="icon" src="images/procedure_img.png" alt="PROCEDURE" />
           <span>Procedure</span>
-        </button>
+        </div>
 
-        <button class="link" onclick="switchContent('practice')">
+        <div class="link" title="Practice" onclick="switchContent('practice')">
           <img class="icon" src="images/practice_img.png" alt="PRACTICE" />
           <span>Practice</span>
-        </button>
+        </div>
 
-        <button class="link" onclick="switchContent('code')">
+        <div class="link" title="Codes" onclick="switchContent('code')">
           <img class="icon" src="images/code_img.png" alt="CODES" />
           <span>Codes</span>
-        </button>
+        </div>
 
-        <button class="link" onclick="switchContent('result')">
+        <div class="link" title="Result" onclick="switchContent('result')">
           <img class="icon" src="images/result_img.png" alt="RESULT" />
           <span>Result</span>
-        </button>
+        </div>
 
-        <button class="link" onclick="switchContent('quiz')">
+        <div class="link" title="Quiz" onclick="switchContent('quiz')">
           <img class="icon" src="images/quiz_img.png" alt="QUIZ" />
           <span>Quiz</span>
-        </button>
+        </div>
 
-        <button class="link" onclick="switchContent('references')">
+        <div class="link" title="References" onclick="switchContent('references')">
           <img class="icon" src="images/reference_img.png" alt="REFERENCE" />
           <span>References</span>
-        </button>
-        <button class="link" onclick="switchContent('tnt')">
+        </div>
+        <div class="link" title="Team & Tools" onclick="switchContent('tnt')">
           <img class="icon" src="images/tnt_img.png" alt="TEAM & TOOLS" />
           <span>Team & Tools</span>
-        </button>
+        </div>
       </nav>
+    </div>
 
-      <section class="main_practical">
-        <!-- Aim -->
-        <div class="container" id="aim">
-          <div class="title">Aim</div>
-          <div class="content">
-            <!-- <p>This experiment aims to shred light on the working of Resource Allocation Graph (RAG) and using the said graph formed to find out if the given set of programmes and their requests cause a Deadlock or not</p> -->
-            <p>The objective of this experiment is to provide a comprehensive understanding of how Resource Allocation Graphs (RAGs) are used in operating systems to model the allocation of resources to processes and to detect potential deadlocks. 
+    <section class="main_practical">
+      <!-- Aim -->
+      <div class="container" id="aim">
+        <div class="title">Aim</div>
+        <div class="content">
+          <p>The objective of this experiment is to provide a comprehensive understanding of how Resource Allocation Graphs (RAGs) are used in operating systems to model the allocation of resources to processes and to detect potential deadlocks. 
             </p>
             <br>
             <p>This simulation helps users visualize how resources and processes interact, and how deadlocks can be detected before they cause system failures. It serves as a practical tool to deepen one’s understanding of deadlock detection mechanisms, which are crucial for designing robust, concurrent systems in operating systems and distributed computing environments.</P>
-            </p>
-          </div>
+          </p>
         </div>
+      </div>
 
-        <!-- Theory & Applications -->
-        <div class="container" id="theory">
-          <div class="title">Theory & Applications</div>
-          <div class="content">
-            <span>Key Concepts</span>
+      <!-- Theory & Applications -->
+      <div class="container" id="theory">
+        <div class="title">Theory & Applications</div>
+        <div class="content">
+          <span>Key Concepts</span>
             <ul>
             <li>Resource Allocation Graph:</li>
             <p>
@@ -135,14 +141,14 @@
               <li>Time Table conflict solving</li>
               <li>Proccess Conflict solving</li>
             </ol>
-
-          </div>
         </div>
-        <!-- Procedure -->
-        <div class="container" id="procedure">
-          <div class="title">Procedure</div>
-          <div class="content">
-            <p>
+      </div>
+
+      <!-- Procedure -->
+      <div class="container" id="procedure">
+        <div class="title">Procedure</div>
+        <div class="content">
+          <p>
               The procedure to this lab would be done in a two step way:
             </p>
             <br>
@@ -163,37 +169,22 @@
             <p>
               Finally, we would have not only found what the RAG for the given programme and resources in given condition is but also found if the graph results in a deadlock or not.
             </p>
-          </div>
+        </div>
+      </div>
+
+      <!-- Code -->
+      <div class="container" id="code">
+        <div class="title">Code</div>
+        <p>Example programs</p>
+        <div class="switch-container">
+          <input class="togswt" type="radio" id="cppRadio" name="codeSwitch" checked />
+          <label for="cppRadio">JavaScript</label>
         </div>
 
-        <!-- Code -->
-        <div class="container" id="code">
-          <div class="title">Code</div>
-          <p>Example programs</p>
-          <div class="switch-container">
-            <input
-              class="togswt"
-              type="radio"
-              id="cppRadio"
-              name="codeSwitch"
-              checked
-            />
-            <label for="cppRadio">JavaScript</label>
-
-            <!--<input
-              class="togswt"
-              type="radio"
-              id="pythonRadio"
-              name="codeSwitch"
-            />
-            <label for="pythonRadio">Python</label>-->
-          </div>
-
-          <div class="code-blocks">
-            <div id="cppCode" class="code-block active">
-              <div class="code-content">
-                <pre><code class="language-cpp">// JavaScript Code Example
-
+        <div class="code-blocks">
+          <div id="cppCode" class="code-block active">
+            <div class="code-content">
+              <pre><code class="language-cpp">// JavaScript Code Example
 // Node Structure: Defines the processes and resources in the system
 const nodes = [
     { id: 'P1', type: 'process' },  // Process 1
@@ -387,16 +378,17 @@ function addResourceInstance() {
   }
   
                 </code></pre>
-                <button class="copy-button">Copy</button>
-              </div>
+              <button class="copy-button">Copy</button>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Practice -->
-        <div class="container" id="practice">
-          <div class="title">Practice</div>
-          <div class="content" id="practice_Content"><!--id="practice_Content"-->
+      <!-- Practice -->
+      <div class="container" id="practice">
+        <div class="title">Practice</div>
+        <!-- <div class="content"></div> -->
+        <div class="content" id="practice_Content"><!--id="practice_Content"-->
             <div id="frameParent">
               <iframe src="project.html" frameborder="0" ></iframe><!--class="content" -->
             </div>
@@ -404,26 +396,28 @@ function addResourceInstance() {
               <h1>Instructions to Use</h1>
               <p>Circles represents Processes and Squares represents Resource-Instances</p>
               <img src="./images/Process.png" alt="resouce select" class="Select"><img src="./images/Resource.png" alt="process select" class="Select">
-              <p>To select/de-select a Process/Resource-Instance, just right click on it.</p>
+              <p>To select/de-select a Process/Resource-Instance, just right click on it.The selected element will be highlighted with green.</p>
               <img src="./images/process_select.png" alt="process select" class="Select"><img src="./images/resource_select.png" alt="process select" class="Select">
               <p>To create an Edge, first select a Process/Resource-Instance and then select another Process/Resource-Instance(Edge will be created)</p>
               <p><img src="./images/Edge1.png" alt="resouce->process" class="Edge">is Assignment Edge</p>
               <p><img src="./images/Edge2.png" alt="process->resoucre" class="Edge">is Resquest Edge</p>
-              <p>Trying to re-create existing edge, will delete it</p>
+              <p>Trying to re-create existing edge, will delete it.(Selection should be as is existing edge, select the tail first and then the head of edge)</p>
               <img src="./images/Delete1.png" alt="resouce select" class="Edge">
               <img src="./images/Delete2.png" alt="process select" class="Edge">
+              <p>
+                Two views are defined "View Hold-Wait" and "View Circular-Wait", both are of main conditions for a deadlock to occur.
+              </p>
               <p>To delete a Process/Resource-Instance right click on it after clicking Toggle Delete button.</p>
               <p id=bolder>"Each button’s label reflects its functionality"</p>
             </div>
           </div>
-          
-        </div>
+      </div>
 
-        <!-- Results -->
-        <div class="container" id="result">
-          <div class="title">Result</div>
-          <div class="content">
-            <!-- <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p> -->
+      <!-- Results -->
+      <div class="container" id="result">
+        <div class="title">Result</div>
+        <div class="content">
+          <!-- <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p> -->
           <p>Result</p>
           <br>
           <p>In this experiment, you created and interacted with a Resource Allocation Graph (RAG) to simulate the allocation and request of resources by processes. By adding multiple processes, resources, and resource instances, and visualizing their interactions, you observed how certain conditions—such as hold-and-wait and circular wait—can lead to a deadlock.
@@ -431,35 +425,43 @@ function addResourceInstance() {
           <br>
           <p>Through the graphical interface, you were able to identify where these deadlock conditions occurred in real time. This helped reinforce your understanding of how system deadlocks form and how they can be detected using RAG. You also learned how careful resource management and request handling are crucial to avoiding such issues in concurrent systems.</p>
           </p>
-          </div>
         </div>
-        
-        <!-- Quiz -->
-        <div class="container" id="quiz">
-          <div class="title">Quiz</div>
-          <p id="question-counter" style="font-weight: bold; margin-bottom: 10px;"></p>
-          <p id="question"></p>
-          <div id="choices" class="choices"></div>
-          <div class="quiz-buttons-container">
-            <button id="save-btn" class="save-button">Save</button>
-            <button id="next-btn" class="next-button" style="display: none">
-              Next
-            </button>
-            <button id="previous-btn" class="next-button" style="display: none;">
-              Previous
-            </button>
-          </div>
-          <button id="retake-btn" style="display: none">Retake Quiz</button>
-          <div id="quiz-report" style="display: none"></div>
-          <!-- Section to display quiz report -->
+      </div>
+
+      <!-- Quiz -->
+      <div class="container" id="quiz">
+        <div class="title">Quiz</div>
+
+        <!-- Quiz Instructions -->
+        <div id="quiz-instructions">
+          <h3>ADD YOUR INSTRUCTIONS HERE</h3>
+          <ul>
+            <li>Read each question carefully before answering.</li>
+            <li>Select the correct option(s).</li>
+            <li>Click <b>Next</b> to move to the following question.</li>
+            <li>At the end, you can view your quiz report and retake the quiz if needed.</li>
+          </ul>
+          <button id="start-quiz-btn" class="start-button">Start Quiz</button>
         </div>
 
-        <!-- References -->
-        <div class="container" id="references">
-          <div class="title">References</div>
-          <div class="content">
-            <ul class="ref-list">
-              <li>
+        <!-- Quiz Questions Section (Initially Hidden) -->
+        <div id="quiz-content" style="display: none;">
+          <p id="question"></p>
+          <div id="choices" class="choices"></div>
+          <button id="next-btn" class="next-button" disabled>Next</button>
+          <button id="retake-btn" style="display: none">Retake Quiz</button>
+          <div id="quiz-report" style="display: none"></div>
+        </div>
+
+      </div>
+
+
+      <!-- References -->
+      <div class="container" id="references">
+        <div class="title">References</div>
+        <div class="content">
+          <ul class="ref-list">
+            <li>
                 <span> <a href="https://www.geeksforgeeks.org/operating-systems/introduction-of-operating-system-set-1/">geeksforgeeks - operating system</a> </span>
               </li>
               <li>
@@ -468,44 +470,45 @@ function addResourceInstance() {
               <li>
                 <span> <a href="//d3js.org/">d3js.org</a> </span>
               </li>
-            </ul>
-          </div>
+          </ul>
         </div>
+      </div>
 
-        <!-- Team & Tools -->
-        <div class="container" id="tnt">
-          <div class="title">Team & Tools</div>
-          <div class="content">
-            <h3>Students</h3>
-            <ul class="ref-list">
-              <li>
+      <!-- Team & Tools -->
+      <div class="container" id="tnt">
+        <div class="title">Team & Tools</div>
+        <div class="content">
+          <h3>Students</h3>
+          <ul class="ref-list">
+            <li>
                 <a href="profile url if you have" rel="noopener" target="_blank"
                   ><span>Jayes Raj Neti, Nitesh Verma</span></a
                 >
               </li>
-            </ul>
-            <h3>Mentors</h3>
-            <ul class="ref-list">
-              <li><span>Professor Sharanjit kaur</span></li>
-            </ul>
-            <h3>Tools Used</h3>
-            <ul class="tools-list">
-              <li>
+          </ul>
+          <h3>Mentors</h3>
+          <ul class="ref-list">
+            <li><span>Professor Sharanjit kaur</span></li>
+          </ul>
+          <h3>Tools Used</h3>
+          <ul class="tools-list">
+            <li>
                 <span>Vanilla HTML, CSS, JS - for creating the web page</span>
                 <span>D3 - for graph simulation</span>
               </li>
-            </ul>
-          </div>
+          </ul>
         </div>
-      </section>
-    </div>
-    <script>
-      hljs.highlightAll();
-      function toggleMenu() {
-        const menu = document.querySelector(".nav-menu");
-        menu.classList.toggle("show");
-      }
-    </script>
-    <script src="script.js"></script>
-  </body>
+      </div>
+    </section>
+  </div>
+  <script>
+    hljs.highlightAll();
+    function toggleMenu() {
+      const menu = document.querySelector(".nav-menu");
+      menu.classList.toggle("show");
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+
 </html>

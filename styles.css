@@ -4,15 +4,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 ::selection {
   color: rgb(11, 0, 48);
   background: rgba(110, 188, 230, 0.675);
 }
 
 body {
-  background-color: rgba(255, 255, 255, 0.603);
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: rgba(244, 240, 240, 0.622);
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   overflow-x: hidden;
 }
 
@@ -21,33 +21,38 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 12vh;
-  padding: 10px;
+  padding: 15px 20px;
   background-color: rgb(0, 52, 65, 1);
-  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
   z-index: 1000;
-}
-.logo-container {
-  display: flex;
-  align-items: center;
+
 }
 
-.logo-img {
-  height: 60px;
+.logo img {
+  width: 9vh;
+  height: auto;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .vlab {
-  left: 50%;
-  font-size:xx-large;
+  font-size: 2rem;
   font-weight: bold;
+  color: #fff;
+  text-align: left;
 }
+
 .nav-menu {
   display: flex;
   gap: 20px;
 }
+
 #frameParent{
   width:810px;
   height: 650px;
@@ -178,14 +183,12 @@ p img {
 }
 
 
-@media (min-width: 840px) {
-  .logo-container {
-    display: flex;
-    align-items: center;
-  }
-  .vlab {
-    margin-left: 15px; 
-  }
+
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
 }
 
 
@@ -196,9 +199,11 @@ p img {
   font-weight: bold;
   padding-right: 10px;
 }
-.close-btn{
+
+.close-btn {
   display: none;
 }
+
 .nav-menu {
   display: flex;
   align-items: center;
@@ -206,7 +211,7 @@ p img {
 }
 
 .nav-menu a {
-  margin-left: 15px;
+  margin-left: 5px;
   padding: 15px;
   text-decoration: none;
   color: #fff;
@@ -218,29 +223,43 @@ p img {
 }
 
 .yourvlabtitle {
+  font-size: 1rem;
   text-align: center;
-  background-color: white;
-  color: black;
-  padding: 20px 0;
+  color: #000;
+  padding-top: 1vh;
+  font-weight: bold;
+  width: 100%;
 }
 
 /* Navigation styles */
 .pageview {
   display: grid;
   place-items: center;
-  padding: 10px 0;
-  background-color: #fff;
+  background-color: inherit;
+}
+
+
+/* Navigation Wrapper: This div will control the sticky behavior */
+.navigation-wrapper {
+  width: 100%;
+  z-index: 900;
+  min-height: 150px;
+  /* Reserve minimum space for navigation */
 }
 
 .navigation {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
   border-radius: 20px;
-  background: rgb(0, 30, 37);
-  padding: 10px;
-  width: calc(100vw - 20vw);
-  justify-content: space-evenly;
-  color: white;
+  background-color: rgb(0, 30, 37);
+  backdrop-filter: blur(2px);
+  padding: 10px 20px;
+  margin: 20px auto;
+  max-width: 92%;
+  gap: 4px;
 }
 
 .navigation .link {
@@ -248,18 +267,19 @@ p img {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 125px;
-  height: 115px;
+  height: 98px;
+  width: 94px;
   padding: 10px;
-  margin: 2px;
-  border-radius: 20px;
+  border-radius: 10px;
   text-decoration: none;
   color: white;
   background-color: rgb(0, 30, 37);
-  transition: background-color 0.7s ease;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
   border: 2.5px solid rgb(215, 211, 211);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: .9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  cursor: pointer;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .navigation .link:hover {
@@ -267,25 +287,111 @@ p img {
 }
 
 .navigation .link img {
-  height: 60px;
-  margin-bottom: 10px;
+  height: 45px;
+  margin-bottom: 5px;
 }
 
+.navigation .link span {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+#backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
+  background-color: rgb(0, 52, 65, 1);
+  color: cyan;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;            
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 0;                  
+  margin: 0;
+}
+
+#backToTop svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+  transform: rotate(180deg);   
+}
+
+#backToTop:hover {
+  background: cyan;
+  color: white;
+  transition: ease 0.5s;
+}
+
+.navigation-wrapper {
+  position: sticky;
+  top: 8vh; /* adjust for your header height */
+  z-index: 999;
+  min-height: 150px;
+}
+.sticky-trigger {
+  height: 50px;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* When sticky, the navigation itself becomes fixed */
+.sticky-nav-wrapper .navigation {
+  /* position: fixed; */
+  top: 8vh;
+  left:50%;
+  transform:  scale(0.9);
+  width: 92%;
+  max-width: 1200px;
+  background-color: rgba(135, 147, 150, 0.419);
+
+  z-index: 999;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.sticky-nav-wrapper .navigation .link {
+  height: 60px;
+  width: 60px;
+  border-width: 2px; 
+  opacity: 0.95;
+  padding: 8px;
+  border-radius: 40px;
+
+}
+.sticky-nav-wrapper .navigation .link:hover {
+  transform: scale(1.05);
+}
+.sticky-nav-wrapper .navigation .link img {
+  height: 40px;
+}
+.sticky-nav-wrapper .navigation .link span {
+  font-size: 0;
+}
 
 /* Responsive styles */
 @media screen and (max-width: 840px) {
   .header {
-    justify-content: space-between; 
+    justify-content: space-between;
   }
+
   .logo-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
   }
+
   .menu-toggle {
     display: block;
   }
-  .close-btn{
+
+  .close-btn {
     display: block;
   }
 
@@ -304,24 +410,47 @@ p img {
   .nav-menu.show {
     right: 0;
   }
-  .navigation .link {
-    margin-top: 14px ;
-    margin-left: 6px;
-  }
+
   .copy-button {
     position: absolute;
     padding-right: 500px;
-    text-size-adjust:smaller;
+    text-size-adjust: smaller;
   }
-  .container .title{
+
+  .container .title {
     font-size: 2rem;
+  }
+   .sticky-nav-wrapper .navigation {
+    left:50%;
+    transform:  scale(0.85);
+    width: 100%;
+    padding: 4px;
+    min-width: 450px;
+  }
+  
+  .sticky-nav-wrapper .navigation .link {
+    width: 45px; 
+    height: 45px; 
+    padding: 3px;
+  }
+  
+  .sticky-nav-wrapper .navigation .link img {
+    height: 35px; 
+  }
+  
+  .sticky-nav-wrapper .navigation {
+    font-size: 0; 
+  }
+  
+  .sticky-nav-wrapper .navigation .link:hover {
+    transform: scale(1.1);
   }
 }
 
 /* Content sections */
 .main_practical {
   padding: 15px;
-  background-color: #ffffff;
+  background-color:inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -329,82 +458,73 @@ p img {
 }
 
 .container {
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: calc(100vw - 18vw);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  flex: 1;
+  width: 92%;
+  max-width: 1440px;
+  min-width: calc(100vw - 8vw);
+  margin: 20px auto;
   background-color: #fff;
+  padding: 5vh;
+  border: 1px solid #ccc;
+  border-radius: 20px;
   text-align: justify;
+  /* width: calc(100vw - 9vw); */
+    min-height: 95vh; 
 }
 
 .container .title {
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: bold;
-  color: #333;
-  text-align: center;
+  color: #000;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-
-/* General List Styling for Theory and Procedure Containers you may adjust as per your need */
-
-/* Remove default list styles */
-#theory ul, #procedure ul, #theory ol, #procedure ol {
-  list-style: none; /* Remove default bullet points and numbers */
-  padding-left: 25px; /* Initial indentation for all lists */
-  margin-bottom: 20px; /* Spacing between lists */
-  list-style-position: inside; /* Align list markers with text */
-  font-size: 1rem; /* Standard font size for readability */
-  color: #333; /* Standard dark color for text */
+/* General List Styling */
+#theory ul,
+#procedure ul,
+#theory ol,
+#procedure ol {
+  padding-left: 25px;
+  margin-bottom: 20px;
+  list-style-position: inside; /* Align markers with text */
+  font-size: 1rem;
+  color: #333;
 }
 
-/* List Item Styling */
-#theory li, #procedure li {
-  line-height: 1.6; /* Increased line height for better readability */
-  margin-bottom: 12px; /* Spacing between list items */
-  position: relative; /* Positioning for custom bullets/numbers */
+/* Unordered List */
+#theory ul,
+#procedure ul {
+  list-style-type: disc; /* Default bullet style */
 }
 
-/* Unordered List (ul) Bullet Styling */
-#theory ul li::before, #procedure ul li::before {
-  content: "\2022"; /* Unicode bullet character */
-  position: absolute;
-  left: -20px; /* Adjusting position of the bullet */
-  color: #474a4d; /* Dark blue for professional look */
-  font-size: 1.4rem; /* Moderate size for the bullet */
-  top: 50%; /* Align bullet vertically */
-  transform: translateY(-50%); /* Corrects vertical alignment */
+/* Ordered List */
+#theory ol,
+#procedure ol {
+  list-style-type: decimal; /* Numbered list */
 }
 
-/* Ordered List (ol) Numbering Styling */
-#theory ol li::before, #procedure ol li::before {
-  content: counter(list-item) ". "; /* Numeric list */
-  position: absolute;
-  left: -30px; /* Space between number and text */
-  color: #474a4d; /* Standard blue color for numbers */
-  font-weight: bold; /* Bold numbering */
-  font-size: 1.2rem; /* Slightly larger number */
-  top: 50%; /* Align number vertically */
-  transform: translateY(-50%); /* Corrects vertical alignment */
+/* List Items */
+#theory li,
+#procedure li {
+  line-height: 1.6;
+  margin-bottom: 12px;
 }
 
-/* Nested List Styling */
-#theory ul ul, #procedure ul ul, #theory ol ol, #procedure ol ol {
-  padding-left: 35px; /* Increased indentation for nested lists */
+/* Nested Lists */
+#theory ul ul,
+#procedure ul ul,
+#theory ol ol,
+#procedure ol ol {
+  padding-left: 35px;
+  font-size: 1rem;
 }
 
-#theory ul ul li, #procedure ul ul li, #theory ol ol li, #procedure ol ol li {
-  font-size: 1rem; /* Slightly smaller text for nested items */
-}
-
-
-
-/* Link Styling within List Items */
-#theory li a, #procedure li a {
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit text color */
+/* Links Inside List Items */
+#theory li a,
+#procedure li a {
+  text-decoration: none;
+  color: inherit;
 }
 
 
@@ -424,7 +544,7 @@ input[type="radio"] {
 .switch-container label {
   cursor: pointer;
   padding: 10px 20px;
-  background-color: #005256;
+  background-color: rgb(0, 52, 65, 1);;
   color: #fff;
   border-radius: 5px;
   font-weight: bold;
@@ -450,6 +570,7 @@ input[type="radio"] {
 .copy-button:hover {
   background-color: #555;
 }
+
 .code-block {
   position: relative;
   background-color: #f7f7f7;
@@ -458,6 +579,7 @@ input[type="radio"] {
   margin-bottom: 20px;
   overflow: hidden;
 }
+
 .code-block {
   display: none;
 }
@@ -497,8 +619,9 @@ input[type="radio"] {
 .copy-button {
   display: none;
 }
-.switch-container input[type="radio"]:checked + label {
-  background-color:#029ba6;
+
+.switch-container input[type="radio"]:checked+label {
+  background-color: #029ba6;
   display: block;
   border: 2px solid rgb(47, 255, 220);
   color: rgb(238, 255, 0);
@@ -514,26 +637,69 @@ input[type="radio"] {
 
 /* Quiz */
 #quiz {
+  justify-items: center;
+  align-items: center;
   text-align: center;
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 #quiz .title {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
-    margin-bottom: 15px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-#question-counter {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #444;
+/* Instructions Section */
+#quiz-instructions {
+  background: #e8f5ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #b5d9f7;
+  max-width: 500px;
+  
 }
 
+#quiz-instructions h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #004b87;
+}
+
+#quiz-instructions ul {
+  list-style-type:decimal;
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+#quiz-instructions li {
+  margin-bottom: 8px;
+}
+
+/* Start Quiz Button */
+#start-quiz-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: rgb(0, 52, 65, 1);;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#start-quiz-btn:hover {
+  background: #00a4b3;
+}
 #question {
   font-size: 18px;
   margin-bottom: 10px;
@@ -564,15 +730,7 @@ input[type="radio"] {
   color: #fff;
 }
 
-.quiz-buttons-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 420px;
-  margin: 0 auto 15px auto;
-}
-
-.quiz-buttons-container button {
+.next-button {
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
@@ -582,9 +740,10 @@ input[type="radio"] {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  align-self: flex-end; /* Now it works */
 }
 
-.quiz-buttons-container button:hover {
+.next-button:hover {
   background-color: #0056b3;
 }
 
@@ -603,6 +762,7 @@ input[type="radio"] {
 #retake-btn:hover {
   background-color: #218838;
 }
+
 #quiz-report {
   margin-top: 20px;
   padding: 10px;
@@ -629,62 +789,74 @@ input[type="radio"] {
 /* Lists styling */
 #tnt .content {
   padding: 10px;
-  background-color: #ffffff; 
+  background-color: #ffffff;
 
 }
 
-#tnt .content span{
+#tnt .content span {
   display: block;
   font-size: 1.2rem;
   font-weight: normal;
   color: #2e3035;
   margin-bottom: 7px;
-  margin-top: 16px; /* Space above each section */
+  margin-top: 16px;
+  /* Space above each section */
 }
 
 /* List Styling */
-.ref-list, .tools-list {
+.ref-list,
+.tools-list {
   list-style: none;
   padding-left: 0;
   margin-bottom: 20px;
 }
 
-.ref-list li, .tools-list li {
+.ref-list li,
+.tools-list li {
   padding: 10px;
-  background-color: #f9fafb; 
+  background-color: #f9fafb;
   border-radius: 4px;
   margin-bottom: 10px;
   font-weight: 500;
   font-size: 1rem;
-  color: #333; 
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+  color: #333;
+  transition: background-color 0.3s ease;
+  /* Smooth hover effect */
 }
 
-.ref-list li a, .tools-list li span {
+.ref-list li a,
+.tools-list li span {
   text-decoration: none;
   color: inherit;
   font-weight: 400;
-  transition: color 0.3s ease; /* Transition for link hover effect */
+  transition: color 0.3s ease;
+  /* Transition for link hover effect */
 }
 
-.ref-list li:hover, .tools-list li:hover {
-  background-color: #e6f0ff; /* Soft blue hover effect */
+.ref-list li:hover,
+.tools-list li:hover {
+  background-color: #e6f0ff;
+  /* Soft blue hover effect */
 }
 
 .ref-list li a:hover {
-  color: #0073e6; /* Change link color on hover */
+  color: #0073e6;
+  /* Change link color on hover */
 }
 
 /* Mentors & Students Section Styling */
-.ref-list li, .tools-list li {
-  font-size: 1.1rem; 
+.ref-list li,
+.tools-list li {
+  font-size: 1.1rem;
   padding-left: 15px;
 }
 
 /* Styling for individual links */
 .ref-list li a {
-  color: #222529; /* Soft blue color for links */
-  font-weight: 500; /* Bold the links slightly */
+  color: #222529;
+  /* Soft blue color for links */
+  font-weight: 500;
+  /* Bold the links slightly */
 }
 
 
@@ -701,39 +873,90 @@ input[type="radio"] {
 #tnt {
   display: none;
 }
+
 #aim {
   display: block;
 }
 
 /* Adjustments */
+
+@media (max-width: 1000px) {
+  .labtitle {
+    font-size: 1rem;
+    /* padding-top: 10vh; */
+  }
+
+  .navigation-wrapper {
+    min-height: 120px;
+   /* Smaller reserved space on mobile */
+  }
+
+  .navigation {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .navigation .link {
+    width: 70px;
+    height: 76px;
+    border-width: 1px;
+    padding: 7px;
+  border-radius: 10px;
+  }
+
+  .navigation .link img {
+    height: 32px;
+  }
+  
+  .navigation .link span {
+    font-size: 0.65rem;
+    font-weight: bold;
+  }
+  
+  .container {
+    width: 100%;
+    padding: 5vh;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+}
+
 @media screen and (max-width: 500px) {
+  .vlab{
+    font-size: 1.5rem;
+  }
+   .yourvlabtitle {
+    padding-top: 1rem;
+    font-size: 80%;
+  }
   .practical {
     margin-left: 0px;
     margin-right: 0px;
     padding: 5px;
     font-size: smaller;
   }
+
   .navigation .link {
-    width: 62px;
-    height: 74px;
-    padding: 10px;
     font-size: 0.5rem;
-    border: 2px solid rgb(215, 211, 211);
-    margin-top: 5px ;
-    margin-left: 6px;
-    border-radius: 14px;
   }
+
   .navigation .link img {
     height: 30px;
     width: auto;
-    margin-bottom: 10px;
   }
+
   .container {
-    padding: 5px;
+   padding: 3vh;
     margin: 0;
     text-align: left;
-    width: calc(100vw- 5vw);
+    width: calc(100vw- 0vw);
   }
+
   .choices {
     justify-content: space-between;
   }
@@ -742,15 +965,43 @@ input[type="radio"] {
     width: 300px;
     margin-left: 10px;
   }
+
   .code-block {
     overflow: scroll;
     width: 320px;
   }
+
   #code.container {
     width: 330px;
   }
-  .container .title{
+
+  .container .title {
     font-size: 1rem;
   }
 }
+/* For very small screens */
+@media (max-width: 480px) {
+  .sticky-nav-wrapper .navigation {
+    transform: translateX(-50%) (0.8);
+    min-width: 350px;
+  }
+  
+  .sticky-nav-wrapper .navigation .link {
+    width: 40px; 
+    height: 40px; 
+    padding: 3;
+  }
+  
+  .sticky-nav-wrapper .navigation .link img {
+    height: 30px; 
+  }
+}
 
+@media (max-width: 340px) {
+  .sticky-nav-wrapper .navigation {
+
+    transform: translateX(-50%)  scale(0.75);
+
+    min-width: 200px;
+  }
+}
