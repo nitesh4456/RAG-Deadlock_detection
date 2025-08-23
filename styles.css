@@ -459,9 +459,9 @@ p img {
 
 .container {
   flex: 1;
-  width: 92%;
+  /* width: 92%; */
   max-width: 1440px;
-  min-width: calc(100vw - 8vw);
+  /* min-width: calc(100vw - 8vw); */
   margin: 20px auto;
   background-color: #fff;
   padding: 5vh;
