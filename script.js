@@ -49,10 +49,16 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  document.getElementById("start-quiz-btn").addEventListener("click", () => {
-  document.getElementById("quiz-instructions").style.display = "none";
-  document.getElementById("quiz-content").style.display = "block";
-});
+  const startQuizBtn = document.getElementById("start-quiz-btn");
+  if (startQuizBtn) {
+    startQuizBtn.addEventListener("click", () => {
+      document.getElementById("quiz-instructions").style.display = "none";
+      document.getElementById("quiz-content").style.display = "block";
+      showQuestion();
+    });
+  } else {
+    console.error("start-quiz-btn element not found");
+  }
 });
 
 // Object to store references to different topic sections by their IDs
@@ -109,12 +115,14 @@ function copyCode(elementId) {
 }
 
 // Event listeners for radio buttons
-document
-  .getElementById("cppRadio")
-  .addEventListener("change", () => toggleCode("cpp"));
-document
-  .getElementById("pythonRadio")
-  .addEventListener("change", () => toggleCode("python"));
+const cppRadio = document.getElementById("cppRadio");
+if (cppRadio) {
+  cppRadio.addEventListener("change", () => toggleCode("cpp"));
+}
+const pythonRadio = document.getElementById("pythonRadio");
+if (pythonRadio) {
+  pythonRadio.addEventListener("change", () => toggleCode("python"));
+}
 
 // Event listener for copy buttons
 document.querySelectorAll(".copy-button").forEach((button) => {
@@ -127,15 +135,26 @@ document.querySelectorAll(".copy-button").forEach((button) => {
 // Quiz Logic
 const questions = [
   {
-    question: "Q1) Which of the following is/are valid searching algorithms?",
-    choices: ["Linear Search", "Bubble Sort", "Binary Search", "Quick Sort"],
-    correctAnswers: [0, 2],
+    question: " Q1) Which of the following is NOT one of the 4 conditions needed for deadlock",
+    choices: ["Mutual Exclusion", "Circular Wait", "Recursive check", "Hold and wait"],
+    correctAnswers: [2], // Correct answers are indexes 0 and 2 (multiple answers possible)
   },
   {
-    question: "Q2) What is/are the time complexity of linear search?",
-    choices: ["O(log n)", "O(n)", "O(n^2)", "O(1)"],
-    correctAnswers: [1],
+    question: " Q2) Which of the following is true for a RAG",
+    choices: ["resources can only have 1 istance", "It is used for CPU Resouce managmenet", "It is can help find presence of deadlock", "RAG stands for Resource Augmented Graph"],
+    correctAnswers: [1,2], // Correct answer is index 1 (single answer)
   },
+  {
+    question: "Q3) S: Deadlock can be present in a RAG if we find a cycle and each resource has single isntance \nR: in case of single instance since they can be held by only one proccess, the requesting proccess cannot get the resource until it's free",
+    choices: ["S is true R is false", "S is false R is true", "Both false", "Both true"],
+    correctAnswers: [3], // Correct answer is index 1 (single answer)
+  },
+  {
+    question: "Q4) If mutual exclusion, hold wait circular wait and no preemption is present what can be said about presence of deadlock",
+    choices: ["Definetly present", "Definetly Absent", "Possible Deadlock but not guranteed", "Conditions give no info about deadlock"],
+    correctAnswers: [2], // Correct answer is index 1 (single answer)
+  },
+
 ];
 
 let currentQuestionIndex = 0;
@@ -149,6 +168,7 @@ const retakeButton = document.getElementById("retake-btn");
 const quizReport = document.getElementById("quiz-report");
 
 function showQuestion() {
+  console.log("showQuestion called, currentQuestionIndex:", currentQuestionIndex);
   let currentQuestion = questions[currentQuestionIndex];
   questionElement.textContent = currentQuestion.question;
   choicesContainer.innerHTML = "";
@@ -168,6 +188,7 @@ function showQuestion() {
 }
 
 function toggleSelection(selectedIndex) {
+  console.log("toggleSelection called, selectedIndex:", selectedIndex);
   if (!userAnswers[currentQuestionIndex]) {
     userAnswers[currentQuestionIndex] = [];
   }
@@ -195,6 +216,7 @@ function toggleSelection(selectedIndex) {
 }
 
 function checkAnswer() {
+  console.log("checkAnswer called, currentQuestionIndex:", currentQuestionIndex, "userAnswer:", userAnswers[currentQuestionIndex]);
   const correctAnswers = questions[currentQuestionIndex].correctAnswers;
   const userAnswer = userAnswers[currentQuestionIndex];
 
