@@ -90,12 +90,12 @@
         function clac_cycle_edges(){
             let allCycleEdges = detectAllCycleEdges(links1);
             if (allCycleEdges.length > 0) {
-                console.log("Circular waits detected, edges involved:");
+                // //console.log("Circular waits detected, edges involved:");
                 allCycleEdges.forEach((cycle, index) => {
-                    console.log(`Cycle ${index + 1}:`, cycle);
+                    // //console.log(`Cycle ${index + 1}:`, cycle);
                 });
             } else {
-                console.log("No circular waits detected.");
+                // //console.log("No circular waits detected.");
             }
             cycleLinks=[];
             for(let cycle of allCycleEdges){
@@ -125,7 +125,7 @@
                 }
                 
             }
-            console.log("Yellow_links calculated : " , yellowLinks);
+            // //console.log("Yellow_links calculated : " , yellowLinks);
             
         }
         //canvas for the render
@@ -152,7 +152,7 @@
                 number_of_resource_instance ++;
             }
         }
-        console.log(number_of_resource_instance)
+        // //console.log(number_of_resource_instance)
 
         const resourceGroups = new Map(); // Store group center positions
         // Custom force to keep resources within their group
@@ -242,7 +242,7 @@
             .attr("stroke", d => {
                 const sourceNode = nodes.find(node => node.id === d.source.id || node.id === d.source);
                 const targetNode = nodes.find(node => node.id === d.target.id || node.id === d.target);
-                console.log("Cheking right now for :" , sourceNode ," -> ", targetNode)
+                // //console.log("Cheking right now for :" , sourceNode ," -> ", targetNode)
                 //CASE 1 hold-wait
                 const exists = yellowLinks.some(link => 
                     (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
@@ -253,8 +253,8 @@
                     (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
                     (link.target.id === targetNode.id || link.target === targetNode.id)
                 );
-                console.log("exists1 : " , exists1);
-                console.log("exists : " , exists);
+                //console.log("exists1 : " , exists1);
+                //console.log("exists : " , exists);
                 if(exists && (isHold && !isCycle)){return "yellow"}//apply yello to edges if the toggling view on
                 else if(exists1 && ( isCycle && !isHold)){return "#00FF00"}//apply green to edges if the toggling view on for cycle 
 
@@ -390,8 +390,8 @@
                 d3.selectAll(".node").classed("highlight", node => node === selectedNode);//iski class ko highlight bna rha hai and css mai highlight class ko green krdiya ja rha hai 
                 //
                 if(is_delete){//togle on for delete
-                    console.log("selectedNode : " ,selectedNode);
-                    console.log("existing nodes : " , nodes);
+                    //console.log("selectedNode : " ,selectedNode);
+                    //console.log("existing nodes : " , nodes);
                     
                     /*selectedNode :  {id: 'R1.1', type: 'resource', group: 'R1', index: 2, x: 540.3352328537052, …}*/
                     let update_nodes = nodes.filter(node => node.id!=selectedNode.id)
@@ -402,14 +402,14 @@
                     //nodes1.length=0;
                     //nodes.push(...update_nodes);
                     //nodes1.push(...update_nodes);
-                    console.log("update nodes : " , nodes);
+                    //console.log("update nodes : " , nodes);
 
                     
                     //delete related edge 
-                    console.log("existing links " , links);
+                    //console.log("existing links " , links);
                     
                     let update_links = links.filter(link=>(link.source.id!==selectedNode.id && link.target.id!==selectedNode.id) )
-                    //console.log("update links : " , upadte_links);
+                    ////console.log("update links : " , upadte_links);
                     //links.length=0;
                     //links1.length=0;
                     //links.push(...update_links)
@@ -419,7 +419,7 @@
 
                     
 
-                    console.log("update links main links : " , links);
+                    //console.log("update links main links : " , links);
                     selectedNode = null;
                     d3.selectAll(".node").classed("highlight", false);
                     d3.selectAll(".node").data(nodes, d => d.id).exit().remove();
@@ -440,26 +440,26 @@
                         
 
                         //edge deletion logic .......
-                        console.log("🔹 Trying to delete link:", selectedNode.id, "→", d.id);//working 
+                        //console.log("🔹 Trying to delete link:", selectedNode.id, "→", d.id);//working 
                             // Step 1: Find the index of the link to delete
                             const existingEdgeIndex1 = links1.findIndex(link => 
                                 link.source === selectedNode.id && link.target === d.id
                             );
                             
-                        console.log("🔍 existingEdgeIndex1:", existingEdgeIndex1);
-                        console.log('📌 Existing links before deletion:', links1);
+                        //console.log(" existingEdgeIndex1:", existingEdgeIndex1);
+                        //console.log(' Existing links before deletion:', links1);
                         
                         // Step 2: If the link exists, delete it
                         if (existingEdgeIndex1 !== -1) {
-                            console.log('✅ Entered deletion process');
-                            console.log('📌 Existing links before deletion:', links1);
+                            //console.log(' Entered deletion process');
+                            //console.log(' Existing links before deletion:', links1);
                             // Step 3: Directly remove the link from `links1`
                             links1.splice(existingEdgeIndex1, 1);
                             links.splice(existingEdgeIndex1, 1);
                         
-                            console.log('🗑 After deletion, links:',links );
-                            console.log('🗑 After deletion, links1:',links1 );
-                            console.log("🚪 Exit from deletion segment...");
+                            //console.log(' After deletion, links:',links );
+                            //console.log(' After deletion, links1:',links1 );
+                            //console.log(" Exit from deletion segment...");
                             calc_hold_wait_edges()///re-calculate
                             clac_cycle_edges()///re-calculate
                             renderGraph();
@@ -489,13 +489,13 @@
                             }
                         }
                         //calculate the values each time when a right click appears 
-                        console.log("links : " , links);
-                        console.log("links1: " , links1);
+                        //console.log("links : " , links);
+                        //console.log("links1: " , links1);
                         //calculation needs when view_event is toggled on 
                         //calculate on each right click 
                         if(isHold==true && isCycle==false){
                             calc_hold_wait_edges();
-                            console.log("check1");
+                            //console.log("check1");
                             
                         }
                         else if(isCycle==true && isHold==false){
@@ -560,7 +560,7 @@
             hide_addResouceInstnace_multiple();
             //make the form visible to "Add processes"
             const div = document.getElementById("input_process");
-            console.log(div.className);
+            //console.log(div.className);
             div.classList.remove("input")
             div.classList.add("input_visible"); // Replaces all existing classes
 
@@ -714,8 +714,8 @@
                 nodes.push(newNode);
                 nodes1.push(newNode);
             }
-            console.log("nodes : ", nodes);
-            console.log("nodes1: ", nodes1);
+            //console.log("nodes : ", nodes);
+            //console.log("nodes1: ", nodes1);
             hide_addProcess()            //hide the form 
             renderGraph(); // Call renderGraph() once after adding all nodes
         }
@@ -750,8 +750,8 @@
                     }
                 }
             
-                console.log("nodes:", nodes);
-                console.log("nodes1:", nodes1);
+                //console.log("nodes:", nodes);
+                //console.log("nodes1:", nodes1);
             
                 renderGraph();
             }
@@ -759,19 +759,19 @@
         
         
         // Function to add a new resource node
-        function addResource() {
-            const resourceNumbers = nodes
-                .filter(node => node.type === 'resource')
-                .map(node => parseInt(node.id.split('.')[0].substring(1)));
-            const newResourceNumber = Math.max(...resourceNumbers, 0) + 1;
-            const newResourceId = `R${newResourceNumber}.1`;
-            const newResource = { id: newResourceId, type: 'resource', group: `R${newResourceNumber}` };
-            nodes.push(newResource);
-            nodes1.push(newResource);
-            console.log("nodes : " , nodes);
-            console.log("nodes1: " , nodes1);
-            renderGraph();
-        }
+        // function addResource() {
+        //     const resourceNumbers = nodes
+        //         .filter(node => node.type === 'resource')
+        //         .map(node => parseInt(node.id.split('.')[0].substring(1)));
+        //     const newResourceNumber = Math.max(...resourceNumbers, 0) + 1;
+        //     const newResourceId = `R${newResourceNumber}.1`;
+        //     const newResource = { id: newResourceId, type: 'resource', group: `R${newResourceNumber}` };
+        //     nodes.push(newResource);
+        //     nodes1.push(newResource);
+        //     //console.log("nodes : " , nodes);
+        //     //console.log("nodes1: " , nodes1);
+        //     renderGraph();
+        // }
 
         // Function to add a new resource instance
         function addResourceInstance(value) {
@@ -801,15 +801,15 @@
                     const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
                     nodes.push(newResource);
                     nodes1.push(newResource);
-                    console.log("nodes : " , nodes);
-                    console.log("nodes1: " , nodes1);
+                    //console.log("nodes : " , nodes);
+                    //console.log("nodes1: " , nodes1);
                 } else {
                     const newResourceId = `R${resourceNumber}.1`;
                     const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
                     nodes.push(newResource);
                     nodes1.push(newResource);
-                    console.log("nodes : " , nodes);
-                    console.log("nodes1: " , nodes1);
+                    //console.log("nodes : " , nodes);
+                    //console.log("nodes1: " , nodes1);
                 }
                 renderGraph();
             }
@@ -843,11 +843,11 @@
                 btn.classList.add("blue")
                 btn.classList.remove("hold-button-highlighted")
             }
-            console.log("isHold : " , isHold)
+            //console.log("isHold : " , isHold)
             renderGraph();//re-render for applying the view
         }
         function show_links_circular_wait(){
-            console.log("the calculation is correct check further functionality");
+            //console.log("the calculation is correct check further functionality");
             
             if(isCycle===false){
                 //hide other messages
@@ -879,7 +879,7 @@
                 btn1.classList.remove("circular-button-highlighted")
 
             }
-            console.log("iscYCLE : " , isCycle)
+            //console.log("iscYCLE : " , isCycle)
             renderGraph();//re-render for applying the view
         }
         

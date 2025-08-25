@@ -104,10 +104,10 @@
       <div class="container" id="aim">
         <div class="title">Aim</div>
         <div class="content">
-          <p>The objective of this experiment is to provide a comprehensive understanding of how Resource Allocation Graphs (RAGs) are used in operating systems to model the allocation of resources to processes and to detect potential deadlocks. 
+          <p>The objective of this experiment is to provide a comprehensive understanding of Resource Allocation Graphs (RAGs) and their usage in operating systems for allocation of resources to processes and to detect potential deadlocks. 
             </p>
             <br>
-            <p>This simulation helps users visualize how resources and processes interact, and how deadlocks can be detected before they cause system failures. It serves as a practical tool to deepen one’s understanding of deadlock detection mechanisms, which are crucial for designing robust, concurrent systems in operating systems and distributed computing environments.</P>
+            <p>This simulation helps users visualize how resources and processes interact, and how deadlocks can be detected before they cause system failures. It serves as a practical tool to deepen one's understanding of deadlock detection mechanisms, which are crucial for designing robust, concurrent systems in operating systems and distributed computing environments.</P>
           </p>
         </div>
       </div>
@@ -118,28 +118,31 @@
         <div class="content">
           <span>Key Concepts</span>
             <ul>
-            <li>Resource Allocation Graph:</li>
+            <li>Resource Allocation Graph (RAG):</li>
             <p>
-              Also Known as RAG, is a type of Directed graph with nodes representing either programmes or resources and arrows representing either allocation of a resource to a programme, or the request by a programme to access a resource, it is useful in visualising which programme is holding and requesting which resource and which resource is being used or is free, it is also useful in determining if the condition of programmes and resources might result in a deadlock or not
+              A type of Directed graph with nodes representing either programmes or resources and arrows representing either allocation of a resource to a programme, or the request by a programme to access a resource, it is useful in visualising which programme is holding and requesting which resource and which resource is being used or is free, it is also useful in determining if the condition of programmes and resources might result in a deadlock or not
             </p>
             <br>
             <li>Deadlock</li>
+
             <p>
-              A situation where programmes are stuck due to ending up in a situation such that a set of programmes being unable to get the data they requested is being held by another programme and they themselves are holding onto resource required by another programme resulting in a situation where no resource can be freed for the continuation of any of those programme’s execution
+              A deadlock is a situation where processes are stuck. This happens when a set of processes cannot acquire the resources they have requested because those resources are held by other processes, and those processes are, in turn, holding onto resources needed by the first set. This results in a scenario where no process can continue its execution.
             </p>
             <br>
             <li>Finding Deadlock</li>
             <p>
-              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. Since in our case we assume the resources are multiple instance, finding deadlock is more difficulty, but generally, we can say that a deadlock may be present if the given 4 conditions are present in the RAG:
+              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. Since in our case we assume the resources are multiple instance, finding deadlock is more difficult, but generally, we can say that a deadlock may be present if the given 4 conditions are present in the RAG:
             </p>
             <br>
             </ul>
 
-            <span>Applications in Real World</span>
+            <span>Applications in the Real World</span>
             <ol>
-              <li>CPU Proccess Maintanance</li>
-              <li>Time Table conflict solving</li>
-              <li>Proccess Conflict solving</li>
+              <li>Server Load Balancing – Using RAGs to evenly distribute requests across available servers and avoid bottlenecks.</li>
+              <li>Operating Systems – Managing process-resource allocation to detect and prevent deadlocks in CPU and memory usage.</li>
+              <li>Database Management – Ensuring transaction scheduling doesn’t lead to resource deadlocks.</li>
+              <li>Cloud Resource Management – Allocating virtual machines and storage resources efficiently to various services.</li>
+              <li>Traffic Systems – Coordinating traffic light resources and vehicle flows to prevent circular wait deadlocks.</li>
             </ol>
         </div>
       </div>
@@ -149,25 +152,29 @@
         <div class="title">Procedure</div>
         <div class="content">
           <p>
-              The procedure to this lab would be done in a two step way:
+              The procedure to this lab would be done in a two-step way:
             </p>
             <br>
-            <span>Creating the RAG using the input given by the user:</span>
             <ol>
-              <li>The User adds the no. Of resources and the instances in each resources that he wants to be in the graph</li>
-              <li>The User adds the no. Of process he wants to be in the graph</li>
-              <li>Finally, the User Right clicks the process then a resources to show a Request and right clicks a resource then a process to show a Hold.</li>
-            </ol>
-            <br>
-            <span>Finding Deadlock in the Given Graph by the user:</span>
-            <ol>
-              <li>To check for a possible deadlock, we check if the 4 conditions required for the presence of one is met or not</li>
-              <li>Since each resourcs cannot be held by multiple and we would need to free it manually before another process holds it, Mutual Exclusion and No Preemption present</li>
-              <li>For Detecting Hold and wait, we check each programme if it’s holding a resource while requesting a resource that’s already being held, and then highligh the edge between them (in yellow for our case)</li>
-              <li>For Detecting Circular wait, we simply use DFS on node of each node, to look for a cycle, seeing if we end up on a previously visited node, then we highlight the edges in the cycle (in green for our case)</li>
-            </ol>
+              <li><span>Creating the RAG using the input given by the user:</span></li>
+              <ul>
+                <li>Enter the number of resources and specify the instances for each resource.</li>
+                <li>Enter the number of processes to include in the graph.</li>
+                <li>To add a Request edge, right-click on a process, then right-click on the resource it is requesting.</li>
+                <li>To add an Assignment edge, right-click on a resource, then right-click on the process that holds it.</li>
+              </ul>
+              <br>
+              <li><span>Finding Deadlock in the Given Graph:</span></li><br>
+                <p>Check for the four necessary conditions for deadlock:</p><br>
+                <ul>
+                  <li><strong>Mutual Exclusion:</strong> Each resource can be held by only one process. (This is always true.)</li>
+                  <li><strong>No Preemption:</strong> Resources must be released manually before being reassigned. (This is also always true.)</li>
+                  <li><strong>Hold and Wait:</strong> For each process, check if it is holding a resource while requesting another that is currently held. If true, the edge is highlighted in yellow. (toggle 'view hold & wait')</li>
+                  <li><strong>Circular Wait:</strong> Use DFS on each node to check for a cycle. If a cycle is found, the edge is highlighted in green. (toggle 'view circular wait')</li>
+                </ul>
+              </ol>
             <p>
-              Finally, we would have not only found what the RAG for the given programme and resources in given condition is but also found if the graph results in a deadlock or not.
+              Finally, we would have not only found what the RAG for the given programme and resources in the given condition is but also found if the graph results in a deadlock or not.
             </p>
         </div>
       </div>
@@ -186,197 +193,176 @@
             <div class="code-content">
               <pre><code class="language-cpp">// JavaScript Code Example
 // Node Structure: Defines the processes and resources in the system
-const nodes = [
-    { id: 'P1', type: 'process' },  // Process 1
-    { id: 'P2', type: 'process' },  // Process 2
-    { id: 'R1.1', type: 'resource', group: 'R1' },  // Resource R1 instance 1
-    { id: 'R1.2', type: 'resource', group: 'R1' },  // Resource R1 instance 2
-    { id: 'R2.1', type: 'resource', group: 'R2' }   // Resource R2 instance 1
-];
+        const nodes = [
+            { id: 'P1', type: 'process' },
+            { id: 'P2', type: 'process' },
+            { id: 'R1.1', type: 'resource', group: 'R1' },
+            { id: 'R1.2', type: 'resource', group: 'R1' },
+            { id: 'R2.1', type: 'resource', group: 'R2' }
+        ];
 
 // Links Structure: Defines the relationships (edges) between processes and resources
-const links = [
-    { source: 'P1', target: 'R1.1' },  // P1 requests R1.1
-    { source: 'R1.2', target: 'P2' },  // R1.2 is assigned to P2
-    { source: 'P2', target: 'R2.1' }   // P2 requests R2.1
-];
+        const links = [
+            { source: 'P1', target: 'R1.1' },
+            { source: 'R1.2', target: 'P2' },
+            { source: 'P2', target: 'R2.1' }
+        ];
 
-// Function to detect all circular waits (deadlocks) and return involved edges
-function detectAllCycleEdges(links) {
-    let visited = new Set();    // Stores nodes that have been fully processed
-    let stack = new Set();      // Tracks nodes currently in recursion (for cycle detection)
-    let edgeStack = [];         // Stores edges in the current DFS path
-    let allCycleEdges = [];     // Stores detected cycles
-
-    // Helper function to perform Depth-First Search (DFS) to find cycles
-    function dfs(node) {
-        if (stack.has(node)) {
-            // Cycle detected: Save the edges forming the cycle
-            allCycleEdges.push([...edgeStack]);
-            return;
-        }
-        if (visited.has(node)) {
-            // Node has already been processed, skip it
-            return;
-        }
-
-        // Mark the node as visited and add it to the recursion stack
-        visited.add(node);
-        stack.add(node);
-
-        // Traverse outgoing edges from the current node
-        for (let link of links) {
-            if (link.source === node) {
-                edgeStack.push(link);  // Add edge to stack
-                dfs(link.target);      // Recursively visit the target node
-                edgeStack.pop();       // Backtrack by removing edge if no cycle is found
+// Function to detect all circular waits (causing deadlocks) and return involved edges
+        function detectAllCycleEdges(links) {
+            let visited = new Set();    // Tracks nodes that have been fully processed
+            let stack = new Set();      // Tracks nodes in the current DFS recursion
+            let edgeStack = [];         // Tracks the edges being traversed in the current DFS path
+            let allCycleEdges = [];     // To store all the cycles detected
+        
+        // Helper function to perform Depth-First Search (DFS) to find cycles
+            function dfs(node) {
+                if (stack.has(node)) {
+                    // Cycle found: return the edges involved in this cycle
+                    allCycleEdges.push([...edgeStack]); // Save a copy of the current edge stack
+                    return;
+                }
+                if (visited.has(node)) {
+                    // Node has already been fully processed, skip it
+                    return;
+                }
+        
+                // Mark the node as visited and add to the current recursion stack
+                visited.add(node);
+                stack.add(node);
+        
+                // Traverse all outgoing edges from the current node
+                for (let link of links) {
+                    if (link.source === node) {
+                        // Add the current edge to the edge stack
+                        edgeStack.push(link);
+                        dfs(link.target); // Continue DFS to the target node
+                        // Backtrack: remove the edge from the stack if no cycle found
+                        edgeStack.pop();
+                    }
+                }
+                // Backtrack: remove the node from the recursion stack
+                stack.delete(node);
             }
+            // Start DFS from each node in nodes1
+            for (let node of nodes) {
+                dfs(node.id); // Perform DFS starting from the node's ID
+            }
+            return allCycleEdges; // Return all cycles found
         }
-
-        // Remove the node from the recursion stack after processing
-        stack.delete(node);
-    }
-
-    // Start DFS for each node in nodes1
-    for (let node of nodes1) {
-        dfs(node.id);
-    }
-
-    return allCycleEdges;  // Return all detected cycles
-}
 
 // Function to calculate hold-wait edges (potential deadlock scenarios)
-function calc_hold_wait_edges() {
-    yellowLinks = []; // Empty array to store hold-wait edges
-    
-    for (let link of links1) {
-        const sourceNode = nodes1.find(node => node.id === link.source.id || node.id === link.source);
-        const targetNode = nodes1.find(node => node.id === link.target.id || node.id === link.target);
-        
-        if (sourceNode.type === "resource" && targetNode.type === "process") {
-            // Hold-wait only occurs when a resource is assigned to a process and that process waits for another resource
-            for (let link1 of links1) {
-                if (link.target === link1.source) {
-                    for (let link2 of links1) {
-                        if (link2.source === link1.target) {
-                            yellowLinks.push(link);
-                            yellowLinks.push(link1);
+        function calc_hold_wait_edges(){
+            yellowLinks=[];//empty 
+            for(let link of links){
+                const sourceNode = nodes.find(node => node.id === link.source.id || node.id === link.source);
+                const targetNode = nodes.find(node => node.id === link.target.id || node.id === link.target);
+                if(sourceNode.type==="resource" && targetNode.type==="process"){//hold wait can only from resource to process and + process to another resource
+                    for (let link1 of links){
+                        if(link.target===link1.source){
+                            for(let link2 of links){
+                                if(link2.source===link1.target){
+                                    yellowLinks.push(link)
+                                    yellowLinks.push(link1)
+                                }
+                            }
                         }
+                        
                     }
                 }
+                
             }
+            console.log("Yellow_links calculated : " , yellowLinks);
         }
-    }
-    console.log("Yellow_links calculated: ", yellowLinks);
-}
 
 // Function to add a new process node
-function addNode() {
-    const numberOfNodes = parseInt(prompt("Enter the number of nodes to add:"), 10);
-
-    // Validate input
-    if (isNaN(numberOfNodes) || numberOfNodes <= 0) {
-        alert("Please enter a valid positive integer.");
-        return;
-    }
-
-    // Add new process nodes
-    for (let i = 0; i < numberOfNodes; i++) {
-        const newNodeId = `P${nodes.filter((node) => node.type === "process").length + 1}`;
-        const newNode = {
-            id: newNodeId,
-            type: "process",
-            x: width / 2,
-            y: height / 2,
-        };
-        nodes.push(newNode);
-        nodes1.push(newNode);
-    }
-    console.log("nodes: ", nodes);
-    console.log("nodes1: ", nodes1);
-    renderGraph(); // Re-render the graph after adding nodes
-}
-
-// Function to add multiple resources
-function addMultipleResources() {
-    let m = Number(prompt("Enter the number of resources (m):"));
-    let n = Number(prompt("Enter the number of instances per resource (n):"));
-
-    // Validate input: both must be natural numbers
-    if (isNaN(m) || isNaN(n) || m < 1 || n < 1 || !Number.isInteger(m) || !Number.isInteger(n)) {
-        alert("Invalid input! Please enter natural numbers (1, 2, 3, ...)."
-        return;
-    }
-
-    // Determine the starting resource number
-    const resourceNumbers = nodes
-        .filter(node => node.type === 'resource')
-        .map(node => parseInt(node.id.split('.')[0].substring(1)))
-        .filter(num => !isNaN(num));
-
-    let startingResourceNumber = (resourceNumbers.length > 0 ? Math.max(...resourceNumbers) : 0) + 1;
-
-    // Create 'm' resources, each with 'n' instances
-    for (let i = 0; i < m; i++) {
-        let resourceNumber = startingResourceNumber + i;
-        for (let j = 1; j <= n; j++) {
-            const newResourceId = `R${resourceNumber}.${j}`;
-            const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
-            nodes.push(newResource);
+        function addNode(value) {
+            const numberOfNodes = value;
+            // Check if the input is a valid number
+            if (isNaN(numberOfNodes) || numberOfNodes <= 0) {
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                show_message(message); 
+                return;
+            }
+            
+            for (let i = 0; i < numberOfNodes; i++) {
+                const newNodeId = `P${nodes.filter((node) => node.type === "process").length + 1}`;
+                const newNode = {
+                    id: newNodeId,
+                    type: "process",
+                    x: width / 2,
+                    y: height / 2,};
+                nodes.push(newNode);
+            }
+            console.log("nodes : ", nodes);
+            hide_addProcess()            //hide the form 
+            renderGraph(); // Call renderGraph() once after adding all nodes
         }
-    }
-}
 
-// Function to add a new resource node
-function addResource() {
-    const resourceNumbers = nodes
-        .filter(node => node.type === 'resource')
-        .map(node => parseInt(node.id.split('.')[0].substring(1)));
-    const newResourceNumber = Math.max(...resourceNumbers, 0) + 1;
-    const newResourceId = `R${newResourceNumber}.1`;
-    const newResource = { id: newResourceId, type: 'resource', group: `R${newResourceNumber}` };
-    nodes.push(newResource);
-    nodes1.push(newResource);
-    console.log("nodes : " , nodes);
-    console.log("nodes1: " , nodes1);
-    renderGraph();
-}
-
-// Function to add a new resource instance
-function addResourceInstance() {
-    const resourceNumber = prompt("Enter the resource number:");
-    if (resourceNumber) {
-        const existingResources = nodes.filter(node => 
-            node.type === 'resource' && node.id.startsWith(`R${resourceNumber}.`)
-        );
-        if (existingResources.length > 0) {
-            let maxNumber = 0;
-            nodes1.forEach(node => {
-                if (node.type === "resource" && node.id.startsWith(`R${resourceNumber}.`)) {
-                    let match = node.id.match(/R\d+\.(\d+)$/); // Extract only the last numeric part
-                    if (match) {
-                        let num = parseInt(match[1]); // Convert to number
-                        maxNumber = Math.max(maxNumber, num);
+// Function to add multiple resources (Adds m resource each having n resource instances)
+            function addMultipleResources(value,value1) {
+                let m = value;
+                let n = value1
+                // Validate inputs: Must be natural numbers (positive integers)
+                if (isNaN(m) || isNaN(n) || m < 1 || n < 1 || !Number.isInteger(m) || !Number.isInteger(n)) {
+                    let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                    show_message(message); 
+                    return;
+                }
+                // Find the highest existing resource number
+                const resourceNumbers = nodes
+                    .filter(node => node.type === 'resource')
+                    .map(node => parseInt(node.id.split('.')[0].substring(1)))
+                    .filter(num => !isNaN(num));
+            
+                let startingResourceNumber = (resourceNumbers.length > 0 ? Math.max(...resourceNumbers) : 0) + 1;
+            
+                // Create m resources, each with n instances
+                for (let i = 0; i < m; i++) {
+                    let resourceNumber = startingResourceNumber + i;
+            
+                    for (let j = 1; j <= n; j++) {
+                        const newResourceId = `R${resourceNumber}.${j}`;
+                        const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
+                        nodes.push(newResource);
                     }
                 }
-            });
-    
-            const newInstanceNumber = maxNumber + 1;            
-            const newResourceId = `R${resourceNumber}.${newInstanceNumber}`;
-            const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
-            nodes.push(newResource);
-            nodes1.push(newResource);
-            console.log("nodes : " , nodes);
-        } else {
-            const newResourceId = `R${resourceNumber}.1`;
-            const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
-            nodes.push(newResource);
-            nodes1.push(newResource);
-            console.log("nodes : " , nodes);
+                console.log("nodes:", nodes);
+                renderGraph();
+            }
+
+// Function to add a new resource instance
+        function addResourceInstance(value) {
+            const resourceNumber =value;
+            if (resourceNumber) {
+                const existingResources = nodes.filter(node => 
+                    node.type === 'resource' && node.id.startsWith(`R${resourceNumber}.`)
+                );
+                if (existingResources.length > 0) {
+                    let maxNumber = 0;
+                    nodes.forEach(node => {
+                        if (node.type === "resource" && node.id.startsWith(`R${resourceNumber}.`)) {
+                            let match = node.id.match(/R\d+\.(\d+)$/); // Extract only the last numeric part
+                            if (match) {
+                                let num = parseInt(match[1]); // Convert to number
+                                maxNumber = Math.max(maxNumber, num);
+                            }
+                        }
+                    });
+                    const newInstanceNumber = maxNumber + 1;            
+                    const newResourceId = `R${resourceNumber}.${newInstanceNumber}`;
+                    const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
+                    nodes.push(newResource);
+                    console.log("nodes : " , nodes);
+                } else {
+                    const newResourceId = `R${resourceNumber}.1`;
+                    const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
+                    nodes.push(newResource);
+                    console.log("nodes : " , nodes);
+                }
+                renderGraph();
+            }
         }
-    }
-  }
-  
                 </code></pre>
               <button class="copy-button">Copy</button>
             </div>
@@ -418,15 +404,15 @@ function addResourceInstance() {
         <div class="title">Result</div>
         <div class="content">
           <!-- <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p> -->
-          <p>Result</p>
           <br>
-          <p>In this experiment, you created and interacted with a Resource Allocation Graph (RAG) to simulate the allocation and request of resources by processes. By adding multiple processes, resources, and resource instances, and visualizing their interactions, you observed how certain conditions—such as hold-and-wait and circular wait—can lead to a deadlock.
+          <p>In this experiment, you created and interacted with a Resource Allocation Graph (RAG) to simulate the allocation and request of resources by processes. By adding multiple processes, resources, and resource instances, and visualizing their interactions, you observed how certain conditions-such as hold-and-wait and circular-wait can lead to a deadlock.
           </p>
           <br>
-          <p>Through the graphical interface, you were able to identify where these deadlock conditions occurred in real time. This helped reinforce your understanding of how system deadlocks form and how they can be detected using RAG. You also learned how careful resource management and request handling are crucial to avoiding such issues in concurrent systems.</p>
+          <p>Through the graphical interface, you were able to identify where these deadlock conditions occurred in real time. This helped reinforce your understanding of how system deadlocks form and how they can be detected using RAG. You also learned how careful resource management and request handling are crucial to avoiding such issues in concurrent systems.
           </p>
         </div>
       </div>
+
 
       <!-- Quiz -->
       <div class="container" id="quiz">
@@ -481,10 +467,11 @@ function addResourceInstance() {
           <h3>Students</h3>
           <ul class="ref-list">
             <li>
-                <a href="profile url if you have" rel="noopener" target="_blank"
-                  ><span>Jayes Raj Neti, Nitesh Verma</span></a
-                >
-              </li>
+                <a href="https://github.com/SequencerBit" rel="noopener" target="_blank"><span>Jayes Raj Neti</span></a>
+            </li>
+            <li>
+              <a href="https://github.com/nitesh4456" rel="noopener" target="_blank"><span>Nitesh Verma</span></a>
+            </li>
           </ul>
           <h3>Mentors</h3>
           <ul class="ref-list">
