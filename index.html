@@ -379,24 +379,30 @@
               <iframe src="project.html" frameborder="0" ></iframe><!--class="content" -->
             </div>
             <div class="right_pannel">
-              <h1>Instructions to Use</h1>
-              <p>Circles represents Processes and Squares represents Resource-Instances</p>
-              <img src="./images/Process.png" alt="resouce select" class="Select"><img src="./images/Resource.png" alt="process select" class="Select">
-              <p>To select/de-select a Process/Resource-Instance, just right click on it.The selected element will be highlighted with green.</p>
-              <img src="./images/process_select.png" alt="process select" class="Select"><img src="./images/resource_select.png" alt="process select" class="Select">
-              <p>To create an Edge, first select a Process/Resource-Instance and then select another Process/Resource-Instance(Edge will be created)</p>
-              <p><img src="./images/Edge1.png" alt="resouce->process" class="Edge">is Assignment Edge</p>
-              <p><img src="./images/Edge2.png" alt="process->resoucre" class="Edge">is Resquest Edge</p>
-              <p>Trying to re-create existing edge, will delete it.(Selection should be as is existing edge, select the tail first and then the head of edge)</p>
-              <img src="./images/Delete1.png" alt="resouce select" class="Edge">
-              <img src="./images/Delete2.png" alt="process select" class="Edge">
-              <p>
-                Two views are defined "View Hold-Wait" and "View Circular-Wait", both are of main conditions for a deadlock to occur.
-              </p>
-              <p>To delete a Process/Resource-Instance right click on it after clicking Toggle Delete button.</p>
-              <p id=bolder>"Each button’s label reflects its functionality"</p>
+              <h1 class="instructionsN">Instructions to Use</h1>
+              <p>1.<span class="bolder">Process:</span> Each Process node is represented by Circles and is numbered as P1,P2,P3 to Pn if the graph has ‘n’ Processes.</p>
+              <p>2.<span class="bolder">Resource:</span> Each Resource is represented by a gray square box, with some resource-instances in them(orange boxes). A resource should have a minimum of 1 resource-instance. </p>
+              <p>3.<span class="bolder">Resource-Instance:</span> Each Resource-Instance is represented by an orange square box, and are numbered as - if Resource 3 has ‘m’ resource instances all this will be numbered as 3.1,3.2,3.3,3.4 to 3.m  there is not any 3.0 possible.</p>
+              <p>4.<span class="bolder">Selection:</span> Right-click on  any Process or Resource-Instance to select it. To de-select just right-click again.</p>
+              <p>5.<span class="bolder">Drag/Movement:</span> Drag any  Process/Resource in the graph simulation, using left click.</p>
+              <p>6.<span class="bolder">Assignment Edge Creation:</span> First right-click on any Resource-Instance and then right-click on any Process. This will create an assignment edge(Blue color) from that Resource-Instance to that Process.(<span class="bolder">Note:</span> a single resource-instance can’t be assigned to two different Processes, meaning there can’t be more than 1 assignment edges from a Resource-Instance.)</p>
+              <p>7.<span class="bolder">Requesting Edge Creation:</span> First right-click on any Process and then right-click on any Resource-Instance, this will create a Requesting edge from that Process to that Resource-Instance.(<span class="bolder">Note:</span> a single Process can’t  request two different Resource-Instances of a single Resource, meaning there can’t be more than 1 Requesting edges from Process to single Resource.)</p>
+              <p>8.<span class="bolder">Assignment/Requesting Edge deletion:</span> whether it is Assignment or requesting edge, to delete it  right click on its tail Process/Resource-Instance and then right-click on its head Process/resource-Instance.</p>
             </div>
-          </div>
+        </div>
+        <div id="Extra_instructions">
+              <h1>Button functionalities</h1>
+              <p>All the buttons provided below the graph simulation are used for following functionalities.</p>
+              <p>Left click on any button to use its functionality.</p>
+              <p>1.<span class="bolder">Add Processes:</span> Use to  add “n” number of processes into the  graph.</p>
+              <p>2.<span class="bolder">Add Resources:</span> Use to add “r” number of resources with each having minimum “s” number of resource-instances.</p>
+              <p>3.<span class="bolder">Add Resource-Instance:</span> Use this button to add 1 more Resource-Instance in any existing resource.</p>
+              <p>4.<span class="bolder">View Hold-wait:</span> Left clicking on this button, will activate the Visualisation of Hold-wait condition in the graph. The edges in hold-wait condition will then be highlighted by yellow color.</p>
+              <p>5.<span class="bolder">View Circular-wait:</span> Left clicking on this button, will activate the Visualisation of Circular-wait condition in the graph. The edges in circular-wait will then be highlighted by green color.</p>
+              <p>6.<span class="bolder">Delete:</span> Left clicking on this button will activate deletion mode, after this right-click on any Process or Resource-Instance to delete them.</p>
+              <p><span class="bolder">Notes:</span> Buttons having activation can be deactivated if  again left-click on the button.</p>
+              <p>7.<span class="bolder">Reset:</span> Left click on this button to make the graph simulation empty or to delete everything.</p>
+        </div>
       </div>
 
       <!-- Results -->

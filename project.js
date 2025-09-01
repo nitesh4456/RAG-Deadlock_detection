@@ -468,7 +468,7 @@
                             if(selectedNode.type === "resource" && d.type === "process"){//check if it is holded by another process 
                                 const edge_exits = links1.some(link => link.source===selectedNode.id && link.target!==d.id);
                                 if(edge_exits){
-                                    let meesage ="INVALID EDGE CREATION ERROR : The Resource Instnace , you are trying to assign is alreday assigned to a different process. This type of Assignment is not valid in Resource Allocation Graph (RAG).This violets the RAG property that is a single Resource Instance can be holded by a single Process at a Time. Please Check!!";
+                                    let meesage ="INVALID EDGE CREATION ERROR : a single Resource-Instnace can't be assigned to more than 1 Processes.";
                                     show_message(meesage)
                                     return ;
                                 }
@@ -504,7 +504,7 @@
                         renderGraph();  // Re-render the graph
                     }
                     else {//if user select similar type nodes
-                        let message="INVALID EDGE CREATION ERROR : You are trying to create an Edge Process to Process or Resource to Resource. But this violets the RAG property. A RAG can have Edges only Process to Resource Instnace or Resource Instnace to Process. Please CHECK!!"
+                        let message="INVALID EDGE CREATION ERROR : You are trying to create an Edge Process to Process or Resource to Resource, which is not allowed in RAG. Please de-select(by right clicking on) the last selected Process/Resource-Instnace and try again to form any possible Assignment/Requesting edge."
                         show_message(message);
                     }
                 }
@@ -514,23 +514,83 @@
         }
 
         function toggled_Delete(){
-            if (is_delete===false){
-                is_delete = true;//iske aage kaam rendering kr dega 
-                let message="IN DELETION MODE: You are currently in Deletion Mode , Right clicking on any Process / Resource Instnace will delete that Process / Resource Instnace. To EXIT this mode just click again Toggle Delete button that is in right bottom corner!!"
-                show_message(message);
-                //
-                const btn = document.getElementById("delete-button");
-                btn.classList.add("delete-button-highlighted");
-                btn.classList.remove("blue");
+            deactivate_all();
+                if (is_delete===false){
+                    //hide messages and forms
+                    hide_addProcess();
+                    hide_addResouceInstnace();
+                    hide_addResouceInstnace_multiple();
+                    hide_message();
+                    is_delete = true;//iske aage kaam rendering kr dega 
+                    // let message="IN DELETION MODE: You are currently in Deletion Mode , Right clicking on any Process / Resource Instnace will delete that Process / Resource Instnace. To EXIT this mode just click again Toggle Delete button that is in right bottom corner!!"
+                    let message="Activating Deletion mode, Right-click on any Process or Resource-Instance to delete it. To deactivate please click again on Delete button."
+                    show_message(message);
+                    //
+                    const btn = document.getElementById("delete-button");
+                    btn.classList.add("delete-button-highlighted");
+                    btn.classList.remove("blue");
+                    }
+                else{
+                    is_delete=false;
+                    // let message="OUT DELETION MODE: You have Existed the Deletion Mode. Now , You can use the graph simulation smoothly!!"
+                    let message="Deactivating Deletion mode. To activate again please click again on Delete button."
+                    show_message(message);
+                    const btn = document.getElementById("delete-button");
+                    btn.classList.add("blue");
+                    btn.classList.remove("delete-button-highlighted");
                 }
-            else{
+            }
+
+        function toggled_reset(x=1){
+            deactivate_all();
+            let message="Reseting the graph to be empty."
+            if(x==1){
+            show_message(message);
+            }
+            //reset all views
+            isHold = false;
+            isCycle = false;
+            is_delete = false;
+            //delete all nodes and links
+            
+            console.log(nodes1.length)
+            nodes.splice(0,nodes.length)
+            nodes1.splice(0,nodes1.length);
+            links.splice(0,links.length)
+            links1.splice(0,links1.length)
+            console.log(nodes1.length)
+            renderGraph();
+        }
+
+        function deactivate_all(){
+            //hide forms
+            hide_addProcess();
+            hide_addResouceInstnace();
+            hide_addResouceInstnace_multiple();
+            
+            //deactivate view hold-wait 
+            if(isHold==true){
+                isHold=false;
+                const btn = document.getElementById("hold-button")
+                btn.classList.add("blue")
+                btn.classList.remove("hold-button-highlighted")
+            }
+            //deactivate view circular-wait 
+            if(isCycle==true){
+                isCycle=false;
+                const btn1 = document.getElementById("circular-button")
+                btn1.classList.add("blue")
+                btn1.classList.remove("circular-button-highlighted")
+            }
+            //deactivate deletion mode
+            if(is_delete==true){
                 is_delete=false;
-                let message="OUT DELETION MODE: You have Existed the Deletion Mode. Now , You can use the graph simulation smoothly!!"
-                show_message(message);
                 const btn = document.getElementById("delete-button");
                 btn.classList.add("blue");
                 btn.classList.remove("delete-button-highlighted");
             }
+            //hide messages
+            hide_message();
         }
 
         ///FORMS RELATED SETTINGS /////
@@ -553,11 +613,7 @@
         }
 
         function visible_Process(){
-            //hide message
-            hide_message();
-            //hide other forms
-            hide_addResouceInstnace();
-            hide_addResouceInstnace_multiple();
+            deactivate_all();
             //make the form visible to "Add processes"
             const div = document.getElementById("input_process");
             //console.log(div.className);
@@ -599,11 +655,7 @@
         }
 
         function visible_ResourceInstance(){//the similar is written as if it was called on class it will have displayed both forms of addd Proceess and of add resource instance 
-            //hide other message
-            hide_message();
-            //hide other forms first
-            hide_addProcess();
-            hide_addResouceInstnace_multiple();
+            deactivate_all();
             //make the form visible to "Add Resource Instance"
             const div = document.getElementById("input_resource_instance");
             div.classList.remove("input")
@@ -643,11 +695,7 @@
         }
         //for "ADD RESOURCES"
         function visible_ResourceInstance_multiple(){//the similar is written as if it was called on class it will have displayed both forms of addd Proceess and of add resource instance 
-            //hide other message
-            hide_message();
-            //hide other forms
-            hide_addProcess();
-            hide_addResouceInstnace();
+            deactivate_all();
             //make the form visible to "Add Resource Multile"
             const div = document.getElementById("input_resource_instance_multiple");
             div.classList.remove("input")
@@ -817,9 +865,9 @@
 
         //hold wait functionality  
         function show_links_hold_wait(){
+            deactivate_all();
             if(isHold===false){
-                //hide other messages
-                hide_message();
+
                 isHold = true;//iske aage kaam rendering kr dega 
                 //make the circular button normal
                 isCycle=false;
@@ -827,7 +875,9 @@
                 btn1.classList.add("blue")
                 btn1.classList.remove("circular-button-highlighted")
                 calc_hold_wait_edges()
-                let message="IN HOLD-WAIT VIEW: You have activated Hold-Wait View that means you can run the Graph Simulation smoothly. But the the Graph will now check each Edge for Hold-Wait Condition if the edge in Hold-wait condition (or comes in Hold-wait condition in future) it will be highlighted with YELLOW!!. Hold-Wait condition comes into view when a Resource-Instance is holded by a Process and Process requests another Resource-Instnace which is holded by another Process at a same Time. To exit this view, again click on View Hold-Wait Button.";
+                // let message="IN HOLD-WAIT VIEW: You have activated Hold-Wait View that means you can run the Graph Simulation smoothly. But the the Graph will now check each Edge for Hold-Wait Condition if the edge in Hold-wait condition (or comes in Hold-wait condition in future) it will be highlighted with YELLOW!!. Hold-Wait condition comes into view when a Resource-Instance is holded by a Process and Process requests another Resource-Instnace which is holded by another Process at a same Time. To exit this view, again click on View Hold-Wait Button.";
+                // let message="Hold-Wait View: When activated, the graph highlights edges in yellow if a hold-wait occurs (a process holding one resource requests another already held by another process). Click View Hold-Wait again to exit."
+                let message ="Activating HOLD-WAIT View : the graph simulation will now highlight the edges in yellow if they found in hold-wait condition. To deactivate this, please click again on 'View Hold & wait' button."
                 show_message(message); 
                 ///
                 const btn = document.getElementById("hold-button")
@@ -836,7 +886,8 @@
             }
             else{
                 isHold=false;//iske aage kaam rendering kr dega
-                let message="OUT of HOLD-WAIT VIEW : You have been out of Hold-Wait View , Now the edges in Hold-Wait condition will not be highlighted.!!";
+                // let message="OUT of HOLD-WAIT VIEW : You have been out of Hold-Wait View , Now the edges in Hold-Wait condition will not be highlighted.!!";
+                let message="Deactivating HOLD-WAIT view. To activate again, please click again on 'View Hold & Wait' button"
                 show_message(message); 
                 ////
                 const btn = document.getElementById("hold-button")
@@ -846,22 +897,15 @@
             //console.log("isHold : " , isHold)
             renderGraph();//re-render for applying the view
         }
-        function show_links_circular_wait(){
-            //console.log("the calculation is correct check further functionality");
-            
+        function show_links_circular_wait(){           
+            deactivate_all();
             if(isCycle===false){
-                //hide other messages
-                hide_message();
-                
                 isCycle = true;//iske aage kaam rendering kr dega 
                 isHold=false;
-                //make the hold wait button normal stop its visulisation
-                const btn = document.getElementById("hold-button")
-                btn.classList.add("blue")
-                btn.classList.remove("hold-button-highlighted")
                 ////
                 clac_cycle_edges()
-                let message="IN CIRCULAR-WAIT VIEW: You have activated Circular-Wait View that means you can run the Graph Simulation smoothly. But the the Graph will now check each Edge for Circular-Wait Condition if the edge in Circular-wait condition (or comes in Circular-wait condition in future) it will be highlighted with GREEN!!. Circular-Wait condition comes into view when a Process P1 is waiting for a resource held by P2, P2 is waiting for a resource held by P3, ... and finally, Pn is waiting for a resource held by P1 at a same Time. This forms a cycle in the RAG. To exit this view, again click on View Circular-Wait Button.";
+                // let message="IN CIRCULAR-WAIT VIEW: You have activated Circular-Wait View that means you can run the Graph Simulation smoothly. But the the Graph will now check each Edge for Circular-Wait Condition if the edge in Circular-wait condition (or comes in Circular-wait condition in future) it will be highlighted with GREEN!!. Circular-Wait condition comes into view when a Process P1 is waiting for a resource held by P2, P2 is waiting for a resource held by P3, ... and finally, Pn is waiting for a resource held by P1 at a same Time. This forms a cycle in the RAG. To exit this view, again click on View Circular-Wait Button.";
+                let message="Activating CIRCULAR-WAIT VIEW : the graph simulation will now highlight the edges in Green, if they found in circular-wait condition. To deactivate this, please click again on 'View Circular wait' button."
                 show_message(message); 
                 ///
                 const btn1 = document.getElementById("circular-button")
@@ -871,7 +915,8 @@
             }
             else{
                 isCycle=false;//iske aage kaam rendering kr dega 
-                let message="OUT of CIRCULAR-WAIT VIEW : You have been out of Circular-Wait View , Now the edges in Circular-Wait condition will not be highlighted.!!";
+                // let message="OUT of CIRCULAR-WAIT VIEW : You have been out of Circular-Wait View , Now the edges in Circular-Wait condition will not be highlighted.!!";
+                let message="Deactivating Circular-WAIT view. To activate again, please click again on 'View Circular Wait' button"
                 show_message(message);
                 ///
                 const btn1 = document.getElementById("circular-button")
@@ -911,6 +956,7 @@
         yellowLinks=[];//just making the yelloLinks empty in start //dont delete this
         cycleLinks=[];//just making the cycleLinks empty in start //dont delete this
         local_iteration_cycle_links=[];
+        toggled_reset(0);
         renderGraph();
         
         // Update positions of links and nodes after every tick of the simulation
