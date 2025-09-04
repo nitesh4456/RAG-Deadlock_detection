@@ -468,7 +468,7 @@
                             if(selectedNode.type === "resource" && d.type === "process"){//check if it is holded by another process 
                                 const edge_exits = links1.some(link => link.source===selectedNode.id && link.target!==d.id);
                                 if(edge_exits){
-                                    let meesage ="INVALID EDGE CREATION ERROR : a single Resource-Instnace can't be assigned to more than 1 Processes.";
+                                    let meesage ="INVALID EDGE CREATION ERROR : a single Resource-Instnace can't be assigned to more than 1 Processes.F";
                                     show_message(meesage)
                                     return ;
                                 }
@@ -613,7 +613,17 @@
         }
 
         function visible_Process(){
-            deactivate_all();
+            // deactivate_all();
+            hide_addResouceInstnace();
+            hide_addResouceInstnace_multiple();
+            hide_message();
+            //deactivate deletion mode
+            if(is_delete==true){
+                is_delete=false;
+                const btn = document.getElementById("delete-button");
+                btn.classList.add("blue");
+                btn.classList.remove("delete-button-highlighted");
+            }
             //make the form visible to "Add processes"
             const div = document.getElementById("input_process");
             //console.log(div.className);
@@ -655,7 +665,18 @@
         }
 
         function visible_ResourceInstance(){//the similar is written as if it was called on class it will have displayed both forms of addd Proceess and of add resource instance 
-            deactivate_all();
+            // deactivate_all();
+            // deactivate_all();
+            hide_addResouceInstnace();
+            hide_addResouceInstnace_multiple();
+            hide_message();
+            //deactivate deletion mode
+            if(is_delete==true){
+                is_delete=false;
+                const btn = document.getElementById("delete-button");
+                btn.classList.add("blue");
+                btn.classList.remove("delete-button-highlighted");
+            }
             //make the form visible to "Add Resource Instance"
             const div = document.getElementById("input_resource_instance");
             div.classList.remove("input")
@@ -695,7 +716,18 @@
         }
         //for "ADD RESOURCES"
         function visible_ResourceInstance_multiple(){//the similar is written as if it was called on class it will have displayed both forms of addd Proceess and of add resource instance 
-            deactivate_all();
+            // deactivate_all();
+            // deactivate_all();
+            hide_addResouceInstnace();
+            hide_addResouceInstnace_multiple();
+            hide_message();
+            //deactivate deletion mode
+            if(is_delete==true){
+                is_delete=false;
+                const btn = document.getElementById("delete-button");
+                btn.classList.add("blue");
+                btn.classList.remove("delete-button-highlighted");
+            }
             //make the form visible to "Add Resource Multile"
             const div = document.getElementById("input_resource_instance_multiple");
             div.classList.remove("input")
@@ -866,7 +898,7 @@
         //hold wait functionality  
         function show_links_hold_wait(){
             deactivate_all();
-            if(isHold===false){
+            if(isHold==false){
 
                 isHold = true;//iske aage kaam rendering kr dega 
                 //make the circular button normal
@@ -898,8 +930,9 @@
             renderGraph();//re-render for applying the view
         }
         function show_links_circular_wait(){           
-            deactivate_all();
-            if(isCycle===false){
+            deactivate_all();//will deactivate if it was true;
+
+            if(isCycle==false){
                 isCycle = true;//iske aage kaam rendering kr dega 
                 isHold=false;
                 ////

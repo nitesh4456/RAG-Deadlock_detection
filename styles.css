@@ -491,7 +491,7 @@ p img {
   width: 92%;
   max-width: 1440px;
   min-width: calc(100vw - 8vw);
-  margin: 20px auto;
+  /* margin: 20px auto; */
   background-color: #fff;
   padding: 5vh;
   border: 1px solid #ccc;
