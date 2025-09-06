@@ -104,10 +104,7 @@
       <div class="container" id="aim">
         <div class="title">Aim</div>
         <div class="content">
-          <p>The objective of this experiment is to provide a comprehensive understanding of Resource Allocation Graphs (RAGs) and their usage in operating systems for allocation of resources to processes and to detect potential deadlocks. 
-            </p>
-            <br>
-            <p>This simulation helps users visualize how resources and processes interact, and how deadlocks can be detected before they cause system failures. It serves as a practical tool to deepen one's understanding of deadlock detection mechanisms, which are crucial for designing robust, concurrent systems in operating systems and distributed computing environments.</P>
+          <p>The objective of this virtual lab is to provide a comprehensive understanding of Resource Allocation Graphs (RAGs) and their usage in operating systems for the allocation of resources to processes and to detect potential deadlocks for two conditions (hold-and-wait and circular-wait) through interactive simulation. 
           </p>
         </div>
       </div>
@@ -118,29 +115,33 @@
         <div class="content">
           <span>Key Concepts</span>
             <ul>
-            <li>Resource Allocation Graph (RAG):</li>
+            <li>Resource Allocation Graph (RAG)</li>
             <p>
-              A type of Directed graph with nodes representing either programmes or resources and arrows representing either allocation of a resource to a programme, or the request by a programme to access a resource, it is useful in visualising which programme is holding and requesting which resource and which resource is being used or is free, it is also useful in determining if the condition of programmes and resources might result in a deadlock or not
+              A type of directed graph with two types of nodes representing either processes or resources and arrows representing either allocation of a resource to a process, or the request by a process to access a resource, it is useful for visualising if a resource is free or in use, and which resources a process is requesting for.
             </p>
             <br>
             <li>Deadlock</li>
-
             <p>
-              A deadlock is a situation where processes are stuck. This happens when a set of processes cannot acquire the resources they have requested because those resources are held by other processes, and those processes are, in turn, holding onto resources needed by the first set. This results in a scenario where no process can continue its execution.
+              A deadlock is a situation where processes are stuck. This happens when a set of processes cannot acquire the resources they need to complete their work because those resources are held by other processes, a circular path of such conditions in a RAG leads to a stuck situation
             </p>
             <br>
             <li>Finding Deadlock</li>
             <p>
-              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. Since in our case we assume the resources are multiple instance, finding deadlock is more difficult, but generally, we can say that a deadlock may be present if the given 4 conditions are present in the RAG:
+              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. detection of deadlock in single instance scenario is straightforward, but gets complicated in case of multi-instance. generally, it can be said that a deadlock may be present if the following 4 conditions are present in the RAG:
             </p>
+                <ol style="list-style-type: upper-roman;">
+                  <li><strong>Mutual Exclusion:</strong> Each resource can be held by only one process.</li>
+                  <li><strong>No Preemption:</strong> Resources must be released manually from a process before being reassigned to another request.</li>
+                  <li><strong>Hold and Wait:</strong> A process is already holding a resource while requesting same instance or another resource that is currently held.</li>
+                  <li><strong>Circular Wait:</strong> A hold and wait condition occures in a circular form in the RAG</li>
+                </ol>
             <br>
             </ul>
-
-            <span>Applications in the Real World</span>
+            <span>Applications of RAG in the Real World</span>
             <ol>
-              <li>Server Load Balancing – Using RAGs to evenly distribute requests across available servers and avoid bottlenecks.</li>
+              <li>Server Load Balancing – To evenly distribute requests across available servers and avoid bottlenecks.</li>
               <li>Operating Systems – Managing process-resource allocation to detect and prevent deadlocks in CPU and memory usage.</li>
-              <li>Database Management – Ensuring transaction scheduling doesn’t lead to resource deadlocks.</li>
+              <li>Database Management – Ensuring transaction scheduling doesn't lead to resource deadlocks.</li>
               <li>Cloud Resource Management – Allocating virtual machines and storage resources efficiently to various services.</li>
               <li>Traffic Systems – Coordinating traffic light resources and vehicle flows to prevent circular wait deadlocks.</li>
             </ol>
@@ -159,22 +160,20 @@
               <li><span>Creating the RAG using the input given by the user:</span></li>
               <ul>
                 <li>Enter the number of resources and specify the instances for each resource.</li>
-                <li>Enter the number of processes to include in the graph.</li>
-                <li>To add a Request edge, right-click on a process, then right-click on the resource it is requesting.</li>
-                <li>To add an Assignment edge, right-click on a resource, then right-click on the process that holds it.</li>
+                <li>Enter the number of processes to be included in RAG.</li>
+                <li>To add a request edge, right-click on a process icon, then right-click on the resource it is requesting.</li>
+                <li>To add an assignment edge, right-click on a resource icon, then right-click on the process that holds it.</li>
               </ul>
               <br>
               <li><span>Finding Deadlock in the Given Graph:</span></li><br>
-                <p>Check for the four necessary conditions for deadlock:</p><br>
-                <ul>
-                  <li><strong>Mutual Exclusion:</strong> Each resource can be held by only one process. (This is always true.)</li>
-                  <li><strong>No Preemption:</strong> Resources must be released manually before being reassigned. (This is also always true.)</li>
-                  <li><strong>Hold and Wait:</strong> For each process, check if it is holding a resource while requesting another that is currently held. If true, the edge is highlighted in yellow. (toggle 'view hold & wait')</li>
-                  <li><strong>Circular Wait:</strong> Use DFS on each node to check for a cycle. If a cycle is found, the edge is highlighted in green. (toggle 'view circular wait')</li>
-                </ul>
+                <p>Check for the following conditions to find potential deadlock:</p><br>
+                <ol style="list-style-type: upper-roman;">
+                  <li><strong>Hold and Wait:</strong> For each process, check if it is holding a resource while requesting same instance or another resource that is currently held. If true, the edge is highlighted in yellow. (toggle 'view hold & wait')</li>
+                  <li><strong>Circular Wait:</strong> Use Depth First Search on each node to check for a cycle. If a cycle is found, the edge is highlighted in green. (toggle 'view circular wait')</li>
+                </ol>
               </ol>
             <p>
-              Finally, we would have not only found what the RAG for the given programme and resources in the given condition is but also found if the graph results in a deadlock or not.
+              This procedure leads to creation of a RAG and highlights the conditions responsible for presence of a deadlock
             </p>
         </div>
       </div>
@@ -411,10 +410,10 @@
         <div class="content">
           <!-- <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p> -->
           <br>
-          <p>In this experiment, you created and interacted with a Resource Allocation Graph (RAG) to simulate the allocation and request of resources by processes. By adding multiple processes, resources, and resource instances, and visualizing their interactions, you observed how certain conditions-such as hold-and-wait and circular-wait can lead to a deadlock.
+          <p>In this experiment, a Resource Allocation Graph (RAG) was created and used to simulate the allocation and request of resources by processes. With the addition of multiple processes, resources, and resource instances, their interactions were visualized, demonstrating how conditions such as hold-and-wait and circular-wait can result in a deadlock.
           </p>
           <br>
-          <p>Through the graphical interface, you were able to identify where these deadlock conditions occurred in real time. This helped reinforce your understanding of how system deadlocks form and how they can be detected using RAG. You also learned how careful resource management and request handling are crucial to avoiding such issues in concurrent systems.
+          <p>Through the graphical interface, occurrences of deadlock conditions were identified in real time. This observation reinforced the concept of system deadlock formation and its detection through a Resource Allocation Graph (RAG). Furthermore, the experiment emphasized that careful resource management and controlled request handling are essential for preventing such issues in concurrent systems
           </p>
         </div>
       </div>
@@ -426,10 +425,11 @@
 
         <!-- Quiz Instructions -->
         <div id="quiz-instructions">
-          <h3>ADD YOUR INSTRUCTIONS HERE</h3>
+          <h3>INSTRUCTIONS</h3>
           <ul>
+            <li>There are 4 questions in total</li>
             <li>Read each question carefully before answering.</li>
-            <li>Select the correct option(s).</li>
+            <li>Select the correct option(s) (multiple options CAN be correct).</li>
             <li>Click <b>Next</b> to move to the following question.</li>
             <li>At the end, you can view your quiz report and retake the quiz if needed.</li>
           </ul>
@@ -473,7 +473,7 @@
           <h3>Students</h3>
           <ul class="ref-list">
             <li>
-                <a href="https://github.com/SequencerBit" rel="noopener" target="_blank"><span>Jayes Raj Neti</span></a>
+                <a href="https://github.com/SequencerBit" rel="noopener" target="_blank"><span>Jayesh Raj Neti</span></a>
             </li>
             <li>
               <a href="https://github.com/nitesh4456" rel="noopener" target="_blank"><span>Nitesh Verma</span></a>
