@@ -135,24 +135,24 @@ document.querySelectorAll(".copy-button").forEach((button) => {
 // Quiz Logic
 const questions = [
   {
-    question: " Q1) Which of the following is NOT one of the 4 conditions needed for deadlock",
-    choices: ["Mutual Exclusion", "Circular Wait", "Recursive check", "Hold and wait"],
-    correctAnswers: [2], // Correct answers are indexes 0 and 2 (multiple answers possible)
+    question: " Q1) Which of the following is not one of the four necessary conditions for a deadlock to occur",
+    choices: ["Mutual Exclusion", "Circular Wait", "Recursive Check", "Hold and wait"],
+    correctAnswers: [2], 
   },
   {
-    question: " Q2) Which of the following is true for a RAG",
-    choices: ["resources can only have 1 istance", "It is used for CPU Resouce managmenet", "It is can help find presence of deadlock", "RAG stands for Resource Augmented Graph"],
-    correctAnswers: [1,2], // Correct answer is index 1 (single answer)
+    question: " Q2) Which of the following are true for a RAG",
+    choices: ["resources can only have 1 instance", "It is used for System Resouce managmenet", "It can help find presence of deadlock", "RAG stands for Resource Augmented Graph"],
+    correctAnswers: [1,2], 
   },
   {
-    question: "Q3) S: Deadlock can be present in a RAG if we find a cycle and each resource has single isntance \nR: in case of single instance since they can be held by only one proccess, the requesting proccess cannot get the resource until it's free",
-    choices: ["S is true R is false", "S is false R is true", "Both false", "Both true"],
-    correctAnswers: [3], // Correct answer is index 1 (single answer)
+    question: "Q3) Statement: Deadlock can be present in a RAG if we find a cycle and each resource has single isntance \nReason: in case of single instance since they can be held by only one process, the requesting process cannot get the resource until it's free",
+    choices: ["Statement is true Reason is false", "Statement is false Reason is true", "Both false", "Both true"],
+    correctAnswers: [3], 
   },
   {
-    question: "Q4) If mutual exclusion, hold wait circular wait and no preemption is present what can be said about presence of deadlock",
-    choices: ["Definetly present", "Definetly Absent", "Possible Deadlock but not guranteed", "Conditions give no info about deadlock"],
-    correctAnswers: [2], // Correct answer is index 1 (single answer)
+    question: "Q4) What does the presence of 'No-Preemption' mean",
+    choices: ["Resources can be taken back by the system", "A process gives up resources only when finished", "Resources cannot be taken away from a process", "Conditions give no info about deadlock"],
+    correctAnswers: [2], 
   },
 ];
 
