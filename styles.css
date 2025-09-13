@@ -707,6 +707,7 @@ input[type="radio"] {
 }
 
 #quiz-instructions li {
+  text-align: left;
   margin-bottom: 8px;
 }
 
@@ -730,6 +731,7 @@ input[type="radio"] {
   background: #00a4b3;
 }
 #question {
+  text-align: left;
   font-size: 18px;
   margin-bottom: 10px;
   color: #444;
@@ -744,6 +746,7 @@ input[type="radio"] {
 }
 
 .choices .choice {
+  text-align: left;
   width: 100%;
   max-width: 400px;
   padding: 10px;
@@ -793,6 +796,7 @@ input[type="radio"] {
 }
 
 #quiz-report {
+  text-align: left;
   margin-top: 20px;
   padding: 10px;
   background-color: #f9f9f9;

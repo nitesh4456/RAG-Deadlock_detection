@@ -135,22 +135,22 @@ document.querySelectorAll(".copy-button").forEach((button) => {
 // Quiz Logic
 const questions = [
   {
-    question: " Q1) Which of the following is not one of the four necessary conditions for a deadlock to occur",
+    question: " Q1) Which of the following is not one of the four necessary conditions for a deadlock to occur?",
     choices: ["Mutual Exclusion", "Circular Wait", "Recursive Check", "Hold and wait"],
     correctAnswers: [2], 
   },
   {
-    question: " Q2) Which of the following are true for a RAG",
-    choices: ["resources can only have 1 instance", "It is used for System Resouce managmenet", "It can help find presence of deadlock", "RAG stands for Resource Augmented Graph"],
+    question: " Q2) Which of the following are true for a RAG?",
+    choices: ["Resources can only have 1 instance", "It is used for System Resouce managmenet", "It is used to find deadlocks", "RAG stands for Resource Augmented Graph"],
     correctAnswers: [1,2], 
   },
   {
-    question: "Q3) Statement: Deadlock can be present in a RAG if we find a cycle and each resource has single isntance \nReason: in case of single instance since they can be held by only one process, the requesting process cannot get the resource until it's free",
-    choices: ["Statement is true Reason is false", "Statement is false Reason is true", "Both false", "Both true"],
+    question: "Q3) <b>Statement:</b> Deadlock can be present in a RAG if we find a cycle and each resource has single isntance <p><b>Reason:</b> in case of single instance since they can be held by only one process, the requesting process cannot get the resource until it's free.</p>",
+    choices: ["Statement is true, Reason is false", "Statement is false, Reason is true", "Both statement and reason are false", "Both statement and reason true"],
     correctAnswers: [3], 
   },
   {
-    question: "Q4) What does the presence of 'No-Preemption' mean",
+    question: "Q4) What does the presence of 'No-Preemption' mean?",
     choices: ["Resources can be taken back by the system", "A process gives up resources only when finished", "Resources cannot be taken away from a process", "Conditions give no info about deadlock"],
     correctAnswers: [2], 
   },
@@ -169,7 +169,7 @@ const quizReport = document.getElementById("quiz-report");
 function showQuestion() {
   // console.log("showQuestion called, currentQuestionIndex:", currentQuestionIndex);
   let currentQuestion = questions[currentQuestionIndex];
-  questionElement.textContent = currentQuestion.question;
+  questionElement.innerHTML = currentQuestion.question;
   choicesContainer.innerHTML = "";
   userAnswers[currentQuestionIndex] = [];
 
@@ -253,7 +253,7 @@ function displayQuizReport() {
     questionDiv.classList.add("quiz-report-question");
 
     const questionText = document.createElement("p");
-    questionText.textContent = q.question;
+    questionText.innerHTML = q.question;
     questionDiv.appendChild(questionText);
 
     const choicesList = document.createElement("ul");
@@ -261,10 +261,11 @@ function displayQuizReport() {
       const choiceItem = document.createElement("li");
       const isSelected = userAnswer.includes(i);
       const isCorrect = q.correctAnswers.includes(i);
-
+      if(!isSelected){
+        choiceItem.style.color = isCorrect ? "orange" : "black";
+      }
       if (isSelected) {
-        choiceItem.style.backgroundColor = isCorrect ? "green" : "red";
-        choiceItem.style.color = "white";
+        choiceItem.style.color = isCorrect ? "green" : "red";
       }
       choiceItem.textContent = choice;
       choicesList.appendChild(choiceItem);
