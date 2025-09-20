@@ -10,7 +10,7 @@
   <link rel="icon" href="images/vlab-logo.png" type="image/x-icon" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/harmonic16-dark.min.css" />
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/harmonic16-dark.min.css" /><!-- used for highlighting selected item in simulation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script><!--D3 force simulation -->
@@ -42,8 +42,6 @@
         d="M11 18.5c-.4-.1-1.3-.9-5.5-5.2-3.4-3.4-5.1-5.2-5.2-5.5-.2-.5-.2-1.0 0-1.4.3-.9 1.5-1.4 2.3-1 .1 0 2.2 2.1 4.7 4.5 2.5 2.5 4.5 4.5 4.7 4.5.3.1-.3.7 6.8-6.3 2.8-2.8 3-2.9 3.8-2.8 1.1.2 1.8 1.4 1.4 2.5-.2.5-10.1 10.3-10.7 10.6-.6.3-1.6.4-2.3.1z" />
     </svg>
   </button>
-
-
 
   <div class="yourvlabtitle">
     <h1>Deadlock Detection Using Resource Allocation Graph</h1>
@@ -374,9 +372,7 @@
             <div id="rag-container"></div>
             <div class="button_box">
                 <button class="blue" onclick="visible_Process()">Add Processes</button>
-                <!-- <button class="blue" onclick="addMultipleResources()">Add Resources</button> -->
                 <button class="blue" onclick="visible_ResourceInstance_multiple()">Add Resources</button>
-                <!-- <button class="blue" onclick="addResourceInstance()">Add Resource Instance</button> -->
                 <button class="blue" onclick="visible_ResourceInstance()">Add Resource Instance</button>
                 <button class="blue" id="hold-button" onclick="show_links_hold_wait()">View Hold-Wait </button>
                 <button class="blue" id="circular-button" onclick="show_links_circular_wait()">View Circular-Wait </button>
@@ -387,26 +383,28 @@
             </div>
             <div id="Extra_instructions">
               <h1>Instructions to Use</h1>
-              <p>1.<span class="bolder">Process:</span> Each Process node is represented by Circles and is numbered as P1,P2,P3 to Pn if the graph has ‘n’ Processes.</p>
-              <p>2.<span class="bolder">Resource:</span> Each Resource is represented by a gray square box, with some resource-instances in them(orange boxes). A resource should have a minimum of 1 resource-instance. </p>
-              <p>3.<span class="bolder">Resource-Instance:</span> Each Resource-Instance is represented by an orange square box, and are numbered as - if Resource 3 has ‘m’ resource instances all this will be numbered as 3.1,3.2,3.3,3.4 to 3.m  there is not any 3.0 possible.</p>
-              <p>4.<span class="bolder">Selection:</span> Right-click on  any Process or Resource-Instance to select it. To de-select just right-click again.</p>
-              <p>5.<span class="bolder">Drag/Movement:</span> Drag any  Process/Resource in the graph simulation, using left click.</p>
-              <p>6.<span class="bolder">Assignment Edge Creation:</span> First right-click on any Resource-Instance and then right-click on any Process. This will create an assignment edge(Blue color) from that Resource-Instance to that Process.(<span class="bolder">Note:</span> a single resource-instance can’t be assigned to two different Processes, meaning there can’t be more than 1 assignment edges from a Resource-Instance.)</p>
-              <p>7.<span class="bolder">Requesting Edge Creation:</span> First right-click on any Process and then right-click on any Resource-Instance, this will create a Requesting edge from that Process to that Resource-Instance.(<span class="bolder">Note:</span> a single Process can’t  request two different Resource-Instances of a single Resource, meaning there can’t be more than 1 Requesting edges from Process to single Resource.)</p>
-              <p>8.<span class="bolder">Assignment/Requesting Edge deletion:</span> whether it is Assignment or requesting edge, to delete it  right click on its tail Process/Resource-Instance and then right-click on its head Process/resource-Instance.</p>
+              <p>1.<span class="bolder">Process:</span> Each Process node is represented by (Circles) and is numbered as P1,P2,P3 to Pn if the graph has ‘n’ Processes.</p>
+              <p>2.<span class="bolder">Resource:</span> Each Resource is represented by a (Gray quare box), with some resource-instances in them(orange boxes). A resource should have a minimum of 1 resource-instance. </p>
+              <p>3.<span class="bolder">Resource-Instance:</span> Each Resource-Instance is represented by an orange square box, and are numbered as - R1.1, R1.2, R2.1, R3.1, R3.2, R3.3, ......, R m.n</p>
+              <p>4.<span class="bolder">Selection:</span> Right-click (long press for mobiles) on  any Process or Resource-Instance to select it, selected item will have (Green boundary). To de-select just right-click (long press for mobiles) again.</p>
+              <p>5.<span class="bolder">Drag/Movement:</span> Drag any  Process/Resource in the graph simulation, using left click (simple click for mobiles).</p>
+              <p>6.<span class="bolder">Assignment Edge Creation:</span> First right-click (long press for mobiles) on any Resource-Instance and then right-click (long press for mobiles) on any Process. This will create an assignment edge(Blue color) from that Resource-Instance to that Process.(<span class="bolder">Note:</span> a single resource-instance can’t be assigned to two different Processes)</p>
+              <p><span class="bolder">Note: Use Long Press for Right-click on mobile devices.</span></p>
+              <p>7.<span class="bolder">Requesting Edge Creation:</span> First right-click (long press for mobiles) on any Process and then right-click (long press for mobiles) on any Resource-Instance, this will create a Requesting edge from that Process to that Resource-Instance.(<span class="bolder">Note:</span> a single Process can’t  request two different Resource-Instances of a single Resource)</p>
+              <p>8.<span class="bolder">Assignment/Requesting Edge deletion:</span> whether it is Assignment or requesting edge, to delete it  right click (long press for mobiles) on its tail Process/Resource-Instance and then right-click (long press for mobiles) on its head Process/resource-Instance.</p>
             
               <h1>Button functionalities</h1>
-              <p>All the buttons provided below the graph simulation are used for following functionalities.</p>
-              <p>Left click on any button to use its functionality.</p>
+              <p>All the buttons provided below the graph simulation are used for the following functionalities.</p>
+              <p>Click on any button to use its functionality.</p>
               <p>1.<span class="bolder">Add Processes:</span> Use to  add “n” number of processes into the  graph.</p>
               <p>2.<span class="bolder">Add Resources:</span> Use to add “r” number of resources with each having minimum “s” number of resource-instances.</p>
               <p>3.<span class="bolder">Add Resource-Instance:</span> Use this button to add 1 more Resource-Instance in any existing resource.</p>
-              <p>4.<span class="bolder">View Hold-wait:</span> Left clicking on this button, will activate the Visualisation of Hold-wait condition in the graph. The edges in hold-wait condition will then be highlighted by yellow color.</p>
-              <p>5.<span class="bolder">View Circular-wait:</span> Left clicking on this button, will activate the Visualisation of Circular-wait condition in the graph. The edges in circular-wait will then be highlighted by green color.</p>
-              <p>6.<span class="bolder">Delete:</span> Left clicking on this button will activate deletion mode, after this right-click on any Process or Resource-Instance to delete them.</p>
-              <p><span class="bolder">Notes:</span> Buttons having activation can be deactivated if  again left-click on the button.</p>
-              <p>7.<span class="bolder">Reset:</span> Left click on this button to make the graph simulation empty or to delete everything.</p>
+              <p>4.<span class="bolder">View Hold-wait:</span> Activate the Visualisation of Hold-wait condition in the graph. The edges in hold-wait condition will then be highlighted by yellow color.</p>
+              <p>5.<span class="bolder">View Circular-wait:</span> Activate the Visualisation of Circular-wait condition in the graph. The edges in circular-wait will then be highlighted by green color.</p>
+              <p>6.<span class="bolder">Delete:</span> Activate deletion mode, after this right-click(long press for mobiles) on any Process or Resource-Instance to delete it.</p>
+              <p><span class="bolder">Note:</span> Buttons having activation can be deactivated if  again left-click (simple click for mobiles) on the button.</p>
+              <p>7.<span class="bolder">Reset:</span> Make the graph simulation empty or to delete everything.</p>
+              <p>8.<span class="bolder">Edge Creation/ Edge Deletion: </span>Instructions of creating/deleting edges. </p>
             </div>
             <!-- Extra forms  -->
             <div class="input" id="input_process">
@@ -482,8 +480,6 @@
       <div class="container" id="result">
         <div class="title">Result</div>
         <div class="content">
-          <!-- <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p> -->
-          <br>
           <p>In this experiment, an interactive RAG is created to simulate the allocation and request of resources by processes. The provision to add multiple processes, multiple resources with more than one instance allowed for realistic simulation of resource allocation within multiple processes in a system. The necessary conditions like  hold-and-wait and circular-wait are detected and shown visually for quick grasping of concepts related to deadlock detection
           </p>
           <br>
@@ -571,5 +567,4 @@
   </script>
   <script src="script.js"></script>
 </body>
-
 </html>

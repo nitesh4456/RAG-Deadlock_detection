@@ -191,7 +191,7 @@
         const nodeEnter = node.enter()
             .append("g")
             .attr("class", d => `node ${d.type}`)
-            .on("contextmenu", handleContextMenu);
+            .on("contextmenu", handleContextMenu);//detects right click on deskop and long-press on mobiles.
         
         // Add square nodes for resources
         nodeEnter.filter(d => d.type === 'resource')
@@ -290,28 +290,9 @@
 
                     nodes.splice(0, nodes.length, ...update_nodes);
                     nodes1.splice(0, nodes1.length, ...update_nodes);
-
-                    //nodes1.length=0;
-                    //nodes.push(...update_nodes);
-                    //nodes1.push(...update_nodes);
-                    //console.log("update nodes : " , nodes);
-
-                    
-                    //delete related edge 
-                    //console.log("existing links " , links);
-                    
                     let update_links = links.filter(link=>(link.source.id!==selectedNode.id && link.target.id!==selectedNode.id) )
-                    ////console.log("update links : " , upadte_links);
-                    //links.length=0;
-                    //links1.length=0;
-                    //links.push(...update_links)
-                    //links1.push(...update_links)
                     links.splice(0, links.length, ...update_links);
                     links1.splice(0, links1.length, ...update_links);
-
-                    
-
-                    //console.log("update links main links : " , links);
                     selectedNode = null;
                     d3.selectAll(".node").classed("highlight", false);
                     d3.selectAll(".node").data(nodes, d => d.id).exit().remove();
@@ -330,9 +311,8 @@
                         (selectedNode.type === "resource" && d.type === "process")
                     ) {
                         
-
                         //edge deletion logic .......
-                        //console.log("🔹 Trying to delete link:", selectedNode.id, "→", d.id);//working 
+                        //console.log("Trying to delete link:", selectedNode.id, "→", d.id);//working 
                             // Step 1: Find the index of the link to delete
                             const existingEdgeIndex1 = links1.findIndex(link => 
                                 link.source === selectedNode.id && link.target === d.id
@@ -549,7 +529,6 @@
                 is_delete=false;
                 renderGraph();
             }
-            //let message = "6.Assignment Edge Creation: First right-click on any Resource-Instance and then right-click on any Process. This will create an assignment edge(Blue color) from that Resource-Instance to that Process.(Note: a single resource-instance can’t be assigned to two different Processes, meaning there can’t be more than 1 assignment edges from a Resource-Instance.7.Requesting Edge Creation: First right-click on any Process and then right-click on any Resource-Instance, this will create a Requesting edge from that Process to that Resource-Instance.(Note: a single Process can’t request two different Resource-Instances of a single Resource, meaning there can’t be more than 1 Requesting edges from Process to single Resource.)"
             let message="Assignment Edge Creation: (Resource-Instnace -> Process, blue color) First right click on any Resource-Instance and then right click on any Process. Requesting Edge Creation: (Process -> Resource-Instnace, red color) First right click on any Process and then right click on any Resource-Istance."
             show_message(message)
         }
@@ -918,8 +897,6 @@
                 btn1.classList.add("blue")
                 btn1.classList.remove("circular-button-highlighted")
                 calc_hold_wait_edges()
-                // let message="IN HOLD-WAIT VIEW: You have activated Hold-Wait View that means you can run the Graph Simulation smoothly. But the the Graph will now check each Edge for Hold-Wait Condition if the edge in Hold-wait condition (or comes in Hold-wait condition in future) it will be highlighted with YELLOW!!. Hold-Wait condition comes into view when a Resource-Instance is holded by a Process and Process requests another Resource-Instnace which is holded by another Process at a same Time. To exit this view, again click on View Hold-Wait Button.";
-                // let message="Hold-Wait View: When activated, the graph highlights edges in yellow if a hold-wait occurs (a process holding one resource requests another already held by another process). Click View Hold-Wait again to exit."
                 let message ="Activating HOLD-WAIT View : Edges in Hold-wait condition will now highlighted with yellow. To deactivate click again on View Hold-Wait button."
 
                 // the graph simulation will now highlight the edges in yellow if they found in hold-wait condition. To deactivate this, please click again on 'View Hold & wait' button."
@@ -1006,19 +983,6 @@
             });
         }
         
-        // function applyBoundaryConstraints() {
-        //     const margin = groupSize / 2;
-        //     const svgWidth = svg.node().clientWidth;
-        //     const svgHeight = svg.node().clientHeight;
-        //     console.log(svgWidth,svgHeight);
-            
-
-        //     nodes.forEach(d => {
-        //         d.x = Math.max(margin, Math.min(d.x, svgWidth - margin));
-        //         d.y = Math.max(margin, Math.min(d.y, svgHeight - margin));
-        //     });
-        // }
-
 
 /*********************************************************************************** */
 /////////////////////////////////////////////////
@@ -1360,10 +1324,6 @@ showQuestion();
         let is_delete = false;
 
         //Assign widht and height based on device size (i.e responsivenness)
-
-
-
-
         // canvas for the render
         const width = 0.80*window.innerWidth
         const height = 600;
