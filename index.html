@@ -13,6 +13,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/harmonic16-dark.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script><!--D3 force simulation -->
 </head>
 
 <body>
@@ -369,12 +370,23 @@
       <div class="container" id="practice">
         <div class="title">Practice</div>
         <!-- <div class="content"></div> -->
-        <div class="content" id="practice_Content"><!--id="practice_Content"-->
-            <div id="frameParent">
-              <iframe src="project.html" frameborder="0" ></iframe><!--class="content" -->
+        <div class="content">
+            <div id="rag-container"></div>
+            <div class="button_box">
+                <button class="blue" onclick="visible_Process()">Add Processes</button>
+                <!-- <button class="blue" onclick="addMultipleResources()">Add Resources</button> -->
+                <button class="blue" onclick="visible_ResourceInstance_multiple()">Add Resources</button>
+                <!-- <button class="blue" onclick="addResourceInstance()">Add Resource Instance</button> -->
+                <button class="blue" onclick="visible_ResourceInstance()">Add Resource Instance</button>
+                <button class="blue" id="hold-button" onclick="show_links_hold_wait()">View Hold-Wait </button>
+                <button class="blue" id="circular-button" onclick="show_links_circular_wait()">View Circular-Wait </button>
+                <button class="blue" id="delete-button" onclick="toggled_Delete()">Delete</button>
+                <button class="blue" id="reset-button" onclick="toggled_reset()">Reset</button>
+                <button class="blue" id="reset-button" onclick="edge_creation()">Edge Creation</button>
+                <button class="blue" id="reset-button" onclick="edge_deletion()">Edge Deletion</button>
             </div>
-            <div class="right_pannel">
-              <h1 class="instructionsN">Instructions to Use</h1>
+            <div id="Extra_instructions">
+              <h1>Instructions to Use</h1>
               <p>1.<span class="bolder">Process:</span> Each Process node is represented by Circles and is numbered as P1,P2,P3 to Pn if the graph has ‘n’ Processes.</p>
               <p>2.<span class="bolder">Resource:</span> Each Resource is represented by a gray square box, with some resource-instances in them(orange boxes). A resource should have a minimum of 1 resource-instance. </p>
               <p>3.<span class="bolder">Resource-Instance:</span> Each Resource-Instance is represented by an orange square box, and are numbered as - if Resource 3 has ‘m’ resource instances all this will be numbered as 3.1,3.2,3.3,3.4 to 3.m  there is not any 3.0 possible.</p>
@@ -383,9 +395,7 @@
               <p>6.<span class="bolder">Assignment Edge Creation:</span> First right-click on any Resource-Instance and then right-click on any Process. This will create an assignment edge(Blue color) from that Resource-Instance to that Process.(<span class="bolder">Note:</span> a single resource-instance can’t be assigned to two different Processes, meaning there can’t be more than 1 assignment edges from a Resource-Instance.)</p>
               <p>7.<span class="bolder">Requesting Edge Creation:</span> First right-click on any Process and then right-click on any Resource-Instance, this will create a Requesting edge from that Process to that Resource-Instance.(<span class="bolder">Note:</span> a single Process can’t  request two different Resource-Instances of a single Resource, meaning there can’t be more than 1 Requesting edges from Process to single Resource.)</p>
               <p>8.<span class="bolder">Assignment/Requesting Edge deletion:</span> whether it is Assignment or requesting edge, to delete it  right click on its tail Process/Resource-Instance and then right-click on its head Process/resource-Instance.</p>
-            </div>
-        </div>
-        <div id="Extra_instructions">
+            
               <h1>Button functionalities</h1>
               <p>All the buttons provided below the graph simulation are used for following functionalities.</p>
               <p>Left click on any button to use its functionality.</p>
@@ -397,6 +407,74 @@
               <p>6.<span class="bolder">Delete:</span> Left clicking on this button will activate deletion mode, after this right-click on any Process or Resource-Instance to delete them.</p>
               <p><span class="bolder">Notes:</span> Buttons having activation can be deactivated if  again left-click on the button.</p>
               <p>7.<span class="bolder">Reset:</span> Left click on this button to make the graph simulation empty or to delete everything.</p>
+            </div>
+            <!-- Extra forms  -->
+            <div class="input" id="input_process">
+            <!-- ADD PROCESS --> <!-- Working OF THIS DIV the class ="input" is of display:none therefore the form is not visible in default So this form is being initialised at each window run  with prevented value by calling setupForm() at each when user clicks on "Add Processes" it calls "Visible_Process()" "addProcess()" chnages the class of this div to "input_visible" which makes the form to visible of window id = "input_process" is used to style this div        when user enters a value in form it calls "addNode(value)" function to add Process to graph on submit or Press Enter when user click on Cancel with using its id "cancel-button" a code is runned in the form which resets the form and  chnages the form's class to "input" which is in defult "display:none" -->
+              <p>How many Processes, you want to add in the graph ?</p>
+              <form id="process-form">
+                  <label for="input-for-process"></label>
+                  <input
+                  type="number"
+                  name="input-for-process"
+                  id="input-for-process"
+                  min="1"
+                  placeholder="Enter a number greater than or equal to 1"
+                  required
+                  />
+                  <button type="reset" id="cancel-button">Cancel</button>
+                  <button type="submit" id="submit-button">Submit</button>
+              </form>
+            </div>
+            <div class="input" id="input_resource_instance">
+                <!-- Similar to above but changed ids -->
+                <!-- <p>Enter Resource Number (like 1,2,3,,,) in which, You want to add 1 more Resource-Instance.</p> -->
+                <p>In which Resource, you want to add 1 more Resource-Instance ?</p>
+                <form id="resource-form">
+                    <label for="input-for-resource"></label>
+                    <input
+                    type="number"
+                    name="input-for-resource"
+                    id="input-for-resource"
+                    min="1"
+                    placeholder="Enter a number greater than or equal to 1."
+                    required
+                    />
+                    <button type="reset" id="cancel-button-resorce">Cancel</button>
+                    <button type="submit" id="submit-button-resorce">Submit</button>
+                </form>
+            </div>
+            <div class="input" id="input_resource_instance_multiple">
+                <!-- similar working of above with ids changed -->
+                <p>How many Resources, you want to add in the graph and the minimum Resource Instances does they all have ?</p>
+                <form id="resource-form-multiple">
+                    <label for="input-for-resource-multiple"></label>
+                    <input
+                    type="number"
+                    name="input-for-resource-multiple"
+                    id="input-for-resource-multiple"
+                    min="1"
+                    placeholder="Enter number of Resources"
+                    required
+                    />
+                    <label for="input-for-resource-multiple1"></label>
+                    <input
+                    type="number"
+                    name="input-for-resource-multiple1"
+                    id="input-for-resource-multiple1"
+                    min="1"
+                    placeholder="Enter minimum number of Resource-Instance per Resource"
+                    required
+                    />
+                    <button type="reset" id="cancel-button-resorce-multiple">Cancel</button>
+                    <button type="submit" id="submit-button-resorce-multiple">Submit</button>
+                </form>
+            </div>
+            <div class="input" id="alert_message_box">
+                <p id="message_para"></p>
+                <button type="button" id="acceptence_button_message" onclick="hide_message()">Ok, I got it</button>
+            </div>
+            
         </div>
       </div>
 
@@ -406,7 +484,7 @@
         <div class="content">
           <!-- <p>From this we obdain the knowledge of what exactly deadlocks are, how they form and what is the importance of detectingn them</p> -->
           <br>
-          <p>In this experiment, an interactive RAGE is created to simulate the allocation and request of resources by processes. The provision to add multiple processes, multiple resources with more than one instance allowed for realistic simulation of resource allocation within multiple processes in a system. The necessary conditions like  hold-and-wait and circular-wait are detected and shown visually for quick grasping of concepts related to deadlock detection
+          <p>In this experiment, an interactive RAG is created to simulate the allocation and request of resources by processes. The provision to add multiple processes, multiple resources with more than one instance allowed for realistic simulation of resource allocation within multiple processes in a system. The necessary conditions like  hold-and-wait and circular-wait are detected and shown visually for quick grasping of concepts related to deadlock detection
           </p>
           <br>
           <p>Through the graphical interface, occurrence of deadlock conditions are identified in real time. Furthermore, the provided simulation emphasized on the necessity of careful resource management and controlled request handling for preventing deadlock issues in concurrent systems.
@@ -449,19 +527,13 @@
         <div class="title">References</div>
         <div class="content">
           <ul class="ref-list">
-            <li>
-                <span> <a href="https://www.geeksforgeeks.org/operating-systems/introduction-of-operating-system-set-1/">geeksforgeeks - operating system</a> </span>
-              </li>
-              <li>
-                <span> <a href="https://www.geeksforgeeks.org/operating-systems/introduction-of-deadlock-in-operating-system/">geeksforgeeks - deadlock</a> </span>
-              </li>
-              <li>
-                <span> <a href="//d3js.org/">d3js.org</a> </span>
-              </li>
+            <li>[1] Mike Bostock. D3.js: Data-Driven Documents. 2025. Available at:  <a target="_blank" href="https://d3js.org/">https://d3js.org/ </a></li>
+            <li>[2] Mike Bostock. D3-force: Force-Directed Graph Layout. 2025. Available at: <a target="_blank" href="https://github.com/d3/d3-force">https://github.com/d3/d3-force</a></li>
+            <li>[3] Deadlock,” CS 341: System Programming Coursebook, University of Illinois. Available at:  <a target="_blank" href="https://cs341.cs.illinois.edu/coursebook/Deadlock">https://cs341.cs.illinois.edu/coursebook/Deadlock</a></li>
+            <li>[4] Silberschatz, A., Galvin, P. B., & Gagne, G. (2009). Chapter 7: Deadlocks. In Operating System Concepts with Java (8th ed.). University of Tennessee at Chattanooga. Availabe at <a target="_blank" href="https://www.utc.edu/sites/default/files/2021-04/2800-lecture7-deadlocks.pdf">https://www.utc.edu/sites/default/files/2021-04/2800-lecture7-deadlocks.pdf</a></li>
           </ul>
-        </div>
-      </div>
-
+        </div> 
+      </div>  
       <!-- Team & Tools -->
       <div class="container" id="tnt">
         <div class="title">Team & Tools</div>
@@ -469,15 +541,15 @@
           <h3>Students</h3>
           <ul class="ref-list">
             <li>
-                <a href="https://github.com/SequencerBit" rel="noopener" target="_blank"><span>Jayesh Raj Neti</span></a>
+                <a href="https://github.com/SequencerBit" rel="noopener" target="_blank"><span>Jayesh Raj Neti, 2nd Year, B.Sc(H) Computer Science </span></a>
             </li>
             <li>
-              <a href="https://github.com/nitesh4456" rel="noopener" target="_blank"><span>Nitesh Verma</span></a>
+              <a href="https://github.com/nitesh4456" rel="noopener" target="_blank"><span>Nitesh Verma, 2nd Year, B.Sc(H) Computer Science</span></a>
             </li>
           </ul>
           <h3>Mentors</h3>
           <ul class="ref-list">
-            <li><span>Professor Sharanjit kaur</span></li>
+            <li><span>Prof. Sharanjit Kaur, Department of Computer Science</span></li>
           </ul>
           <h3>Tools Used</h3>
           <ul class="tools-list">

@@ -1,3 +1,190 @@
+/*project specific styles*/
+        /*graph specific style*/
+        .node.process {
+            fill: rgba(70, 131, 180, 0.76);
+        }
+        .node.resource {
+            fill: rgba(255, 166, 0, 0.718);
+        }
+        .link {
+            /*stroke: #999;*/
+            stroke-opacity: 0.6;
+            stroke-width: 2px;
+        }
+        .boundary {
+            fill: none;
+            stroke: black;
+            stroke-width: 3px;
+        }
+        .highlight {
+            stroke: green;
+            stroke-width: 1px;
+        }
+        .process-node {
+            r: 20px;
+        }
+        .resource-node {
+            width: 40px;
+            height: 40px;
+        }
+        .node text {
+            font-size: 12px;
+            fill: white;
+        }
+        .resource-group {
+            fill: rgba(200, 200, 200, 0.3);
+            stroke: #555;
+            stroke-width: 2px;
+            cursor: move;
+        }
+        /*button specific styles*/
+        .blue{
+            background-color: rgb(246, 185, 80);
+        }
+        .blue:hover{
+            background-color: #007bff;
+            color: aliceblue;
+        }
+        .button_box button{
+            height: 20px;
+            border-radius: 5px;
+            margin: 0 auto;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: fit-content;
+        }
+        .button_box {
+          margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;         /* allow wrapping to new lines */
+            justify-content: center; /* center align on larger screens */
+            gap: 10px;               /* spacing between buttons */
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: rgb(187, 210, 230);
+            border-radius: 5px;
+        }
+        .hold-button-highlighted{
+            background-color: yellow;
+        }
+        .circular-button-highlighted{
+            background-color:green;
+        }
+        .delete-button-highlighted{
+            background-color:red;
+        }
+                
+        .input{
+            display: none;
+        }
+        .input_visible {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            /* padding: 50px 10px 10px 10px; */
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Text */
+        .input_visible p {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 1.5rem;
+            word-wrap: break-word;
+        }
+
+        /* Inputs */
+        .input_visible input {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+
+        /* Input focus */
+        .input_visible input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        /* Buttons */
+        .input_visible button {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        /* Cancel - red */
+        #cancel-button,
+        #cancel-button-resorce,
+        #cancel-button-resorce-multiple {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* Submit - green */
+        #submit-button,
+        #submit-button-resorce,
+        #submit-button-resorce-multiple {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #acceptence_button_message{
+            background-color: #4c98af;
+            color: white;
+        }
+
+        /* Hover effects */
+        .input_visible button:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
+        }
+
+        /* Scroll only inside form */
+        .input_visible::-webkit-scrollbar {
+            width: 6px;
+        }
+        .input_visible::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+.justified{
+    text-align: justify;
+}
+
+#rag-container {
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  width: 100%;               
+  height: 600px;             /* or set fixed height */
+}
+
+
+
+
+/*************************************************************************************************************************/
 /* Global styles */
 * {
   margin: 0;
@@ -53,43 +240,7 @@ body {
   gap: 20px;
 }
 
-#frameParent{
-  width:810px;
-  height: 650px;
-  /*overflow: hidden;
-  /*background-color:#2200ff;*/
-  /*display: inline;*/
-}
-#frameParent iframe{
-  width:100%;
-  height:100%;
-}
 
-.right_pannel{
-  display:inline-block;
-  margin-top: 0px;
-  width: 370px;
-  height: 600px;
-  border: 2px solid #000000;
-  border-radius: 5px;
-  overflow: hidden;
-  font-size: 13px;
-  
-}
-.right_pannel h1{
-  text-align: center;
-  margin-bottom: 5px;
-  padding-bottom: 20px;
-  padding-top: 10px;
-}
-.right_pannel p{
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-bottom: 15px;
-}
-.right_pannel .bolder{
-  font-weight: bold;
-}
 .results{
   display: inline-block;
   width: 50px;
@@ -133,83 +284,6 @@ p img {
 
 
 
-@media (min-width: 1535px) {
-/* The content div should take up the full available width and height */
-#practice_Content{
-  display: flex;
-  justify-content: center;  /* Centers the child elements horizontally */
-  align-items: center;      /* Centers the child elements vertically */
-  /* width: 100%;  /* Full width of the viewport */
-  height: 100%; /* Full height of the viewport */ 
-  padding: 20px; /* Optional: Add some space around the content */
-}
-
-/* The frame-parent div stays fixed in size */
-#frame-parent {
-  width: 810px;  /* Fixed width */
-  height: 650px; /* Fixed height */
-}
-
-/* The right_pannel div takes available width minus padding between the divs */
-.right_pannel {
-  height: 650px; /* Same height as frame-parent */
-  margin-left: 0px;  /* Padding between the frame-parent and right_pannel div */
-  margin-right: 0px; /* Optional: Padding for the right side */
-  flex-grow: 1; /* Makes the right_pannel div grow to fill available space */
-  background-color: lightgray;  /* Optional: Background color for visual */
-  word-break: keep-all;
-  text-align: justify;
-  margin-top: 15px;
-}
-.right_pannel h1{
-  margin-bottom: 5px;
-  justify-content: stretch;
-}
-.right_pannel p{
-  margin-bottom: 5px;
-  justify-content: stretch;
-}
-
-
-}
-@media (max-width: 1535px) {
-  #practice_Content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;  /* Centers the content horizontally */
-    height: 100%;  /* Full height of the viewport */
-  }
-  #frame-parent {
-    width: 810px;  /* Pre-existing width */
-    height: 650px; /* Pre-existing height */
-    margin: 0 auto;  /* Centers horizontally */
-}
-.right_pannel {
-  width: 50%;  /* Takes full width of content */
-  height:650px;  /* Matches the height of #frame-parent */
-  text-align: justify;  /* Center the right_pannel text */
-  background-color: lightgray;  /* Optional background to see the div */
-}
-
-  
-
-}
-
-
-/*sizing chnages will be neede*/
-
-@media screen and (max-width:1023px) {
-  
-}
-@media screen and (max-width:1023px) {
-  
-}
-@media screen and (max-width:1023px) {
-  
-}
-@media screen and (max-width:1023px) {
-  
-}
 
 
 
@@ -820,11 +894,13 @@ input[type="radio"] {
 
 /* tnt */
 /* Lists styling */
-#tnt .content {
+/*team and tools*/
+#tnt .content { 
   padding: 10px;
   background-color: #ffffff;
 
 }
+/*team and tools*/
 
 #tnt .content span {
   display: block;
@@ -909,6 +985,12 @@ input[type="radio"] {
 
 #aim {
   display: block;
+}
+
+#references a{
+  color: #0073e6;
+  text-decoration: underline;
+  word-break: break-all;
 }
 
 /* Adjustments */
