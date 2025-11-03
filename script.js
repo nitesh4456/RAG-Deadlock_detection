@@ -340,7 +340,7 @@
                             if(selectedNode.type === "resource" && d.type === "process"){//check if it is holded by another process 
                                 const edge_exits = links1.some(link => link.source===selectedNode.id && link.target!==d.id);
                                 if(edge_exits){
-                                    let meesage ="INVALID EDGE CREATION ERROR : a single Resource-Instnace can't be assigned to more than 1 Processes.";
+                                    let meesage ="INVALID EDGE CREATION ERROR : A single Resource-Instnace can't be assigned to more than 1 Process.";
                                     show_message(meesage)
                                     return ;
                                 }
@@ -376,7 +376,7 @@
                         renderGraph();  // Re-render the graph
                     }
                     else {//if user select similar type nodes
-                        let message="INVALID EDGE CREATION ERROR : Edges from Process to Process or Reource-Instance to Resource-Instance is not allowed."
+                        let message="INVALID EDGE CREATION ERROR : An edge from Process to Process or Reource-Instance to Resource-Instance is not allowed in Resource allocation graph (RAG)."
                         show_message(message);
                     }
                 }
@@ -546,7 +546,8 @@
                 is_delete=false;
                 renderGraph();
             }
-            let message="Assignment Edge Creation: (Resource-Instnace -> Process, blue color) First right click on any Resource-Instance and then right click on any Process. Requesting Edge Creation: (Process -> Resource-Instnace, red color) First right click on any Process and then right click on any Resource-Istance."
+            // let message="Assignment Edge Creation: (Resource-Instnace -> Process, blue color) First right click on any Resource-Instance and then right click on any Process. Requesting Edge Creation: (Process -> Resource-Instnace, red color) First right click on any Process and then right click on any Resource-Istance."
+            let message="Assignment Edge Creation: Right-click (or long-press) on a resource instance, followed by a right-click (or long-press) on a process to generate an assignment edge represented by blue color in the graph simulation, or right-click (or long-press) on a process, followed by a right-click (or long-press) on a resource instance to generate a requesting edge represented by red color in the simulation."
             show_message(message)
         }
         function edge_deletion(){
@@ -580,7 +581,8 @@
                 is_delete=false;
                 renderGraph();
             }
-            let message = "Assignment/Requesting Edge deletion: whether it is Assignment or requesting edge, to delete it right click on its tail Process/Resource-Instance and then right-click on its head Process/Resource-Instance."
+            // let message = "Assignment/Requesting Edge deletion: whether it is Assignment or requesting edge, to delete it right click on its tail Process/Resource-Instance and then right-click on its head Process/Resource-Instance."
+            let message = "Assignment/Requesting Edge deletion: To delete an edge (either assignment or requesting), right-click (or long-press) on its tail process/resource instance and then right-click (or long-press) on its head process/resource instance";
             show_message(message)
         }
         function visible_Process(){
