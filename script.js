@@ -340,7 +340,7 @@
                             if(selectedNode.type === "resource" && d.type === "process"){//check if it is holded by another process 
                                 const edge_exits = links1.some(link => link.source===selectedNode.id && link.target!==d.id);
                                 if(edge_exits){
-                                    let meesage ="INVALID EDGE CREATION ERROR : a single Resource-Instnace can't be assigned to more than 1 Processes.F";
+                                    let meesage ="INVALID EDGE CREATION ERROR : a single Resource-Instnace can't be assigned to more than 1 Processes.";
                                     show_message(meesage)
                                     return ;
                                 }
@@ -466,6 +466,24 @@
             isHold = false;
             isCycle = false;
             is_delete = false;
+
+            //////////////////////////////////if reset clicked for EMPTY GRAPH 
+            // console.log(nodes1.length)
+
+            if(nodes1.length ==0 ){
+                let message="No existing graph."
+                if(x==1){
+                show_message(message);
+                }
+            }
+            else{
+                let message="Graph is being reset to empty graph"
+                if(x==1){
+                show_message(message);
+                }
+            }
+            //////////////////////////////////////
+
             //delete all nodes and links
             //console.log(nodes1.length)
             nodes.splice(0,nodes.length)
@@ -475,10 +493,9 @@
             //console.log(nodes1.length)
             renderGraph();
             //show message
-            let message="Reseting the graph to be empty."
-            if(x==1){
-            show_message(message);
-            }
+            
+            // console.log(nodes1.length)
+
             
         }
         function show_message(message=""){
@@ -1380,7 +1397,7 @@ showQuestion();
         yellowLinks=[];//just making the yelloLinks empty in start //dont delete this
         cycleLinks=[];//just making the cycleLinks empty in start //dont delete this
         local_iteration_cycle_links=[];
-        toggled_reset(0);
+        toggled_reset(0);// making the first initialised empty
         renderGraph();
         // Update positions of links and nodes after every tick of the simulation
         simulation.on("tick", () => {
