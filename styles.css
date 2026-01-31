@@ -6,7 +6,7 @@
         .node.resource {
             fill: rgba(255, 166, 0, 0.718);
         }
-        .link {
+        #rag-container .link {/*modification on 31Jan*/
             /*stroke: #999;*/
             stroke-opacity: 0.6;
             stroke-width: 2px;
@@ -16,7 +16,7 @@
             stroke: black;
             stroke-width: 3px;
         }
-        .highlight {
+        .highlight1 {
             stroke: green;
             stroke-width: 1px;
         }

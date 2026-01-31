@@ -279,7 +279,7 @@
             event.preventDefault();
             if (!selectedNode) {
                 selectedNode = d;
-                d3.selectAll(".node").classed("highlight", node => node === selectedNode);//iski class ko highlight bna rha hai and css mai highlight class ko green krdiya ja rha hai 
+                d3.selectAll(".node").classed("highlight1", node => node === selectedNode);//iski class ko highlight bna rha hai and css mai highlight class ko green krdiya ja rha hai 
                 //
                 if(is_delete){//togle on for delete
                     //console.log("selectedNode : " ,selectedNode);
@@ -294,9 +294,10 @@
                     links.splice(0, links.length, ...update_links);
                     links1.splice(0, links1.length, ...update_links);
                     selectedNode = null;
-                    d3.selectAll(".node").classed("highlight", false);
+                    d3.selectAll(".node").classed("highlight1", false);
                     d3.selectAll(".node").data(nodes, d => d.id).exit().remove();
-                    d3.selectAll(".link").data(links).exit().remove();
+                    // d3.selectAll(".link").data(links).exit().remove();
+                    svg.selectAll(".link").data(links).exit().remove();
                     calc_hold_wait_edges();///re-calculate
                     clac_cycle_edges();///re-calculate
                     renderGraph(); // Ensure this function updates nodes and links in D3
@@ -381,7 +382,7 @@
                     }
                 }
                 selectedNode = null;
-                d3.selectAll(".node").classed("highlight", false);
+                d3.selectAll(".node").classed("highlight1", false);
             }
         }
         function toggled_Delete(){
