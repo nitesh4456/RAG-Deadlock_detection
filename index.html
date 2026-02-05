@@ -251,7 +251,8 @@
             for(let link of links){
                 const sourceNode = nodes.find(node => node.id === link.source.id || node.id === link.source);
                 const targetNode = nodes.find(node => node.id === link.target.id || node.id === link.target);
-                if(sourceNode.type==="resource" && targetNode.type==="process"){//hold wait can only from resource to process and + process to another resource
+                if(sourceNode.type==="resource" && targetNode.type==="process"){//hold wait can only from 
+                  //resource to process and + process to another resource
                     for (let link1 of links){
                         if(link.target===link1.source){
                             for(let link2 of links){
@@ -274,7 +275,8 @@
             const numberOfNodes = value;
             // Check if the input is a valid number
             if (isNaN(numberOfNodes) || numberOfNodes <= 0) {
-                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is 
+                //replaced by requird in form html
                 show_message(message); 
                 return;
             }
@@ -299,7 +301,8 @@
                 let n = value1
                 // Validate inputs: Must be natural numbers (positive integers)
                 if (isNaN(m) || isNaN(n) || m < 1 || n < 1 || !Number.isInteger(m) || !Number.isInteger(n)) {
-                    let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                    let message="Please Enter a Valid Number that is greater than 1";//althouh this
+                    // is replaced by requird in form html
                     show_message(message); 
                     return;
                 }
