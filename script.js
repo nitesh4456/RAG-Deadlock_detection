@@ -1153,7 +1153,7 @@ const questions = [
     correctAnswers: [1,2], 
   },
   {
-    question: "Q3) <b>Statement:</b> Deadlock can be present in a RAG if we find a cycle and each resource has single isntance <p><b>Reason:</b> in case of single instance since they can be held by only one process, the requesting process cannot get the resource until it's free.</p>",
+    question: "Q3) <b>Statement:</b> Deadlock can be present in a RAG if we find a cycle and each resource has single instance <p><b>Reason:</b> in case of single instance since they can be held by only one process, the requesting process cannot get the resource until it's free.</p>",
     choices: ["Statement is true, Reason is false", "Statement is false, Reason is true", "Both statement and reason are false", "Both statement and reason true"],
     correctAnswers: [3], 
   },

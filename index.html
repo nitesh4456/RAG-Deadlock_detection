@@ -104,25 +104,25 @@
       <div class="container" id="aim">
         <div class="title">Aim</div>
         <div class="content">
-          <p>The objective of this virtual lab is to provide a comprehensive understanding of Resource Allocation Graphs (RAGs) and their usage for the allocation of resources to processes and to detect potential deadlocks for two conditions (hold-and-wait and circular-wait) through interactive simulation. RAG is explained with respect to it is usage in resource allocation to processes maintained by the operating system
+          <p>The objective of this virtual lab is to provide a comprehensive understanding of Resource Allocation Graphs (RAGs) and their usage for the allocation of resources to processes and to detect potential deadlocks for two conditions (hold-and-wait and circular-wait) through interactive simulation. RAG is explained with respect to it is usage in resource allocation to different processes maintained by the operating system
           </p>
         </div>
       </div>
 
       <!-- Theory & Applications -->
       <div class="container" id="theory">
-        <div class="title">Theory & Applications</div>
+        <div class="title">Theory and Applications</div>
         <div class="content">
           <b><span>Key Concepts</span></b>
             <ul>
             <li>Resource Allocation Graph (RAG)</li>
             <p>
-              A type of directed graph with two types of nodes representing either processes or resources and arrows representing either allocation of a resource to a process (i.e. assignment edge), or the request by a process to access a resource resource (i.e. request edge), it is useful for visualising if a resource is free or in use, and which resources a process is requesting for.
+              It is a directed graph with two types of nodes representing either processes or resources, and arrows representing either allocation of a resource to a process (i.e. assignment edge), or the request by a process to access a resource resource (i.e. request edge). It is useful for visualising if a resource is free or in use, and which resources a process is requesting for.
             </p>
             <br>
             <li>Deadlock</li>
             <p>
-              A deadlock is a situation where processes are stuck. This happens when a set of processes cannot acquire the resources, they need to complete their work because those resources are held by other processes, a circular path of such conditions in a RAG leads to a stuck situation
+              A deadlock is a situation where processes are stuck and cannot continue with their execution. This happens when a set of processes cannot acquire the resources they need to complete their work because those resources are held by other processes, a circular path of such conditions in a RAG leads to a stuck situation
             </p>
             <br>
             <li>Finding Deadlock</li>
@@ -141,7 +141,7 @@
             <ol>
               <li>Server Load Balancing – To evenly distribute requests across available servers and avoid bottlenecks.</li>
               <li>Operating Systems – Managing process-resource allocation to detect and prevent deadlocks in CPU and memory usage.</li>
-              <li>Database Management – Ensuring transaction scheduling doesn't lead to resource deadlocks.</li>
+              <li>Database Management – Ensuring transaction scheduling does not lead to resource deadlocks.</li>
               <li>Cloud Resource Management – Allocating virtual machines and storage resources efficiently to various services.</li>
               <li>Traffic Systems – Coordinating traffic light resources and vehicle flows to prevent circular wait deadlocks.</li>
             </ol>
@@ -164,7 +164,7 @@
               </ul>
               <br>
               <li><span>Find Deadlock in the given Graph:</span></li><br>
-                <p>Check for the following conditions to find potential deadlock:</p><br>
+                <p>Following two conditions are checked to find potential deadlock:</p><br>
                 <ol style="list-style-type: upper-roman;">
                   <li><strong>Hold and Wait:</strong> For each process, check if it is holding a resource while requesting same instance or another resource that is currently held. If true, the edge is highlighted in yellow. (toggle 'view hold & wait')</li>
                   <li><strong>Circular Wait:</strong> Use Depth First Search on each node to check for a cycle. If a cycle is found, the edge is highlighted in green. (toggle 'view circular wait')</li>
@@ -527,7 +527,7 @@ graph simulation ( Click on any button to see it is functionality)</p>
       <div class="container" id="result">
         <div class="title">Result</div>
         <div class="content">
-          <p>In this experiment, an interactive RAG is created to simulate the allocation and request of resources by processes. The provision to add multiple processes, multiple resources with more than one instance allowed for realistic simulation of resource allocation within multiple processes in a system. The necessary conditions like  hold-and-wait and circular-wait are detected and shown visually for quick grasping of concepts related to deadlock detection
+          <p>In this experiment, an interactive RAG is created to simulate the allocation and request of resources by processes. The provision to add multiple processes, multiple resources with more than one instances empowers realistic simualation of RAGs. The necessary conditions like  hold-and-wait and circular-wait are detected and shown visually for quick grasping of concepts related to deadlock detection
           </p>
           <br>
           <p>Through the graphical interface, occurrence of deadlock conditions are identified in real time. Furthermore, the provided simulation emphasized on the necessity of careful resource management and controlled request handling for preventing deadlock issues in concurrent systems.
