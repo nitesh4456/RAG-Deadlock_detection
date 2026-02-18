@@ -853,7 +853,7 @@ input[type="radio"] {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  align-self: flex-end; /* Now it works */
+  align-self: flex-end;
 }
 
 .next-button:hover {
