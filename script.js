@@ -103,132 +103,132 @@
             });
         }
         function renderGraph() {
-        // Group resources
-        const groups = d3.group(nodes.filter(d => d.type === 'resource'), d => d.group);
-        
-        // Update resource groups positions
-        groups.forEach((groupNodes, groupId) => {
-            if (!resourceGroups.has(groupId)) {
-                resourceGroups.set(groupId, {
-                    x: width / 2 + (Math.random() - 0.5) * 200,
-                    y: height / 2 + (Math.random() - 0.5) * 200
-                });
-            }
-        });
-
-        // Bind resource group data and draw groups
-        const group = svg.selectAll(".resource-group")
-            .data(Array.from(groups));
-
-        const groupEnter = group.enter()
-            .append("g")
-            .attr("class", "resource-group");
-
-        groupEnter.append("rect")
-            .attr("width", groupSize)
-            .attr("height", groupSize)
-            .attr("x", -groupSize / 2)
-            .attr("y", -groupSize / 2);
-
-        const groupMerge = group.merge(groupEnter)
-            .call(d3.drag()
-                .on("start", dragstartGroup)
-                .on("drag", draggedGroup)
-                .on("end", dragendGroup));
-        group.exit().remove();
-
-        // Bind link data and draw links      
-        const link = svg.selectAll(".link")      
-            .data(links);
-
-        link.enter()
-            .append("line")
-            .attr("class", "link")
-            .merge(link)
-            .attr("stroke", d => {
-                const sourceNode = nodes.find(node => node.id === d.source.id || node.id === d.source);
-                const targetNode = nodes.find(node => node.id === d.target.id || node.id === d.target);
-                // //console.log("Cheking right now for :" , sourceNode ," -> ", targetNode)
-                //CASE 1 hold-wait
-                const exists = yellowLinks.some(link => 
-                    (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
-                    (link.target.id === targetNode.id || link.target === targetNode.id)
-                );
-                //CASE 2 CIRCULAR-wait
-                const exists1 = cycleLinks.some(link => 
-                    (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
-                    (link.target.id === targetNode.id || link.target === targetNode.id)
-                );
-                //console.log("exists1 : " , exists1);
-                //console.log("exists : " , exists);
-                if(exists && (isHold && !isCycle)){return "yellow"}//apply yello to edges if the toggling view on
-                else if(exists1 && ( isCycle && !isHold)){return "#00FF00"}//apply green to edges if the toggling view on for cycle 
-
-                else if (sourceNode.type === "resource" && targetNode.type === "process") {
-                    return "blue"; // Resource to Process
-                }
-                else if (sourceNode.type === "process" && targetNode.type === "resource") {
-                    return "#FF0000";//return red
-                }
-
-            })
-            .attr("stroke-width", 2) // Make edges more visible
-            .attr("marker-end", d => {
-                const sourceNode = nodes.find(node => node.id === d.source.id || node.id === d.source);
-                const targetNode = nodes.find(node => node.id === d.target.id || node.id === d.target);
-                if (sourceNode.type === "process" && targetNode.type === "resource") {
-                    return "url(#arrow-red)"; // Red arrow for process to resource
-                } else if (sourceNode.type === "resource" && targetNode.type === "process") {
-                    return "url(#arrow-blue)"; // Blue arrow for resource to process
+            // Group resources
+            const groups = d3.group(nodes.filter(d => d.type === 'resource'), d => d.group);
+            
+            // Update resource groups positions
+            groups.forEach((groupNodes, groupId) => {
+                if (!resourceGroups.has(groupId)) {
+                    resourceGroups.set(groupId, {
+                        x: width / 2 + (Math.random() - 0.5) * 200,
+                        y: height / 2 + (Math.random() - 0.5) * 200
+                    });
                 }
             });
-        link.exit().remove()
 
-         //Bind node data and draw nodes
-        const node = svg.selectAll(".node")
-            .data(nodes);
-        
-        const nodeEnter = node.enter()
-            .append("g")
-            .attr("class", d => `node ${d.type}`)
-            .on("contextmenu", handleContextMenu);//detects right click on deskop and long-press on mobiles.
-        
-        // Add square nodes for resources
-        nodeEnter.filter(d => d.type === 'resource')
-            .append("rect")
-            .attr("width", 40)
-            .attr("height", 40)
-            .attr("x", -20)
-            .attr("y", -20)
-            .attr("class", "resource-node");
-        
-        // Add circle nodes for processes
-        nodeEnter.filter(d => d.type === 'process')
-            .append("circle")
-            .attr("r", 20)
-            .attr("class", "process-node")
-            .call(d3.drag()
-                .on("start", dragstartProcess)
-                .on("drag", draggedProcess)
-                .on("end", dragendProcess));
-        
-        const nodeText = nodeEnter.append("text")
-            .attr("dy", ".35em")
-            .attr("text-anchor", "middle")
-            .attr("pointer-events", "none")
-            .text(d => d.id);
-        
-        node.select("text")
-            .text(d => d.id);
-        
-        nodeText.merge(node.select("text"));
-        nodeEnter.merge(node);
-        node.exit().remove();
-        
-        // Restart the simulation
-        simulation.nodes(nodes);
-        simulation.force("link").links(links);
-        simulation.alpha(1).restart();
+            // Bind resource group data and draw groups
+            const group = svg.selectAll(".resource-group")
+                .data(Array.from(groups));
+
+            const groupEnter = group.enter()
+                .append("g")
+                .attr("class", "resource-group");
+
+            groupEnter.append("rect")
+                .attr("width", groupSize)
+                .attr("height", groupSize)
+                .attr("x", -groupSize / 2)
+                .attr("y", -groupSize / 2);
+
+            const groupMerge = group.merge(groupEnter)
+                .call(d3.drag()
+                    .on("start", dragstartGroup)
+                    .on("drag", draggedGroup)
+                    .on("end", dragendGroup));
+            group.exit().remove();
+
+            // Bind link data and draw links      
+            const link = svg.selectAll(".link")      
+                .data(links);
+
+            link.enter()
+                .append("line")
+                .attr("class", "link")
+                .merge(link)
+                .attr("stroke", d => {
+                    const sourceNode = nodes.find(node => node.id === d.source.id || node.id === d.source);
+                    const targetNode = nodes.find(node => node.id === d.target.id || node.id === d.target);
+                    // //console.log("Cheking right now for :" , sourceNode ," -> ", targetNode)
+                    //CASE 1 hold-wait
+                    const exists = yellowLinks.some(link => 
+                        (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
+                        (link.target.id === targetNode.id || link.target === targetNode.id)
+                    );
+                    //CASE 2 CIRCULAR-wait
+                    const exists1 = cycleLinks.some(link => 
+                        (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
+                        (link.target.id === targetNode.id || link.target === targetNode.id)
+                    );
+                    //console.log("exists1 : " , exists1);
+                    //console.log("exists : " , exists);
+                    if(exists && (isHold && !isCycle)){return "yellow"}//apply yello to edges if the toggling view on
+                    else if(exists1 && ( isCycle && !isHold)){return "#00FF00"}//apply green to edges if the toggling view on for cycle 
+
+                    else if (sourceNode.type === "resource" && targetNode.type === "process") {
+                        return "blue"; // Resource to Process
+                    }
+                    else if (sourceNode.type === "process" && targetNode.type === "resource") {
+                        return "#FF0000";//return red
+                    }
+
+                })
+                .attr("stroke-width", 2) // Make edges more visible
+                .attr("marker-end", d => {
+                    const sourceNode = nodes.find(node => node.id === d.source.id || node.id === d.source);
+                    const targetNode = nodes.find(node => node.id === d.target.id || node.id === d.target);
+                    if (sourceNode.type === "process" && targetNode.type === "resource") {
+                        return "url(#arrow-red)"; // Red arrow for process to resource
+                    } else if (sourceNode.type === "resource" && targetNode.type === "process") {
+                        return "url(#arrow-blue)"; // Blue arrow for resource to process
+                    }
+                });
+            link.exit().remove()
+
+            //Bind node data and draw nodes
+            const node = svg.selectAll(".node")
+                .data(nodes);
+            
+            const nodeEnter = node.enter()
+                .append("g")
+                .attr("class", d => `node ${d.type}`)
+                .on("contextmenu", handleContextMenu);//detects right click on deskop and long-press on mobiles.
+                
+            // Add square nodes for resources
+            nodeEnter.filter(d => d.type === 'resource')
+                .append("rect")
+                .attr("width", 40)
+                .attr("height", 40)
+                .attr("x", -20)
+                .attr("y", -20)
+                .attr("class", "resource-node");
+            
+            // Add circle nodes for processes
+            nodeEnter.filter(d => d.type === 'process')
+                .append("circle")
+                .attr("r", 20)
+                .attr("class", "process-node")
+                .call(d3.drag()
+                    .on("start", dragstartProcess)
+                    .on("drag", draggedProcess)
+                    .on("end", dragendProcess));
+                
+            const nodeText = nodeEnter.append("text")
+                .attr("dy", ".35em")
+                .attr("text-anchor", "middle")
+                .attr("pointer-events", "none")
+                .text(d => d.id);
+            
+            node.select("text")
+                .text(d => d.id);
+            
+            nodeText.merge(node.select("text"));
+            nodeEnter.merge(node);
+            node.exit().remove();
+            
+            // Restart the simulation
+            simulation.nodes(nodes);
+            simulation.force("link").links(links);
+            simulation.alpha(1).restart();
         }
     //+++++++++++render ends here ++++++++++
         function dragendProcess(event, d) {
@@ -821,35 +821,35 @@
             hide_addProcess()            //hide the form 
             renderGraph(); // Call renderGraph() once after adding all nodes
         }
-            function addMultipleResources(value,value1) {
-                let m = value;
-                let n = value1
-                // Validate inputs: Must be natural numbers (positive integers)
-                if (isNaN(m) || isNaN(n) || m < 1 || n < 1 || !Number.isInteger(m) || !Number.isInteger(n)) {
-                    let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
-                    show_message(message); 
-                    return;
-                }
-                // Find the highest existing resource number
-                const resourceNumbers = nodes
-                    .filter(node => node.type === 'resource')
-                    .map(node => parseInt(node.id.split('.')[0].substring(1)))
-                    .filter(num => !isNaN(num));
-                let startingResourceNumber = (resourceNumbers.length > 0 ? Math.max(...resourceNumbers) : 0) + 1;
-                // Create m resources, each with n instances
-                for (let i = 0; i < m; i++) {
-                    let resourceNumber = startingResourceNumber + i;
-                    for (let j = 1; j <= n; j++) {
-                        const newResourceId = `R${resourceNumber}.${j}`;
-                        const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
-                        nodes.push(newResource);
-                        nodes1.push(newResource);
-                    }
-                }
-                //console.log("nodes:", nodes);
-                //console.log("nodes1:", nodes1);
-                renderGraph();
+        function addMultipleResources(value,value1) {
+            let m = value;
+            let n = value1
+            // Validate inputs: Must be natural numbers (positive integers)
+            if (isNaN(m) || isNaN(n) || m < 1 || n < 1 || !Number.isInteger(m) || !Number.isInteger(n)) {
+                let message="Please Enter a Valid Number that is greater than 1";//althouh this is replaced by requird in form html
+                show_message(message); 
+                return;
             }
+            // Find the highest existing resource number
+            const resourceNumbers = nodes
+                .filter(node => node.type === 'resource')
+                .map(node => parseInt(node.id.split('.')[0].substring(1)))
+                .filter(num => !isNaN(num));
+            let startingResourceNumber = (resourceNumbers.length > 0 ? Math.max(...resourceNumbers) : 0) + 1;
+            // Create m resources, each with n instances
+            for (let i = 0; i < m; i++) {
+                let resourceNumber = startingResourceNumber + i;
+                for (let j = 1; j <= n; j++) {
+                    const newResourceId = `R${resourceNumber}.${j}`;
+                    const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
+                    nodes.push(newResource);
+                    nodes1.push(newResource);
+                }
+            }
+            //console.log("nodes:", nodes);
+            //console.log("nodes1:", nodes1);
+            renderGraph();
+        }
         // Function to add a new resource instance
         function addResourceInstance(value) {
             const resourceNumber =value;
@@ -1005,70 +1005,6 @@
         
 
 /*********************************************************************************** */
-/////////////////////////////////////////////////
-document.addEventListener("DOMContentLoaded", function () {
-  const header = document.querySelector(".header");
-  // This event listener checks if the user has scrolled more than 10px
-  // If yes, it adds the 'scrolled' class to the header (for styling changes like shrinking)
-  // If not, it removes the 'scrolled' class
-  window.addEventListener("scroll", function () {
-    if (window.scrollY > 10) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
-  });
-
-  // sticky nav 
-  const navWrapper = document.getElementById("navWrapper");
-  const trigger = document.querySelector(".sticky-trigger");
-
-  const observer = new IntersectionObserver(
-      (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        navWrapper.classList.add("sticky-nav-wrapper");
-      } else {
-        navWrapper.classList.remove("sticky-nav-wrapper");
-      }
-    });
-  },
-  {
-    rootMargin: "-60px 0px 0px 0px", // triggers earlier, avoids flicker
-    threshold: 0
-  }
-  );
-
-  observer.observe(trigger);
-
-  // back to top logic
-  const backToTopBtn = document.getElementById("backToTop");
-
-  window.onscroll = function() {
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-      backToTopBtn.style.display = "block";
-    } else {
-      backToTopBtn.style.display = "none";
-    }
-  };
-
-  backToTopBtn.onclick = function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const startQuizBtn = document.getElementById("start-quiz-btn");
-  if (startQuizBtn) {
-    startQuizBtn.addEventListener("click", () => {
-      document.getElementById("quiz-instructions").style.display = "none";
-      document.getElementById("quiz-content").style.display = "block";
-      showQuestion();
-    });
-  } else {
-    console.error("start-quiz-btn element not found");
-  }
-});
-////////////////////////////////////////////////////
-
 // Object to store references to different topic sections by their IDs
 let topicElements = {
   aim: document.getElementById("aim"),
@@ -1082,7 +1018,30 @@ let topicElements = {
   tnt: document.getElementById("tnt"),
 };
 
-let currentTopic = "aim"; // Track the currently displayed topic
+// Quiz Logic
+const questions = [
+    {
+        question: " Q1) Which of the following is not one of the four necessary conditions for a deadlock to occur?",
+        choices: ["Mutual Exclusion", "Circular Wait", "Recursive Check", "Hold and wait"],
+        correctAnswers: [2], 
+    },
+    {
+        question: " Q2) Which of the following are true for a RAG?",
+        choices: ["Resources can only have 1 instance", "It is used for System Resouce managmenet", "It is used to find deadlocks", "RAG stands for Resource Augmented Graph"],
+        correctAnswers: [1,2], 
+    },
+    {
+        question: "Q3) <b>Statement:</b> Deadlock can be present in a RAG if we find a cycle and each resource has single instance <p><b>Reason:</b> in case of single instance since they can be held by only one process, the requesting process cannot get the resource until it's free.</p>",
+        choices: ["Statement is true, Reason is false", "Statement is false, Reason is true", "Both statement and reason are false", "Both statement and reason true"],
+        correctAnswers: [3], 
+    },
+    {
+        question: "Q4) What does the presence of 'No-Preemption' mean?",
+        choices: ["Resources can be taken back by the system", "A process gives up resources only when finished", "Resources cannot be taken away from a process", "Conditions give no info about deadlock"],
+        correctAnswers: [2], 
+    },
+    ];
+
 function switchContent(topic) {
     if (topic === currentTopic) {
         return; // Prevent unnecessary updates if the same topic is clicked again
@@ -1095,78 +1054,182 @@ function switchContent(topic) {
 
 // Generalized function to toggle language-based code blocks
 function toggleCode(language) {
-  const allCodeBlocks = document.querySelectorAll(".code-block");
-  allCodeBlocks.forEach((block) => block.classList.remove("active"));
+    const allCodeBlocks = document.querySelectorAll(".code-block");
+    allCodeBlocks.forEach((block) => block.classList.remove("active"));
 
-  const selectedCodeBlock = document.getElementById(language + "Code");
-  selectedCodeBlock.classList.add("active");
+    const selectedCodeBlock = document.getElementById(language + "Code");
+    selectedCodeBlock.classList.add("active");
 }
 
 // Clipboard copy function
 function copyCode(elementId) {
-  const codeBlock = document.getElementById(elementId);
-  const code = codeBlock.querySelector("code").innerText;
+    const codeBlock = document.getElementById(elementId);
+    const code = codeBlock.querySelector("code").innerText;
 
-  // Copy the selected code text to clipboard
-  navigator.clipboard
-    .writeText(code)
-    .then(() => {
-      const copyButton = codeBlock.querySelector(".copy-button");
-      copyButton.textContent = "Copied!"; // Temporarily change button text
-      setTimeout(() => {
-        copyButton.textContent = "Copy"; // Reset text after 2 seconds
-      }, 2000);
-    })
-    .catch((err) => {
-      console.error("Could not copy text: ", err);
+    // Copy the selected code text to clipboard
+    navigator.clipboard
+        .writeText(code)
+        .then(() => {
+        const copyButton = codeBlock.querySelector(".copy-button");
+        copyButton.textContent = "Copied!"; // Temporarily change button text
+        setTimeout(() => {
+            copyButton.textContent = "Copy"; // Reset text after 2 seconds
+        }, 2000);
+        })
+        .catch((err) => {
+        console.error("Could not copy text: ", err);
+        });
+}
+
+function showQuestion() {
+    // console.log("showQuestion called, currentQuestionIndex:", currentQuestionIndex);
+    let currentQuestion = questions[currentQuestionIndex];
+    questionElement.innerHTML = currentQuestion.question;
+    choicesContainer.innerHTML = "";
+    userAnswers[currentQuestionIndex] = [];
+
+    currentQuestion.choices.forEach((choice, index) => {
+        const button = document.createElement("button");
+        button.textContent = choice;
+        button.classList.add("choice");
+        button.addEventListener("click", () => toggleSelection(index));
+        choicesContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true; // Disable Next until an answer is selected
+    nextButton.style.display = "block";
+    retakeButton.style.display = "none";
+}
+
+function toggleSelection(selectedIndex) {
+  // console.log("toggleSelection called, selectedIndex:", selectedIndex);
+    if (!userAnswers[currentQuestionIndex]) {
+        userAnswers[currentQuestionIndex] = [];
+    }
+    const selected = userAnswers[currentQuestionIndex];
+    const idx = selected.indexOf(selectedIndex);
+
+    if (idx > -1) {
+        selected.splice(idx, 1);
+    } else {
+        selected.push(selectedIndex);
+    }
+
+    // Update button styles
+    document.querySelectorAll(".choice").forEach((btn, index) => {
+        if (selected.includes(index)) {
+        btn.style.backgroundColor = "#4285F4";
+        btn.style.color = "white";
+        } else {
+        btn.style.backgroundColor = "#f1f1f1";
+        btn.style.color = "black";
+        }
+    });
+
+    nextButton.disabled = selected.length === 0;
+}
+
+function checkAnswer() {
+  // console.log("checkAnswer called, currentQuestionIndex:", currentQuestionIndex, "userAnswer:", userAnswers[currentQuestionIndex]);
+    const correctAnswers = questions[currentQuestionIndex].correctAnswers;
+    const userAnswer = userAnswers[currentQuestionIndex];
+
+    if (arraysEqual(correctAnswers, userAnswer)) {
+        score++;
+    }
+
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function arraysEqual(a, b) {
+    return a.length === b.length && a.every((val) => b.includes(val));
+}
+
+function showResults() {
+    questionElement.textContent = `Quiz Completed! Your Score: ${score} / ${questions.length}`;
+    choicesContainer.innerHTML = "";
+    nextButton.style.display = "none";
+    retakeButton.style.display = "block";
+    displayQuizReport();
+}
+
+function displayQuizReport() {
+    quizReport.style.display = "block";
+    quizReport.innerHTML = "<h3>Quiz Report</h3>";
+
+    questions.forEach((q, index) => {
+        const userAnswer = userAnswers[index] || [];
+        const questionDiv = document.createElement("div");
+        questionDiv.classList.add("quiz-report-question");
+
+        const questionText = document.createElement("p");
+        questionText.innerHTML = q.question;
+        questionDiv.appendChild(questionText);
+
+        const choicesList = document.createElement("ul");
+        q.choices.forEach((choice, i) => {
+        const choiceItem = document.createElement("li");
+        const isSelected = userAnswer.includes(i);
+        const isCorrect = q.correctAnswers.includes(i);
+        if(!isSelected){
+            choiceItem.style.color = isCorrect ? "orange" : "black";
+        }
+        if (isSelected) {
+            choiceItem.style.color = isCorrect ? "green" : "red";
+        }
+        choiceItem.textContent = choice;
+        choicesList.appendChild(choiceItem);
+        });
+
+        questionDiv.appendChild(choicesList);
+        quizReport.appendChild(questionDiv);
     });
 }
 
-// Event listeners for radio buttons
-const cppRadio = document.getElementById("cppRadio");
-if (cppRadio) {
-  cppRadio.addEventListener("change", () => toggleCode("cpp"));
-}
-const pythonRadio = document.getElementById("pythonRadio");
-if (pythonRadio) {
-  pythonRadio.addEventListener("change", () => toggleCode("python"));
-}
-
-// Event listener for copy buttons
-document.querySelectorAll(".copy-button").forEach((button) => {
-  button.addEventListener("click", function () {
-    const language = button.closest(".code-block").id.replace("Code", "");
-    copyCode(language + "Code");
-  });
-});
-
-// Quiz Logic
-const questions = [
-  {
-    question: " Q1) Which of the following is not one of the four necessary conditions for a deadlock to occur?",
-    choices: ["Mutual Exclusion", "Circular Wait", "Recursive Check", "Hold and wait"],
-    correctAnswers: [2], 
-  },
-  {
-    question: " Q2) Which of the following are true for a RAG?",
-    choices: ["Resources can only have 1 instance", "It is used for System Resouce managmenet", "It is used to find deadlocks", "RAG stands for Resource Augmented Graph"],
-    correctAnswers: [1,2], 
-  },
-  {
-    question: "Q3) <b>Statement:</b> Deadlock can be present in a RAG if we find a cycle and each resource has single instance <p><b>Reason:</b> in case of single instance since they can be held by only one process, the requesting process cannot get the resource until it's free.</p>",
-    choices: ["Statement is true, Reason is false", "Statement is false, Reason is true", "Both statement and reason are false", "Both statement and reason true"],
-    correctAnswers: [3], 
-  },
-  {
-    question: "Q4) What does the presence of 'No-Preemption' mean?",
-    choices: ["Resources can be taken back by the system", "A process gives up resources only when finished", "Resources cannot be taken away from a process", "Conditions give no info about deadlock"],
-    correctAnswers: [2], 
-  },
+const nodes = [
+    { id: 'P1', type: 'process' },
+    { id: 'P2', type: 'process' },
+    { id: 'R1.1', type: 'resource', group: 'R1' },
+    { id: 'R1.2', type: 'resource', group: 'R1' },
+    { id: 'R2.1', type: 'resource', group: 'R2' }
 ];
-
-let currentQuestionIndex = 0;
-let score = 0;
-let userAnswers = [];
+const links = [
+    { source: 'P1', target: 'R1.1' },
+    { source: 'R1.2', target: 'P2' },
+    { source: 'P2', target: 'R2.1' }
+];
+const nodes1 = [
+    { id: 'P1', type: 'process' },
+    { id: 'P2', type: 'process' },
+    { id: 'R1.1', type: 'resource', group: 'R1' },
+    { id: 'R1.2', type: 'resource', group: 'R1' },
+    { id: 'R2.1', type: 'resource', group: 'R2' }
+];
+const links1 = [//since d3 is upadating link array rapidly we can't use that for mathematical logics there we define this array 
+    { source: 'P1', target: 'R1.1' },
+    { source: 'R1.2', target: 'P2' },
+    { source: 'P2', target: 'R2.1' }
+];
+let yellowLinks=[
+    { source: 'P1', target: 'R1.1' },
+    { source: 'R1.2', target: 'P2' },
+    { source: 'P2', target: 'R2.1' }
+];//global variable to store the yellow links
+let cycleLinks=[
+    { source: 'P1', target: 'R1.1' },
+    { source: 'R1.2', target: 'P2' },
+    { source: 'P2', target: 'R2.1' }
+];//global variable to store the cycle links
+let local_iteration_cycle_links=[
+    { source: 'P1', target: 'R1.1' },
+    { source: 'R1.2', target: 'P2' },
+    { source: 'P2', target: 'R2.1' }
+];
 
 const questionElement = document.getElementById("question");
 const choicesContainer = document.getElementById("choices");
@@ -1174,265 +1237,210 @@ const nextButton = document.getElementById("next-btn");
 const retakeButton = document.getElementById("retake-btn");
 const quizReport = document.getElementById("quiz-report");
 
-function showQuestion() {
-  // console.log("showQuestion called, currentQuestionIndex:", currentQuestionIndex);
-  let currentQuestion = questions[currentQuestionIndex];
-  questionElement.innerHTML = currentQuestion.question;
-  choicesContainer.innerHTML = "";
-  userAnswers[currentQuestionIndex] = [];
-
-  currentQuestion.choices.forEach((choice, index) => {
-    const button = document.createElement("button");
-    button.textContent = choice;
-    button.classList.add("choice");
-    button.addEventListener("click", () => toggleSelection(index));
-    choicesContainer.appendChild(button);
-  });
-
-  nextButton.disabled = true; // Disable Next until an answer is selected
-  nextButton.style.display = "block";
-  retakeButton.style.display = "none";
-}
-
-function toggleSelection(selectedIndex) {
-  // console.log("toggleSelection called, selectedIndex:", selectedIndex);
-  if (!userAnswers[currentQuestionIndex]) {
-    userAnswers[currentQuestionIndex] = [];
-  }
-  const selected = userAnswers[currentQuestionIndex];
-  const idx = selected.indexOf(selectedIndex);
-
-  if (idx > -1) {
-    selected.splice(idx, 1);
-  } else {
-    selected.push(selectedIndex);
-  }
-
-  // Update button styles
-  document.querySelectorAll(".choice").forEach((btn, index) => {
-    if (selected.includes(index)) {
-      btn.style.backgroundColor = "#4285F4";
-      btn.style.color = "white";
-    } else {
-      btn.style.backgroundColor = "#f1f1f1";
-      btn.style.color = "black";
-    }
-  });
-
-  nextButton.disabled = selected.length === 0;
-}
-
-function checkAnswer() {
-  // console.log("checkAnswer called, currentQuestionIndex:", currentQuestionIndex, "userAnswer:", userAnswers[currentQuestionIndex]);
-  const correctAnswers = questions[currentQuestionIndex].correctAnswers;
-  const userAnswer = userAnswers[currentQuestionIndex];
-
-  if (arraysEqual(correctAnswers, userAnswer)) {
-    score++;
-  }
-
-  if (currentQuestionIndex < questions.length - 1) {
-    currentQuestionIndex++;
-    showQuestion();
-  } else {
-    showResults();
-  }
-}
-
-function arraysEqual(a, b) {
-  return a.length === b.length && a.every((val) => b.includes(val));
-}
-
-function showResults() {
-  questionElement.textContent = `Quiz Completed! Your Score: ${score} / ${questions.length}`;
-  choicesContainer.innerHTML = "";
-  nextButton.style.display = "none";
-  retakeButton.style.display = "block";
-  displayQuizReport();
-}
-
-function displayQuizReport() {
-  quizReport.style.display = "block";
-  quizReport.innerHTML = "<h3>Quiz Report</h3>";
-
-  questions.forEach((q, index) => {
-    const userAnswer = userAnswers[index] || [];
-    const questionDiv = document.createElement("div");
-    questionDiv.classList.add("quiz-report-question");
-
-    const questionText = document.createElement("p");
-    questionText.innerHTML = q.question;
-    questionDiv.appendChild(questionText);
-
-    const choicesList = document.createElement("ul");
-    q.choices.forEach((choice, i) => {
-      const choiceItem = document.createElement("li");
-      const isSelected = userAnswer.includes(i);
-      const isCorrect = q.correctAnswers.includes(i);
-      if(!isSelected){
-        choiceItem.style.color = isCorrect ? "orange" : "black";
-      }
-      if (isSelected) {
-        choiceItem.style.color = isCorrect ? "green" : "red";
-      }
-      choiceItem.textContent = choice;
-      choicesList.appendChild(choiceItem);
+/////////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    const header = document.querySelector(".header");
+    // This event listener checks if the user has scrolled more than 10px
+    // If yes, it adds the 'scrolled' class to the header (for styling changes like shrinking)
+    // If not, it removes the 'scrolled' class
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 10) {
+        header.classList.add("scrolled");
+        } else {
+        header.classList.remove("scrolled");
+        }
     });
 
-    questionDiv.appendChild(choicesList);
-    quizReport.appendChild(questionDiv);
-  });
-}
+    // sticky nav 
+    const navWrapper = document.getElementById("navWrapper");
+    const trigger = document.querySelector(".sticky-trigger");
 
-retakeButton.addEventListener("click", () => {
-  currentQuestionIndex = 0;
-  score = 0;
-  userAnswers = [];
-  quizReport.style.display = "none";
-  showQuestion();
+    const observer = new IntersectionObserver(
+        (entries) => {
+        entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+            navWrapper.classList.add("sticky-nav-wrapper");
+        } else {
+            navWrapper.classList.remove("sticky-nav-wrapper");
+        }
+        });
+    },
+    {
+        rootMargin: "-60px 0px 0px 0px", // triggers earlier, avoids flicker
+        threshold: 0
+    }
+    );
+
+    observer.observe(trigger);
+
+    // back to top logic
+    const backToTopBtn = document.getElementById("backToTop");
+
+    window.onscroll = function() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        backToTopBtn.style.display = "block";
+        } else {
+        backToTopBtn.style.display = "none";
+        }
+    };
+
+    backToTopBtn.onclick = function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const startQuizBtn = document.getElementById("start-quiz-btn");
+    if (startQuizBtn) {
+        startQuizBtn.addEventListener("click", () => {
+        document.getElementById("quiz-instructions").style.display = "none";
+        document.getElementById("quiz-content").style.display = "block";
+        showQuestion();
+        });
+    } else {
+        console.error("start-quiz-btn element not found");
+    }
+
+    retakeButton.addEventListener("click", () => {
+    currentQuestionIndex = 0;
+    score = 0;
+    userAnswers = [];
+    quizReport.style.display = "none";
+    showQuestion();
+    });
+
+    nextButton.addEventListener("click", checkAnswer);
+
+
+    // Event listeners for radio buttons
+    const cppRadio = document.getElementById("cppRadio");
+    if (cppRadio) {
+        cppRadio.addEventListener("change", () => toggleCode("cpp"));
+    }
+    // Event listener for copy buttons
+    document.querySelectorAll(".copy-button").forEach((button) => {
+    button.addEventListener("click", function () {
+        const language = button.closest(".code-block").id.replace("Code", "");
+        copyCode(language + "Code");
+    });
+    });
+
+    setupForm();
+    setupFormResource();
+    setupFormResource_multiple();
+    showQuestion();
+    toggled_reset(0);//Deafult empty initialisation Practice program 
+    renderGraph();
+
 });
 
-nextButton.addEventListener("click", checkAnswer);
+//Global Variables (used in function calls)////////////
 
-showQuestion();
+let currentTopic = "aim"; // Track the currently displayed topic
+let currentQuestionIndex = 0;//track current opened question in during Quiz
+let score = 0;//Quiz score 
+let userAnswers = [];//Tracks the answers given by user that will be used during checking
+//toggling features 
+let isHold = false;
+let isCycle = false;
+let is_delete = false;
+yellowLinks=[];//just making the yelloLinks empty in start //dont delete this
+cycleLinks=[];//just making the cycleLinks empty in start //dont delete this
+local_iteration_cycle_links=[];
+let selectedNode = null; // Track the selected node for linking
 
-        //INITIALISATION
-// Sample data for Resource Allocation Graph
-        const nodes = [
-            { id: 'P1', type: 'process' },
-            { id: 'P2', type: 'process' },
-            { id: 'R1.1', type: 'resource', group: 'R1' },
-            { id: 'R1.2', type: 'resource', group: 'R1' },
-            { id: 'R2.1', type: 'resource', group: 'R2' }
-        ];
-        const links = [
-            { source: 'P1', target: 'R1.1' },
-            { source: 'R1.2', target: 'P2' },
-            { source: 'P2', target: 'R2.1' }
-        ];
-        const nodes1 = [
-            { id: 'P1', type: 'process' },
-            { id: 'P2', type: 'process' },
-            { id: 'R1.1', type: 'resource', group: 'R1' },
-            { id: 'R1.2', type: 'resource', group: 'R1' },
-            { id: 'R2.1', type: 'resource', group: 'R2' }
-        ];
-        const links1 = [//since d3 is upadating link array rapidly we can't use that for mathematical logics there we define this array 
-            { source: 'P1', target: 'R1.1' },
-            { source: 'R1.2', target: 'P2' },
-            { source: 'P2', target: 'R2.1' }
-        ];
-        let yellowLinks=[
-            { source: 'P1', target: 'R1.1' },
-            { source: 'R1.2', target: 'P2' },
-            { source: 'P2', target: 'R2.1' }
-        ];//global variable to store the yellow links
-        let cycleLinks=[
-            { source: 'P1', target: 'R1.1' },
-            { source: 'R1.2', target: 'P2' },
-            { source: 'P2', target: 'R2.1' }
-        ];//global variable to store the cycle links
-        let local_iteration_cycle_links=[
-            { source: 'P1', target: 'R1.1' },
-            { source: 'R1.2', target: 'P2' },
-            { source: 'P2', target: 'R2.1' }
-        ];
 
-        //toggling features 
-        let isHold = false;
-        let isCycle = false;
-        let is_delete = false;
+//Canvas
 
-        //Assign widht and height based on device size (i.e responsivenness)
-        // canvas for the render
-        const width = 0.80*window.innerWidth
-        const height = 600;
-        
-        // console.log("Please : width",width," height ", height );
-        const svg = d3.select("#rag-container")
-            .append("svg")
-            .attr("width", width)//100% means take full size of parent
-            .attr("height", height);
-        // Add a visible boundary
-        svg.append("rect")
-            .attr("class", "boundary")
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("width", width)
-            .attr("height", height);
+//Assign widht and height based on device size (i.e responsivenness)
+// canvas for the render
+// const width = 0.80*window.innerWidth
+// let width = 0.80*window.innerWidth
+let width = 0.80*screen.width
+console.log('wdith-set: ',width)
+let height = 600;
 
-        let selectedNode = null; // Track the selected node for linking
-        const groupSize = 120; // Size of the resource group box
+// console.log("Please : width",width," height ", height );
+let svg = d3.select("#rag-container")
+    .append("svg")
+    .attr("width", width)//100% means take full size of parent
+    .attr("height", height);
+// Add a visible boundary
+svg.append("rect")
+const boundary = svg.append("rect")
+    .attr("class", "boundary")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", width)
+    .attr("height", height);
+const groupSize = 120; // Size of the resource group box
+const resourceGroups = new Map(); // Store group center positions
+// Create a force simulation
+const simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(d => d.id).distance(150))
+    .force("charge", d3.forceManyBody().strength(-200))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("collision", d3.forceCollide().radius(d => d.type === 'process' ? 40 : 60))
+    .force("groupContainment", forceGroupContainment)
+// Add arrow markers for directional links
+svg.append("defs").html(`
+<marker id="arrow-red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#FF0000"></path>
+</marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="blue"></path>
+</marker>
 
-        let number_of_resource_instance=0;
-        for (let node of nodes) {
-            if (node.type==='resource'){
-                number_of_resource_instance ++;
-            }
+</marker>
+`);
+
+
+window.addEventListener("resize", function () {/// this function changes all
+    if (screen.width >= 1000){
+        width = 0.8*screen.width
+    }else{
+        width = 0.75*screen.width
+    }
+    
+    svg
+    .attr("width", width)
+    .attr("height", height);
+
+    boundary
+    .attr("width", width)
+    .attr("height", height);
+
+    simulation
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .alpha(0.5)
+        .restart();
+});
+
+//Mannual update of graph on each tick of physics engine of D3
+// Update positions of links and nodes after every tick of the simulation
+simulation.on("tick", () => {
+    applyBoundaryConstraints();
+    // Update resource group positions based on their nodes
+    resourceGroups.forEach((group, groupId) => {
+        const groupNodes = nodes.filter(n => n.type === 'resource' && n.group === groupId);
+        if (groupNodes.length > 0) {
+            group.x = d3.mean(groupNodes, d => d.x);
+            group.y = d3.mean(groupNodes, d => d.y);
         }
-        // //console.log(number_of_resource_instance)
-        const resourceGroups = new Map(); // Store group center positions
-        // Create a force simulation
-        const simulation = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id).distance(150))
-            .force("charge", d3.forceManyBody().strength(-200))
-            .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collision", d3.forceCollide().radius(d => d.type === 'process' ? 40 : 60))
-            .force("groupContainment", forceGroupContainment)
-        // Add arrow markers for directional links
-        svg.append("defs").html(`
-        <marker id="arrow-red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#FF0000"></path>
-        </marker>
-        <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="blue"></path>
-        </marker>
-        
-        </marker>
-        `);
-
-        //just initializes the form for each run of dom (This is important)
-        window.addEventListener("DOMContentLoaded", setupForm);
-        window.addEventListener("DOMContentLoaded", setupFormResource);
-        window.addEventListener("DOMContentLoaded", setupFormResource_multiple);
-        // hide_forms();
-        // Initial rendering of the graph
-        yellowLinks=[];//just making the yelloLinks empty in start //dont delete this
-        cycleLinks=[];//just making the cycleLinks empty in start //dont delete this
-        local_iteration_cycle_links=[];
-        toggled_reset(0);// making the first initialised empty
-        renderGraph();
-        // Update positions of links and nodes after every tick of the simulation
-        simulation.on("tick", () => {
-            applyBoundaryConstraints();
-            // Update resource group positions based on their nodes
-            resourceGroups.forEach((group, groupId) => {
-                const groupNodes = nodes.filter(n => n.type === 'resource' && n.group === groupId);
-                if (groupNodes.length > 0) {
-                    group.x = d3.mean(groupNodes, d => d.x);
-                    group.y = d3.mean(groupNodes, d => d.y);
-                }
-            });
-
-            // Apply group containment force
-            forceGroupContainment(simulation.alpha());
-
-            // Update link positions
-            svg.selectAll(".link")
-                .attr("x1", d => d.source.x)
-                .attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x)
-                .attr("y2", d => d.target.y);
-
-            // Update node positions
-            svg.selectAll(".node")
-                .attr("transform", d => `translate(${d.x},${d.y})`);
-
-            // Update resource group positions
-            svg.selectAll(".resource-group")
-                .attr("transform", d => {
-                    const group = resourceGroups.get(d[0]);
-                    return `translate(${group.x},${group.y})`;
-                });
+    });
+    // Apply group containment force
+    forceGroupContainment(simulation.alpha());
+    // Update link positions
+    svg.selectAll(".link")
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+    // Update node positions
+    svg.selectAll(".node")
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+    // Update resource group positions
+    svg.selectAll(".resource-group")
+        .attr("transform", d => {
+            const group = resourceGroups.get(d[0]);
+            return `translate(${group.x},${group.y})`;
         });
-        
+});
