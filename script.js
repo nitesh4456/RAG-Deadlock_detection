@@ -45,12 +45,9 @@
         function clac_cycle_edges(){
             let allCycleEdges = detectAllCycleEdges(links1);
             if (allCycleEdges.length > 0) {
-                // //console.log("Circular waits detected, edges involved:");
                 allCycleEdges.forEach((cycle, index) => {
-                    // //console.log(`Cycle ${index + 1}:`, cycle);
                 });
             } else {
-                // //console.log("No circular waits detected.");
             }
             cycleLinks=[];
             for(let cycle of allCycleEdges){
@@ -80,7 +77,6 @@
                 }
                 
             }
-            // //console.log("Yellow_links calculated : " , yellowLinks);
             
         }
         // Custom force to keep resources within their group
@@ -148,7 +144,6 @@
                 .attr("stroke", d => {
                     const sourceNode = nodes.find(node => node.id === d.source.id || node.id === d.source);
                     const targetNode = nodes.find(node => node.id === d.target.id || node.id === d.target);
-                    // //console.log("Cheking right now for :" , sourceNode ," -> ", targetNode)
                     //CASE 1 hold-wait
                     const exists = yellowLinks.some(link => 
                         (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
@@ -159,8 +154,6 @@
                         (link.source.id === sourceNode.id || link.source === sourceNode.id) && 
                         (link.target.id === targetNode.id || link.target === targetNode.id)
                     );
-                    //console.log("exists1 : " , exists1);
-                    //console.log("exists : " , exists);
                     if(exists && (isHold && !isCycle)){return "yellow"}//apply yello to edges if the toggling view on
                     else if(exists1 && ( isCycle && !isHold)){return "#00FF00"}//apply green to edges if the toggling view on for cycle 
 
@@ -282,9 +275,7 @@
                 d3.selectAll(".node").classed("highlight1", node => node === selectedNode);//iski class ko highlight bna rha hai and css mai highlight class ko green krdiya ja rha hai 
                 //
                 if(is_delete){//togle on for delete
-                    //console.log("selectedNode : " ,selectedNode);
-                    //console.log("existing nodes : " , nodes);
-                    
+
                     /*selectedNode :  {id: 'R1.1', type: 'resource', group: 'R1', index: 2, x: 540.3352328537052, …}*/
                     let update_nodes = nodes.filter(node => node.id!=selectedNode.id)
 
@@ -313,26 +304,18 @@
                     ) {
                         
                         //edge deletion logic .......
-                        //console.log("Trying to delete link:", selectedNode.id, "→", d.id);//working 
                             // Step 1: Find the index of the link to delete
                             const existingEdgeIndex1 = links1.findIndex(link => 
                                 link.source === selectedNode.id && link.target === d.id
                             );
                             
-                        //console.log(" existingEdgeIndex1:", existingEdgeIndex1);
-                        //console.log(' Existing links before deletion:', links1);
                         
                         // Step 2: If the link exists, delete it
                         if (existingEdgeIndex1 !== -1) {
-                            //console.log(' Entered deletion process');
-                            //console.log(' Existing links before deletion:', links1);
                             // Step 3: Directly remove the link from `links1`
                             links1.splice(existingEdgeIndex1, 1);
                             links.splice(existingEdgeIndex1, 1);
                         
-                            //console.log(' After deletion, links:',links );
-                            //console.log(' After deletion, links1:',links1 );
-                            //console.log(" Exit from deletion segment...");
                             calc_hold_wait_edges()///re-calculate
                             clac_cycle_edges()///re-calculate
                             renderGraph();
@@ -362,13 +345,10 @@
                             }
                         }
                         //calculate the values each time when a right click appears 
-                        //console.log("links : " , links);
-                        //console.log("links1: " , links1);
                         //calculation needs when view_event is toggled on 
                         //calculate on each right click 
                         if(isHold==true && isCycle==false){
                             calc_hold_wait_edges();
-                            //console.log("check1");
                             
                         }
                         else if(isCycle==true && isHold==false){
@@ -469,7 +449,6 @@
             is_delete = false;
 
             //////////////////////////////////if reset clicked for EMPTY GRAPH 
-            // console.log(nodes1.length)
 
             if(nodes1.length ==0 ){
                 let message="No existing graph."
@@ -486,16 +465,13 @@
             //////////////////////////////////////
 
             //delete all nodes and links
-            //console.log(nodes1.length)
             nodes.splice(0,nodes.length)
             nodes1.splice(0,nodes1.length);
             links.splice(0,links.length)
             links1.splice(0,links1.length)
-            //console.log(nodes1.length)
             renderGraph();
             //show message
             
-            // console.log(nodes1.length)
 
             
         }
@@ -618,7 +594,6 @@
             }
             //make the form visible to "Add processes"
             const div = document.getElementById("input_process");
-            //console.log(div.className);
             div.classList.remove("input")
             div.classList.add("input_visible"); // Replaces all existing classes
             const form = document.getElementById("process-form");
@@ -816,8 +791,6 @@
                 nodes.push(newNode);
                 nodes1.push(newNode);
             }
-            //console.log("nodes : ", nodes);
-            //console.log("nodes1: ", nodes1);
             hide_addProcess()            //hide the form 
             renderGraph(); // Call renderGraph() once after adding all nodes
         }
@@ -846,8 +819,6 @@
                     nodes1.push(newResource);
                 }
             }
-            //console.log("nodes:", nodes);
-            //console.log("nodes1:", nodes1);
             renderGraph();
         }
         // Function to add a new resource instance
@@ -873,15 +844,11 @@
                     const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
                     nodes.push(newResource);
                     nodes1.push(newResource);
-                    //console.log("nodes : " , nodes);
-                    //console.log("nodes1: " , nodes1);
                 } else {
                     const newResourceId = `R${resourceNumber}.1`;
                     const newResource = { id: newResourceId, type: 'resource', group: `R${resourceNumber}` };
                     nodes.push(newResource);
                     nodes1.push(newResource);
-                    //console.log("nodes : " , nodes);
-                    //console.log("nodes1: " , nodes1);
                 }
                 renderGraph();
             }
@@ -936,7 +903,6 @@
                 btn.classList.add("blue")
                 btn.classList.remove("hold-button-highlighted")
             }
-            //console.log("isHold : " , isHold)
             renderGraph();//re-render for applying the view
         }
         function show_links_circular_wait(){           
@@ -985,7 +951,6 @@
                 btn1.classList.add("blue")
                 btn1.classList.remove("circular-button-highlighted")
             }
-            //console.log("iscYCLE : " , isCycle)
             renderGraph();//re-render for applying the view
         }
         // Ensure nodes stay within the boundaries
@@ -1082,7 +1047,6 @@ function copyCode(elementId) {
 }
 
 function showQuestion() {
-    // console.log("showQuestion called, currentQuestionIndex:", currentQuestionIndex);
     let currentQuestion = questions[currentQuestionIndex];
     questionElement.innerHTML = currentQuestion.question;
     choicesContainer.innerHTML = "";
@@ -1102,7 +1066,6 @@ function showQuestion() {
 }
 
 function toggleSelection(selectedIndex) {
-  // console.log("toggleSelection called, selectedIndex:", selectedIndex);
     if (!userAnswers[currentQuestionIndex]) {
         userAnswers[currentQuestionIndex] = [];
     }
@@ -1130,7 +1093,6 @@ function toggleSelection(selectedIndex) {
 }
 
 function checkAnswer() {
-  // console.log("checkAnswer called, currentQuestionIndex:", currentQuestionIndex, "userAnswer:", userAnswers[currentQuestionIndex]);
     const correctAnswers = questions[currentQuestionIndex].correctAnswers;
     const userAnswer = userAnswers[currentQuestionIndex];
 
@@ -1368,10 +1330,8 @@ let selectedNode = null; // Track the selected node for linking
 // const width = 0.80*window.innerWidth
 // let width = 0.80*window.innerWidth
 let width = 0.80*screen.width
-console.log('wdith-set: ',width)
 let height = 600;
 
-// console.log("Please : width",width," height ", height );
 let svg = d3.select("#rag-container")
     .append("svg")
     .attr("width", width)//100% means take full size of parent

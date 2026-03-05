@@ -176,7 +176,6 @@
       <!-- Code -->
       <div class="container" id="code">
         <div class="title">Code</div>
-        <!-- <p>Example programs</p> -->
         <div class="switch-container">
           <input class="togswt" type="radio" id="cppRadio" name="codeSwitch" checked />
           <label for="cppRadio">JavaScript</label>
@@ -368,7 +367,6 @@
       <!-- Practice -->
       <div class="container" id="practice">
         <div class="title">Practice</div>
-        <!-- <div class="content"></div> -->
         <div class="content">
             <div id="rag-container"></div>
             <div class="button_box">
@@ -383,37 +381,6 @@
                 <button class="blue" id="reset-button" onclick="edge_deletion()">Edge Deletion</button>
             </div>
             <div id="Extra_instructions">
-              <!-- <h1>Instructions to Use</h1>
-              <p>1.<span class="bolder">Process:</span> Process nodes are represented by blue colored Circles and numbered as P1,P2,P3 to Pn if the graph has ‘n’ Processes.</p>
-              <p>2.<span class="bolder">Resource:</span> Each Resource is represented by a gray colored square box, having some resource-instances in them represented by orange colored squares. A resource should have a minimum of 1 resource-instance. </p>
-              <p>3.<span class="bolder">Resource-Instance:</span> Each Resource-Instance is represented by an orange square box and is numbered as Rm.n where m stands for resource number and n stands for instance number in the resource. e.g. R1.1, R1.2, R2.1, R3.1, R3.3, R5.4</p>
-              <p>4.<span class="bolder">Selection:</span> Right-click (long press for mobiles) on  any Process or Resource-Instance to select it, selected item will have (Green boundary). To de-select just right-click (long press for mobiles) again.</p>
-              <p>5.<span class="bolder">Drag/Movement:</span> Drag any  Process/Resource in the graph simulation, using left click (simple click for mobiles).</p>
-              <p>6.<span class="bolder">Assignment Edge Creation:</span> First right-click (long press for mobiles) on any Resource-Instance and then right-click (long press for mobiles) on any Process. This will create an assignment edge(Blue color) from that Resource-Instance to that Process.(<span class="bolder">Note:</span> a single resource-instance can’t be assigned to two different Processes)</p>
-              <p><span class="bolder">Note: Use Long Press for Right-click on mobile devices.</span></p>
-              <p>7.<span class="bolder">Requesting Edge Creation:</span> First right-click (long press for mobiles) on any Process and then right-click (long press for mobiles) on any Resource-Instance, this will create a Requesting edge from that Process to that Resource-Instance.(<span class="bolder">Note:</span> a single Process can’t  request two different Resource-Instances of a single Resource)</p>
-              <p>8.<span class="bolder">Assignment/Requesting Edge deletion:</span> whether it is Assignment or requesting edge, to delete it  right click (long press for mobiles) on it is tail Process/Resource-Instance and then right-click (long press for mobiles) on it is head Process/resource-Instance.</p>
-             -->
-              <!-- <h1>Instructions to Use</h1>
-
-<p>1. <span class="bolder">Process:</span> Process nodes are represented by blue-colored circles and numbered as P1, P2, P3, ..., Pn if the graph has ‘n’ processes.</p>
-
-<p>2. <span class="bolder">Resource:</span> Each resource is represented by a gray-colored square box containing some resource instances, represented by orange-colored squares. A resource must have at least one resource instance.</p>
-
-<p>3. <span class="bolder">Resource Instance:</span> Each resource instance is represented by an orange square box and is numbered as Rm.n, where ‘m’ stands for the resource number and ‘n’ stands for the instance number within that resource. For example: R1.1, R1.2, R2.1, R3.1, R3.3, R5.4.</p>
-
-<p>4. <span class="bolder">Selection:</span> Right-click (or long-press on mobile devices) on any process or resource instance to select it. The selected item will have a green boundary. To deselect, right-click (or long-press) again.</p>
-
-<p>5. <span class="bolder">Drag/Movement:</span> Drag any process or resource in the graph simulation using a left-click (or a simple tap on mobile devices).</p>
-
-<p>6. <span class="bolder">Assignment Edge Creation:</span> First, right-click (or long-press) on any resource instance, and then right-click (or long-press) on any process. This will create an assignment edge of blue color, from that resource instance to the process. (<span class="bolder">Note:</span> A single resource instance cannot be assigned to two different processes.)</p>
-
-<p>7. <span class="bolder">Requesting Edge Creation:</span> First, right-click (or long-press) on any process, and then right-click (or long-press) on any resource instance. This will create a requesting edge of red color, from that process to the resource instance. (<span class="bolder">Note:</span> A single process cannot request two different resource instances of the same resource.)</p>
-
-<p>8. <span class="bolder">Assignment/Requesting Edge Deletion:</span> To delete an edge (whether assignment or requesting), right-click (or long-press) on it is tail process/resource instance and then right-click (or long-press) on it is head process/resource instance.</p>
-
-<p><span class="bolder">Note:</span> Use <span class="bolder">long-press</span> instead of right-click on mobile devices.</p> -->
-
               <h1>Instructions to Use</h1>
 
 <p>1. <span class="bolder">Process:</span> Process nodes are represented by blue-colored circles and are numbered as P1, P2, P3, ..., Pn if the graph has ‘n’ processes.</p>
@@ -435,8 +402,6 @@
 <p><span class="bolder">Note:</span> Use <span class="bolder">long-press</span> instead of right-click on mobile devices.</p>
 
               <h1>Button functionalities</h1>
-              <!-- <p>All the buttons provided below the graph simulation are used for the following functionalities.</p> -->
-              <!-- <p>Click on any button to use it is functionality.</p> -->
               <p> Following buttons are provided for 
 graph simulation ( Click on any button to see it is functionality)</p>
               <p>1.<span class="bolder">Add Processes:</span> Use to  add “n” number of processes into the  graph.</p>
@@ -447,13 +412,11 @@ graph simulation ( Click on any button to see it is functionality)</p>
               <p>6.<span class="bolder">Delete:</span> Activate deletion mode, after this right-click(long press for mobiles) on any Process or Resource-Instance to delete it.</p>
               <p>7.<span class="bolder">Reset:</span> Make the graph simulation empty or to delete everything.</p>
               <p>8.<span class="bolder">Edge Creation/ Edge Deletion: </span>Use to read instructions to create or delete edges.(Both of these buttons do not toggle any functionality.)</p>
-              <!-- <p><span class="bolder">Note:</span> Buttons having activation can be deactivated if  again left-click (simple click for mobiles) on the button.</p> -->
               <p><span class="bolder">Note:</span> Buttons having activation can be deactivated if again left-click (simple click for mobiles) on the button. Activated  button is deactivated on left-click (simple click for mobiles).</p>
 
             </div>
             <!-- Extra forms  -->
             <div class="input" id="input_process">
-            <!-- ADD PROCESS --> <!-- Working OF THIS DIV the class ="input" is of display:none therefore the form is not visible in default So this form is being initialised at each window run  with prevented value by calling setupForm() at each when user clicks on "Add Processes" it calls "Visible_Process()" "addProcess()" chnages the class of this div to "input_visible" which makes the form to visible of window id = "input_process" is used to style this div        when user enters a value in form it calls "addNode(value)" function to add Process to graph on submit or Press Enter when user click on Cancel with using it is id "cancel-button" a code is runned in the form which resets the form and  chnages the form's class to "input" which is in defult "display:none" -->
               <p>How many Processes, you want to add in the graph ?</p>
               <form id="process-form">
                   <label for="input-for-process"></label>
@@ -611,5 +574,7 @@ graph simulation ( Click on any button to see it is functionality)</p>
     }
   </script>
   <script src="script.js"></script>
+
+
 </body>
 </html>
