@@ -127,13 +127,13 @@
             <br>
             <li>Finding Deadlock</li>
             <p>
-              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. Detection of deadlock in single instance scenario is straightforward, but gets complicated in case of multi-instance. Generally, it can be said that a deadlock may be present if the following 4 conditions are present in the RAG:
+              The procedure of finding a deadlock depends on whether the resources are single instance or multi-instance. Detection of deadlock in a single instance scenario is straightforward, but gets complicated in case of multi-instance. Generally, it can be said that a deadlock may be present if the following 4 conditions are present in the RAG:
             </p>
                 <ol style="list-style-type: upper-roman;">
                   <li><strong>Mutual Exclusion:</strong> Each resource can be held by only one process.</li>
                   <li><strong>No Preemption:</strong> Resources must be released manually from a process before being reassigned a request by another process.</li>
-                  <li><strong>Hold and Wait:</strong> A process is already holding a resource while requesting same instance or another resource that is currently held.</li>
-                  <li><strong>Circular Wait:</strong> A hold and wait condition occures in a circular form in the RAG</li>
+                  <li><strong>Hold and Wait:</strong> A process is already holding a resource while requesting the same instance or another resource that is currently held.</li>
+                  <li><strong>Circular Wait:</strong> A hold and wait condition occurs in a circular form in the RAG</li>
                 </ol>
             <br>
             </ul>
@@ -166,7 +166,7 @@
               <li><span>Find Deadlock in the given Graph:</span></li><br>
                 <p>Following two conditions are checked to find potential deadlock:</p><br>
                 <ol style="list-style-type: upper-roman;">
-                  <li><strong>Hold and Wait:</strong> For each process, check if it is holding a resource while requesting same instance or another resource that is currently held. If true, the edge is highlighted in yellow. (toggle 'view hold & wait')</li>
+                  <li><strong>Hold and Wait:</strong> For each process, check if it is holding a resource while requesting the same instance or another resource that is currently held. If true, the edge is highlighted in yellow. (toggle 'view hold & wait')</li>
                   <li><strong>Circular Wait:</strong> Use Depth First Search on each node to check for a cycle. If a cycle is found, the edge is highlighted in green. (toggle 'view circular wait')</li>
                 </ol>
               </ol>
@@ -406,13 +406,13 @@
 graph simulation ( Click on any button to see it is functionality)</p>
               <p>1.<span class="bolder">Add Processes:</span> Use to  add “n” number of processes into the  graph.</p>
               <p>2.<span class="bolder">Add Resources:</span> Use to add “r” number of resources with each having minimum “s” number of resource-instances.</p>
-              <p>3.<span class="bolder">Add Resource-Instance:</span> Use this button to add 1 more Resource-Instance to any of the existing resource.</p>
+              <p>3.<span class="bolder">Add Resource-Instance:</span> Use this button to add 1 more Resource-Instance to any of the existing resources.</p>
               <p>4.<span class="bolder">View Hold-wait:</span> Activate the Visualisation of Hold-wait condition in the graph. The edges in hold-wait condition will then be highlighted with yellow color.</p>
               <p>5.<span class="bolder">View Circular-wait:</span> Activate the Visualisation of Circular-wait condition in the graph. The edges in circular-wait will then be highlighted with green color.</p>
               <p>6.<span class="bolder">Delete:</span> Activate deletion mode, after this right-click(long press for mobiles) on any Process or Resource-Instance to delete it.</p>
-              <p>7.<span class="bolder">Reset:</span> Make the graph simulation empty or to delete everything.</p>
+              <p>7.<span class="bolder">Reset:</span> Make the graph simulation empty or delete everything.</p>
               <p>8.<span class="bolder">Edge Creation/ Edge Deletion: </span>Use to read instructions to create or delete edges.(Both of these buttons do not toggle any functionality.)</p>
-              <p><span class="bolder">Note:</span> Buttons having activation can be deactivated if again left-click (simple click for mobiles) on the button. Activated  button is deactivated on left-click (simple click for mobiles).</p>
+              <p><span class="bolder">Note:</span> Buttons having activation can be deactivated if again left-click (simple click for mobiles) on the button. The activated  button is deactivated on left-click (simple click for mobiles).</p>
 
             </div>
             <!-- Extra forms  -->
@@ -488,10 +488,10 @@ graph simulation ( Click on any button to see it is functionality)</p>
       <div class="container" id="result">
         <div class="title">Result</div>
         <div class="content">
-          <p>In this experiment, an interactive RAG is created to simulate the allocation and request of resources by processes. The provision to add multiple processes, multiple resources with more than one instances empowers realistic simualation of RAGs. The necessary conditions like  hold-and-wait and circular-wait are detected and shown visually for quick grasping of concepts related to deadlock detection
+          <p>In this experiment, an interactive RAG is created to simulate the allocation and request of resources by processes. The provision to add multiple processes, multiple resources with more than one instance empowers realistic simulation of RAGs. The necessary conditions like  hold-and-wait and circular-wait are detected and shown visually for quick grasping of concepts related to deadlock detection
           </p>
           <br>
-          <p>Through the graphical interface, occurrence of deadlock conditions are identified in real time. Furthermore, the provided simulation emphasized on the necessity of careful resource management and controlled request handling for preventing deadlock issues in concurrent systems.
+          <p>Through the graphical interface, occurrences of deadlock conditions are identified in real time. Furthermore, the provided simulation emphasized on the necessity of careful resource management and controlled request handling for preventing deadlock issues in concurrent systems.
           </p>
         </div>
       </div>
