@@ -1162,6 +1162,17 @@ function displayQuizReport() {
     quizReport.style.display = "block";
     quizReport.innerHTML = "<h3>Quiz Report</h3>";
 
+    const legend = document.createElement("div");
+    legend.style.marginBottom = "20px";
+    legend.style.fontSize = "0.9em";
+    legend.innerHTML = `
+        <strong>Legend:</strong> 
+        <span style="color: green;">Green = Correct Choice</span> | 
+        <span style="color: red;">Red = Incorrect Choice</span> | 
+        <span style="color: orange;">Orange = Missed Correct Answer</span>
+    `;
+    quizReport.appendChild(legend);
+
     questions.forEach((q, index) => {
         const userAnswer = userAnswers[index] || [];
         const questionDiv = document.createElement("div");
@@ -1173,17 +1184,19 @@ function displayQuizReport() {
 
         const choicesList = document.createElement("ul");
         q.choices.forEach((choice, i) => {
-        const choiceItem = document.createElement("li");
-        const isSelected = userAnswer.includes(i);
-        const isCorrect = q.correctAnswers.includes(i);
-        if(!isSelected){
-            choiceItem.style.color = isCorrect ? "orange" : "black";
-        }
-        if (isSelected) {
-            choiceItem.style.color = isCorrect ? "green" : "red";
-        }
-        choiceItem.textContent = choice;
-        choicesList.appendChild(choiceItem);
+            const choiceItem = document.createElement("li");
+            const isSelected = userAnswer.includes(i);
+            const isCorrect = q.correctAnswers.includes(i);
+
+            if(!isSelected){
+                choiceItem.style.color = isCorrect ? "orange" : "black";
+            }
+            if (isSelected) {
+                choiceItem.style.color = isCorrect ? "green" : "red";
+            }
+            
+            choiceItem.textContent = choice;
+            choicesList.appendChild(choiceItem);
         });
 
         questionDiv.appendChild(choicesList);
