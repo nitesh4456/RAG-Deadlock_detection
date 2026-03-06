@@ -30,8 +30,7 @@ The project is designed as an **educational tool** for understanding operating s
 
 ## Project Demo
 
-Live Demo:  
-(https://nitesh4456.github.io/RAG-Deadlock_detection/)
+Live Demo: https://nitesh4456.github.io/RAG-Deadlock_detection/
 
 ---
 
